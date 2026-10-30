@@ -1,508 +1,420 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PDM UTS · Persiapan Lengkap</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>UTS PDM · 31 Oktober</title>
 <style>
+/* ============================================================
+   PAPER SHEET LAYOUT — template default class-with-hermes
+   3 kolom: roadmap (kiri) | kertas (tengah) | info (kanan)
+   Ganti isi <main>, jangan ganti token warna kecuali diminta.
+   ============================================================ */
 :root{
-  --bg:#F5B942; --grid:#E8A82E; --ink:#141414; --paper:#fff; --cream:#FFF7E6;
-  --yellow:#FFC567; --pink:#FB7DA8; --red:#FD5A46; --purple:#552CB7; --green:#00995E; --blue:#058CD7;
-  --acc:#FD5A46;
-  --motion:#4C97FF; --looks:#9966FF; --sound:#CF63CF; --events:#FFBF00; --ctrl:#FFAB19;
-  --sensing:#5CB1D6; --ops:#59C059; --varb:#FF8C1A; --myblk:#FF6680;
+  --ink:#1c2430;
+  --ink-soft:#4a5568;
+  --red:#c0392b;
+  --blue:#1f5fa8;
+  --paper:#fdfaf2;
+  --rule:rgba(80,120,175,.14);
+  --margin-line:rgba(215,65,65,.55);
+  --line:34px;
+  --edge:#cac3ad;
+  --desk:#e5e1d4;
+  --ok:#1e7a3c;
 }
 *{box-sizing:border-box}
-body{margin:0;color:var(--ink);
-  font:16px/1.5 "Trebuchet MS","Avenir Next",-apple-system,system-ui,sans-serif;
-  background:
-    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 26px),
-    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 26px),
-    var(--bg);
-  -webkit-font-smoothing:antialiased}
-a{color:var(--purple)}
-h1,h2,h3,h4,h5{margin:0;line-height:1.2}
-b,strong{font-weight:800}
-.shell{max-width:1340px;margin:26px auto;background:var(--paper);border:3px solid var(--ink);
-  border-radius:22px;box-shadow:10px 10px 0 var(--ink);display:grid;
-  grid-template-columns:216px minmax(0,1fr);overflow:hidden}
-.side{padding:16px 13px;background:var(--cream);border-right:3px solid var(--ink);
-  display:flex;flex-direction:column;gap:14px}
-.brand{display:flex;align-items:center;gap:9px;padding:2px 4px 4px}
-.brand .logo{width:44px;height:44px;flex:0 0 auto}
-.btext b{display:block;font-size:15px;font-weight:900;text-transform:uppercase;letter-spacing:.4px}
-.btext span{display:block;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#6B6250}
-.navlist{display:flex;flex-direction:column;gap:6px;flex:1;min-height:0;overflow:auto}
-.nav{position:relative;display:flex;align-items:center;gap:9px;min-height:44px;padding:6px 9px;
-  border:3px solid transparent;border-radius:12px;text-decoration:none;color:var(--ink);
-  font-size:13px;font-weight:600;cursor:pointer}
-.nav:hover{background:var(--yellow);border-color:var(--ink);box-shadow:3px 3px 0 var(--ink)}
-.nav.on{background:var(--purple);color:#fff;border-color:var(--ink);box-shadow:4px 4px 0 var(--ink)}
-.ni{flex:0 0 auto;width:24px;height:24px;border:2px solid var(--ink);border-radius:8px;background:#fff;
-  color:var(--ink);font-size:11.5px;font-weight:900;display:grid;place-items:center}
-.nav.on .ni{background:var(--yellow);color:var(--ink)}
-.nl{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-  font-size:12px;font-weight:800;letter-spacing:.02em;text-transform:uppercase}
-.nc{font-size:10px;font-weight:800;background:#fff;border:2px solid var(--ink);border-radius:8px;padding:2px 5px}
-.nav.on .nc{background:var(--yellow);color:var(--ink)}
-.nav.done .nc{background:var(--green);color:#fff}
-.cta{background:#fff;border:3px solid var(--ink);border-radius:16px;box-shadow:4px 4px 0 var(--ink);padding:13px}
-.cta .tot{display:flex;justify-content:space-between;font-size:12px;font-weight:800;
-  text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
-.track{height:12px;background:#fff;border:2px solid var(--ink);border-radius:99px;overflow:hidden}
-.track i{display:block;height:100%;width:0;background:var(--purple);transition:width .25s}
-.btn{border:3px solid var(--ink);border-radius:11px;padding:10px 12px;font:900 12.5px/1 inherit;
-  cursor:pointer;background:var(--red);color:#fff;box-shadow:3px 3px 0 var(--ink);
-  text-transform:uppercase;letter-spacing:.04em}
-.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
-.btn.ghost{background:#fff;color:var(--ink)}
-.btn.wide{width:100%;margin-top:9px}
-.main{padding:16px 20px 34px;min-width:0}
-.topbar{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-.hamb{display:none;border:3px solid var(--ink);background:var(--yellow);border-radius:11px;
-  width:46px;height:46px;font-size:18px;font-weight:900;cursor:pointer;color:var(--ink);box-shadow:3px 3px 0 var(--ink)}
-#pageTitle{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.04em;
-  flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.page{display:none}
-.page.on{display:block;animation:pop .22s ease}
-@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.hero{position:relative;overflow:hidden;background:var(--purple);border:3px solid var(--ink);
-  border-radius:20px;box-shadow:7px 7px 0 var(--ink);padding:24px 26px;color:#fff;
-  margin-bottom:20px;display:flex;gap:18px;align-items:center}
-.hero::before{content:"";position:absolute;inset:0;opacity:.28;
-  background:
-    repeating-linear-gradient(0deg,var(--pink) 0 1px,transparent 1px 24px),
-    repeating-linear-gradient(90deg,var(--pink) 0 1px,transparent 1px 24px)}
-.hero>*{position:relative;z-index:2}
-.hero .htext{flex:1;min-width:0}
-.hero h3{font:400 32px/1.1 "Arial Black","Avenir Next Heavy","Trebuchet MS",sans-serif;
-  text-transform:uppercase;color:var(--yellow);letter-spacing:.5px;
-  text-shadow:3.5px 3.5px 0 var(--ink)}
-.hero p{margin:9px 0 0;font-size:13.5px;color:#F4EBFF;max-width:60ch}
-.hero .pill{background:var(--yellow);color:var(--ink);border:2px solid var(--ink);
-  border-radius:99px;padding:5px 11px;font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin-right:6px}
-.mwrap{flex:0 0 auto;width:150px;height:150px;display:grid;place-items:center}
-.mascot{width:140px;height:140px;filter:drop-shadow(5px 5px 0 rgba(20,20,20,.35))}
-.kicker{display:inline-block;background:var(--ink);color:#fff;border-radius:9px;padding:4px 10px;
-  font-size:10.5px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin:0 0 9px}
-.lead{font-size:15.5px;font-weight:600;line-height:1.55;margin:8px 0 14px}
-.card{background:var(--cream);border:3px solid var(--ink);border-radius:16px;box-shadow:5px 5px 0 var(--ink);
-  padding:15px 17px;margin:14px 0}
-.card h3{font-size:15px;text-transform:uppercase;letter-spacing:.03em;margin-bottom:8px}
-.card table{border-collapse:collapse;width:100%}
-.card th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:#6B6250}
-.card td,.card th{padding:7px 9px;border-bottom:2px solid #E8DFC8;font-size:13px;vertical-align:top}
-.warn{background:var(--yellow);border:3px solid var(--ink);border-left-width:10px;border-radius:12px;
-  padding:11px 13px;font-size:13px;font-weight:600;margin:14px 0;box-shadow:4px 4px 0 var(--ink)}
-.minigrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:14px 0}
-.mini{background:#fff;border:3px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 var(--ink);padding:12px}
-.mini h5{font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
-.mini p{font-size:12.5px;margin:0;line-height:1.5}
-.ic{display:inline-grid;place-items:center;width:22px;height:22px;border:2px solid var(--ink);border-radius:7px;
-  background:var(--yellow);margin-right:6px;font-size:11px;font-weight:900}
-.sechead{display:flex;align-items:baseline;gap:10px;margin:20px 0 8px}
-.sechead h4{font-size:16px;text-transform:uppercase;letter-spacing:.03em}
-.why{display:flex;gap:8px;background:#EAF4FF;border:2.5px solid var(--ink);border-left-width:9px;
-  border-radius:12px;padding:10px 12px;font-size:12.5px;font-weight:600;margin:12px 0;line-height:1.5}
-.why b{text-transform:uppercase;letter-spacing:.03em}
-.mono{font-family:Consolas,"Cascadia Mono",monospace;font-weight:800}
-.big{font:900 26px/1 "Arial Black",sans-serif;color:var(--purple)}
-ol.steps{margin:8px 0 0;padding-left:20px}
-ol.steps li{font-size:13px;margin:5px 0}
+html,body{margin:0;padding:0}
+body{
+  background:var(--desk);
+  background-image:radial-gradient(circle at 20% 0%,#f0ece0 0%,#d8d3c2 70%);
+  color:var(--ink);
+  font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  padding:18px 14px 90px;
+}
 
-/* ---------- scratchblocks containers ---------- */
-.sbbox{background:#fff;border:3px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 var(--ink);
-  padding:12px;margin:10px 0;overflow-x:auto}
-.sbbox pre{margin:0}
-.sv{background:#F9F9F9;border:2px solid var(--ink);border-radius:14px;padding:10px;margin:10px 0;overflow-x:auto}
-.sv svg{display:block;max-width:100%;height:auto}
+/* ---------- 3 KOLOM ---------- */
+.wrap{
+  max-width:1500px;margin:0 auto;
+  display:grid;
+  grid-template-columns:236px minmax(0,920px) 286px;
+  gap:22px;
+  align-items:start;
+  justify-content:center;
+}
+.rail{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;padding-right:2px}
+.rail::-webkit-scrollbar{width:6px}
+.rail::-webkit-scrollbar-thumb{background:#c9c2ad;border-radius:3px}
 
-/* ---------- editor mockup ---------- */
-.edwrap{background:#fff;border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);
-  padding:10px;margin:12px 0}
-.edbar{display:flex;align-items:center;gap:8px;background:#E6F0FF;border:2px solid var(--ink);border-radius:10px;
-  padding:6px 10px;margin-bottom:8px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}
-.edbar .dotrow{display:flex;gap:5px;margin-left:auto}
-.edbar .dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--ink)}
-.edgrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:10px}
-@media (max-width:760px){.edgrid{grid-template-columns:1fr}}
-.edstage{border:2px solid var(--ink);border-radius:10px;overflow:hidden}
-.edstage .sttop{display:flex;gap:8px;align-items:center;background:#fff;border-bottom:2px solid var(--ink);padding:5px 8px}
-.flagbtn{width:30px;height:26px;border:2px solid var(--ink);border-radius:7px;background:#fff;
-  display:grid;place-items:center;cursor:pointer}
-.flagbtn svg{width:17px;height:17px}
-.stopbtn{width:30px;height:26px;border:2px solid var(--ink);border-radius:7px;background:#fff;
-  display:grid;place-items:center}
-.stopbtn i{width:11px;height:11px;background:var(--red);border-radius:3px;display:block}
-.edstage .stbody{position:relative;aspect-ratio:4/3;background:#fff;
-  background-image:radial-gradient(#E4E4E4 1.2px,transparent 1.2px);background-size:22px 22px}
-.edstage .stbody canvas{position:absolute;inset:0;width:100%;height:100%}
-.sprow{display:flex;gap:7px;background:#fff;border:2px solid var(--ink);border-radius:10px;padding:6px;margin-top:8px}
-.sp{width:52px;height:52px;border:2px solid var(--ink);border-radius:9px;background:var(--cream);
-  display:grid;place-items:center;position:relative}
-.sp.sel{outline:3px solid var(--ctrl);outline-offset:2px}
-.sp .nm{position:absolute;bottom:-2px;left:0;right:0;font-size:8px;font-weight:900;text-align:center;background:#fff;
-  border:2px solid var(--ink);border-radius:0 0 7px 7px;padding:1px 0}
-.edpal{border:2px solid var(--ink);border-radius:10px;background:#fff;display:flex;flex-direction:column;min-height:0}
-.edpal .cats{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;padding:8px;border-bottom:2px solid var(--ink)}
-.cat{height:26px;border:2px solid var(--ink);border-radius:8px;display:grid;place-items:center;
-  font-size:9px;font-weight:900;color:#fff;text-transform:uppercase}
-.edpal .blocks{flex:1;padding:8px;overflow:auto;max-height:330px}
-.callout{display:flex;gap:8px;align-items:flex-start;background:var(--cream);border:2.5px solid var(--ink);
-  border-radius:11px;padding:8px 10px;margin:9px 0;font-size:12px;font-weight:600;line-height:1.45}
-.callout .cn{flex:0 0 auto;width:24px;height:24px;border:2px solid var(--ink);border-radius:50%;background:var(--red);
-  color:#fff;font:900 12px/1 inherit;display:grid;place-items:center}
+/* kartu panel kiri & kanan */
+.panel{
+  background:rgba(253,250,242,.97);
+  border:1.5px solid var(--edge);
+  border-radius:12px;
+  box-shadow:0 4px 16px rgba(50,40,20,.12);
+  padding:14px 15px;
+  margin-bottom:14px;
+}
+.panel h4{
+  margin:0 0 10px;font-size:11.5px;font-weight:800;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--ink-soft);
+}
 
-/* ---------- kamus blok ---------- */
-.blrow{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:12px;align-items:center;
-  border:2.5px solid var(--ink);border-radius:13px;background:#fff;padding:9px 12px;margin:8px 0;box-shadow:3px 3px 0 var(--ink)}
-@media (max-width:760px){.blrow{grid-template-columns:1fr}}
-.blrow .bvis{overflow-x:auto}
-.blrow .bvis pre{margin:0}
-.blrow .bexp{font-size:12.5px;line-height:1.5}
-.blrow .bexp .cat{display:inline-block;height:auto;padding:2px 7px;border-radius:6px;font-size:9px;margin-bottom:4px}
-.blrow .bexp b{text-transform:none}
+/* ---------- ROADMAP (KIRI) ---------- */
+.total{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px}
+.total b{font-size:22px;font-weight:800;letter-spacing:-.02em}
+.total span{font-size:12px;color:var(--ink-soft);font-weight:600}
+.pbar{height:7px;border-radius:999px;background:#e3dcc8;overflow:hidden;margin-bottom:4px}
+.pbar i{display:block;height:100%;width:0;background:var(--red);border-radius:999px;transition:width .35s}
 
-/* ---------- puzzle ---------- */
-.pz{position:relative;background:#fff;border:3px solid var(--ink);border-radius:16px;box-shadow:6px 6px 0 var(--ink);
-  padding:14px 16px;margin-bottom:16px}
-.pz.done{box-shadow:6px 6px 0 var(--green)}
-.pzhead{display:flex;align-items:center;gap:9px;margin-bottom:6px;flex-wrap:wrap}
-.pzhead h3{font-size:15px;font-weight:900;text-transform:uppercase}
-.pzgoal{font-size:13px;font-weight:600;margin:0 0 12px;line-height:1.5}
-.blank{border:2.5px solid var(--ink);border-radius:12px;background:var(--cream);padding:9px 11px;margin:9px 0}
-.blank .bq{font-size:12.5px;font-weight:800;margin-bottom:7px}
-.blank .cands{display:flex;gap:7px;flex-wrap:wrap}
-.cand{border:2.5px solid var(--ink);border-radius:10px;background:#fff;padding:7px 10px;font:800 12.5px/1.2 inherit;
-  cursor:pointer;box-shadow:2.5px 2.5px 0 var(--ink);display:flex;align-items:center;gap:5px}
-.cand:hover{transform:translate(-1px,-1px);box-shadow:3.5px 3.5px 0 var(--ink)}
-.cand:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--ink)}
-.cand.pick{background:var(--green);color:#fff}
-.pzbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center}
-.fb{display:none;font-size:12.5px;font-weight:600;border:2px dashed var(--ink);border-radius:12px;
-  padding:10px 11px;margin-top:10px;background:#fff;line-height:1.5}
-.fb.show{display:block}
-.fb.ok{background:#DFF7EA;border-color:var(--green);border-style:solid}
-.fb.bad{background:#FFE3DC;border-color:var(--red);border-style:solid}
-.fb.warn{background:#FFF3D6;border-color:#B98B00;border-style:solid}
-.shake{animation:shk .3s ease}
-@keyframes shk{0%,100%{transform:none}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
-.stamp{position:absolute;top:-13px;right:12px;transform:rotate(-6deg);background:var(--green);color:#fff;
-  border:3px solid var(--ink);border-radius:10px;padding:4px 10px;font:900 10.5px/1 inherit;
-  letter-spacing:.1em;text-transform:uppercase;box-shadow:2px 2px 0 var(--ink);display:none}
-.pz.done .stamp{display:block;animation:drop .3s ease}
-@keyframes drop{from{transform:rotate(-6deg) translateY(-10px);opacity:0}to{transform:rotate(-6deg);opacity:1}}
-.cvwrap{background:#fff;border:2.5px solid var(--ink);border-radius:12px;padding:6px;margin-top:10px}
-canvas{display:block;width:100%;height:auto;border-radius:8px;background:#FFFDF7}
+.road{list-style:none;margin:12px 0 0;padding:0;position:relative}
+.road::before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:1.5px;background:#ded7c2}
+.road li{position:relative;padding:0 0 0 28px;margin:0 0 3px}
+.road a{
+  display:block;text-decoration:none;color:var(--ink);
+  font-size:13px;font-weight:600;line-height:1.35;
+  padding:6px 8px;border-radius:7px;transition:background .15s;
+}
+.road a:hover{background:#f1ece0}
+.road a small{display:block;font-size:11px;color:var(--ink-soft);font-weight:500;margin-top:2px}
+.road .dot{
+  position:absolute;left:4px;top:11px;width:11px;height:11px;border-radius:50%;
+  background:#fff;border:2px solid #b9b2a0;
+}
+.road li.now .dot{border-color:var(--red);background:var(--red);box-shadow:0 0 0 3px rgba(192,57,43,.15)}
+.road li.now a{background:#fff7f5;color:var(--red)}
+.road li.done .dot{border-color:var(--ok);background:var(--ok)}
+.road li.done a{color:var(--ink-soft)}
+.road li.done a::after{content:" ✓";color:var(--ok);font-weight:800}
+.road li.lock a{color:#9a9384;cursor:not-allowed}
 
-/* topes / wadah huruf */
-.wadah{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:14px 0}
-.tope{background:#fff;border:3px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 var(--ink);
-  padding:12px;text-align:center}
-.tope .jar{width:64px;height:64px;margin:0 auto 8px;border:3px solid var(--ink);border-radius:12px 12px 18px 18px;
-  background:var(--cream);display:grid;place-items:center;font:900 26px/1 "Arial Black",sans-serif;color:var(--purple)}
-.tope .nm{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}
-.tope .is{font-size:12px;margin-top:4px;color:#6B6250;font-weight:600}
-.demo{background:var(--cream);border:3px solid var(--ink);border-radius:14px;padding:13px;margin-top:12px}
-.demo .rowin{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
-.field{display:flex;flex-direction:column;gap:4px}
-.field label{font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}
-.field input{width:92px;font:800 16px/1 inherit;padding:10px;border:2.5px solid var(--ink);border-radius:9px;
-  background:#fff;color:var(--ink)}
-.arrowline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px;font-size:13px;font-weight:700}
-.chip{background:#fff;border:2.5px solid var(--ink);border-radius:9px;padding:5px 9px;font-weight:900;font-size:12.5px}
-.chip.hot{background:var(--green);color:#fff}
-.chip.cold{background:#EDE7D8}
-.scrim{display:none}
+/* ---------- KERTAS (TENGAH) ---------- */
+main{min-width:0}
+.sheet{
+  position:relative;
+  background:var(--paper);
+  background-image:
+    linear-gradient(to right,transparent 0 84px,var(--margin-line) 84px 85.5px,transparent 85.5px),
+    repeating-linear-gradient(to bottom,transparent 0 33px,var(--rule) 33px 34px);
+  background-position:0 0,0 38px;
+  border-radius:4px;
+  border:1px solid #dcd5bf;
+  box-shadow:0 2px 0 #cfc8b4,0 10px 24px rgba(60,50,30,.15);
+  padding:32px 42px 48px 110px;
+  font-size:16px;line-height:1.75;
+  margin:0 0 26px;
+  scroll-margin-top:16px;
+}
+.sheet::before,.sheet::after{
+  content:"";position:absolute;left:28px;width:22px;height:22px;border-radius:50%;
+  background:var(--desk);box-shadow:inset 0 2px 4px rgba(0,0,0,.24),0 0 0 1px #d3ccb8;
+}
+.sheet::before{top:68px}
+.sheet::after{bottom:68px}
+
+h1,h2,h3{line-height:1.3;margin:0;color:var(--ink)}
+.head{display:flex;align-items:flex-start;gap:16px;margin-bottom:12px}
+.badge{
+  flex:0 0 auto;width:56px;height:56px;border-radius:50%;
+  display:grid;place-items:center;background:#fff;border:2.5px solid var(--red);
+  color:var(--red);font-weight:800;font-size:26px;
+  box-shadow:2px 2px 0 rgba(192,57,43,.18);
+}
+.head h2{font-size:23px;font-weight:800;letter-spacing:-.01em}
+.head .sub{font-size:13.5px;color:var(--ink-soft);font-weight:500;margin-top:4px}
+.pts{
+  display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.05em;
+  text-transform:uppercase;color:#7a5b13;background:#fdf3d0;
+  border:1px solid #e6d69a;border-radius:999px;padding:2px 9px;
+  margin-left:6px;vertical-align:2px;
+}
+.sec{
+  font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--blue);margin:18px 0 6px;display:flex;align-items:center;gap:8px;
+}
+.sec::after{content:"";flex:1;height:1px;background:#d8e2ee}
+
+p{margin:6px 0;background:rgba(253,250,242,.85)}
+.step{display:flex;gap:12px;margin:8px 0}
+.step .n{
+  flex:0 0 auto;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;
+  background:var(--red);color:#fff;font-size:12.5px;font-weight:800;margin-top:3px;
+}
+.step .body{flex:1 1 auto;min-width:0;background:rgba(253,250,242,.85)}
+.note{
+  color:var(--red);font-size:14.5px;line-height:1.6;
+  margin:10px 0 10px 36px;padding:8px 14px;
+  background:#fff8f6;border-left:3px solid var(--red);border-radius:0 6px 6px 0;
+}
+.note b{text-decoration:underline;text-underline-offset:2px}
+.aside{
+  font-size:13.5px;color:var(--ink-soft);background:#f4f7fb;
+  border:1px solid #d5e1ee;border-radius:8px;padding:10px 14px;margin:12px 0;line-height:1.65;
+}
+.aside b{color:var(--ink)}
+.ans{
+  margin:12px 0 8px 36px;padding:9px 15px;
+  border:2px solid var(--red);border-radius:4px;background:#fff7f5;line-height:1.7;
+}
+.ans .lbl{
+  font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--red);display:block;margin-bottom:3px;
+}
+.box{display:inline-block;border:2.5px double var(--ink);border-radius:3px;padding:2px 12px;background:#fffdf5}
+.ind{margin-left:36px;background:rgba(253,250,242,.85)}
+.big{margin:6px 0 6px 36px;font-size:18px;background:rgba(253,250,242,.85);padding:2px 0}
+.tblwrap{overflow-x:auto;margin-left:36px}
+table{
+  border-collapse:collapse;margin:8px 0;
+  font-family:'Cambria Math',Cambria,'Segoe UI',serif;font-size:15.5px;line-height:1.5;background:#fff;
+}
+th,td{border:1.6px solid #2b3340;padding:3px 11px;text-align:center;white-space:nowrap;background:#fff}
+thead th{background:#eef2f7;font-weight:700;font-family:'Segoe UI',sans-serif;font-size:13.5px}
+td.T{color:var(--ok);font-weight:700}
+td.F{color:#b03030;font-weight:700}
+
+/* ---------- INFO (KANAN) ---------- */
+.info .kv{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;padding:5px 0;border-bottom:1px dashed #e0d9c5}
+.info .kv:last-child{border-bottom:none}
+.info .kv span{color:var(--ink-soft)}
+.info .kv b{font-weight:700;text-align:right}
+.formula{
+  font-family:'Cambria Math',Cambria,serif;font-size:14px;line-height:1.55;
+  padding:7px 9px;border-radius:7px;background:#f7f4ea;margin-bottom:6px;
+}
+.formula small{display:block;font-family:'Segoe UI',sans-serif;font-size:11px;color:var(--ink-soft);margin-top:2px}
+.lives{display:flex;gap:4px;font-size:16px;line-height:1}
+.voice{display:flex;align-items:center;gap:8px;margin-top:6px}
+.voice button{
+  width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;
+  background:var(--red);color:#fff;font-size:13px;
+}
+.voice .vbar{flex:1;height:5px;border-radius:999px;background:#e3dcc8;overflow:hidden}
+.voice .vbar i{display:block;height:100%;width:0;background:var(--red)}
+.voice .vtime{font-size:11px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+
+/* tombol drawer (HP) */
+.toggles{display:none;gap:8px;position:sticky;top:8px;z-index:60;margin-bottom:12px}
+.toggles button{
+  flex:1;padding:9px;border-radius:10px;border:1.5px solid var(--edge);
+  background:rgba(253,250,242,.97);font-weight:700;font-size:13px;color:var(--ink);cursor:pointer;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:1240px){
+  .wrap{grid-template-columns:220px minmax(0,1fr)}
+  .rail.right{display:none}
+  .toggles{display:flex}
+  .rail.right.open{
+    display:block;position:fixed;top:0;right:0;bottom:0;width:300px;max-height:none;
+    z-index:70;background:var(--desk);padding:14px;box-shadow:-8px 0 24px rgba(40,30,10,.25);overflow:auto;
+  }
+}
 @media (max-width:900px){
-  body{background:#FFF3D6}
-  .shell{margin:0;border-radius:0;border-width:0 0 3px;box-shadow:none;grid-template-columns:1fr}
-  .side{position:fixed;left:0;top:0;bottom:0;width:262px;z-index:30;transform:translateX(-103%);
-    transition:transform .22s ease;border-right:3px solid var(--ink);overflow:auto;box-shadow:none}
-  .side.open{transform:none;box-shadow:9px 0 0 var(--ink)}
-  .hamb{display:block}
-  .scrim.on{display:block;position:fixed;inset:0;background:rgba(20,20,20,.42);z-index:25}
-  .main{padding:14px 14px 30px}
-  .hero{padding:18px;box-shadow:5px 5px 0 var(--ink)}
-  .hero h3{font-size:22px;text-shadow:3px 3px 0 var(--ink)}
-  .mwrap{width:100px;height:100px}
-  .mascot{width:90px;height:90px}
+  .wrap{grid-template-columns:minmax(0,1fr)}
+  .rail.left{
+    display:none;position:fixed;top:0;left:0;bottom:0;width:290px;max-height:none;
+    z-index:70;background:var(--desk);padding:14px;box-shadow:8px 0 24px rgba(40,30,10,.25);overflow:auto;
+  }
+  .rail.left.open{display:block}
+  .sheet{padding:22px 16px 26px 62px;font-size:15px;line-height:1.7;background-image:
+    linear-gradient(to right,transparent 0 42px,var(--margin-line) 42px 43.4px,transparent 43.4px),
+    repeating-linear-gradient(to bottom,transparent 0 33px,var(--rule) 33px 34px)}
+  .sheet::before,.sheet::after{left:14px;width:15px;height:15px}
+  .head{gap:10px}
+  .head h2{font-size:18px}
+  .badge{width:42px;height:42px;font-size:19px}
+  table{font-size:12.5px}
+  th,td{padding:2px 5px}
+  .tblwrap,.big,.ind,.note,.ans{margin-left:0}
 }
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-
-/* ===== Sitasi slide PPT + kartu kutipan (v6) ===== */
-.src{display:inline-flex;align-items:center;gap:6px;background:#EFE7FF;border:2.5px solid var(--ink);
-  border-radius:999px;padding:4px 12px;font-size:11px;font-weight:900;text-transform:uppercase;
-  letter-spacing:.05em;color:#3B1B85;box-shadow:3px 3px 0 var(--ink);margin:2px 0 12px}
-.slideq{background:#FFFDF5;border:2.5px dashed #B08D4F;border-radius:12px;padding:12px 14px;
-  font-size:13px;line-height:1.65;color:#3A3226;margin:12px 0}
-.slideq b{color:var(--ink)}
-.slideq .mono{background:#F0E9D8;padding:1px 5px;border-radius:5px;font-size:12px}
-.stepbox{background:#fff;border:2px solid var(--ink);border-radius:11px;padding:10px 12px;
-  font-size:13.5px;line-height:1.6;box-shadow:3px 3px 0 rgba(20,20,20,.12)}
-.stepbox b:first-child{display:inline-block;margin-bottom:2px}
-.stepbox code{background:#F1EDE0;border:1.5px solid #D9CFB4;border-radius:5px;padding:1px 5px;
-  font-family:Consolas,"Cascadia Mono",monospace;font-size:12px;font-weight:800}
-.ov{display:inline-block;background:var(--yellow);border:2px solid var(--ink);border-radius:50%;
-  padding:0 7px;font-weight:900;font-size:12px}
-/* peta slide */
-.smap{width:100%;border-collapse:collapse;font-size:12.5px;background:#fff}
-.smap th{background:var(--yellow);border:2.5px solid var(--ink);padding:7px 9px;text-align:left;
-  font-size:10.5px;text-transform:uppercase;letter-spacing:.06em}
-.smap td{border:2px solid var(--ink);padding:7px 9px;vertical-align:top;line-height:1.45}
-.smap td.n{font-weight:900;text-align:center;width:42px;background:var(--cream);font-size:14px}
-.smap tr.hl td{background:#EFE7FF}
-.smap code{font-family:Consolas,"Cascadia Mono",monospace;font-size:11.5px;font-weight:800;
-  background:#F1EDE0;border-radius:4px;padding:0 4px}
-.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px}
-@media (max-width:600px){.smap{font-size:11.5px}.smap td,.smap th{padding:6px}}
-
-/* ==== PDM UTS · tambahan di atas part_css.css ==== */
-.shell{grid-template-columns:216px minmax(0,1fr) 272px}
-.main{padding:16px 20px 40px}
-.aside{padding:16px 14px;background:#fff;border-left:3px solid var(--ink);display:flex;flex-direction:column;gap:12px}
-.aside .blk{background:var(--cream);border:3px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 var(--ink);padding:11px 12px}
-.aside h4{font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:#6B6250;margin-bottom:7px}
-.aside .kv{display:flex;justify-content:space-between;gap:8px;font-size:12px;font-weight:700;padding:3px 0;border-bottom:1px dashed #D8CDB4}
-.aside .kv:last-child{border:0}
-.aside .kv span:last-child{font-weight:900;text-align:right}
-.aside .cheat{font-size:11.5px;font-weight:700;line-height:1.45;margin:0;padding-left:14px}
-.aside .cheat li{margin:3px 0}
-.hudrow{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
-.hudrow .chip{font-size:11px}
-
-/* kartu isi */
-.card{margin:12px 0}
-.card h3{display:flex;align-items:center;gap:7px}
-.card h3 .num{background:var(--ink);color:#fff;border-radius:7px;font-size:10px;padding:2px 6px;letter-spacing:.06em}
-pre.code{background:#fff;border:3px solid var(--ink);border-radius:12px;padding:10px 12px;margin:9px 0;
-  font:800 12.5px/1.5 Consolas,"Cascadia Mono",monospace;overflow-x:auto;white-space:pre;box-shadow:3px 3px 0 var(--ink)}
-p.one{font-size:14px;font-weight:600;margin:6px 0}
-ul.tight{margin:6px 0;padding-left:18px}
-ul.tight li{font-size:13.5px;font-weight:600;margin:4px 0}
-.warn{background:var(--yellow);border:3px solid var(--ink);border-left-width:10px;border-radius:12px;
-  padding:9px 12px;font-size:13px;font-weight:700;margin:11px 0}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
-table.tr{border-collapse:collapse;width:100%;font-size:12.5px;background:#fff;border:3px solid var(--ink);border-radius:10px;overflow:hidden}
-table.tr th{background:var(--ink);color:#fff;text-align:left;font-size:10px;letter-spacing:.07em;text-transform:uppercase;padding:6px 8px}
-table.tr td{padding:6px 8px;border-top:2px solid #EDE3CB;font-family:Consolas,monospace;font-weight:700}
-table.tr td.hl{background:#FFF3C9}
-
-/* drill */
-.drill{background:var(--cream);border:3px solid var(--ink);border-radius:18px;box-shadow:6px 6px 0 var(--ink);padding:15px 16px;margin:6px 0 14px}
-.drill.shake{animation:sh .3s}
-@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
-.dkick{display:inline-block;background:var(--ink);color:#fff;border-radius:8px;padding:3px 9px;
-  font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
-.dq{font-size:17px;font-weight:800;line-height:1.35;margin:0 0 9px}
-.dans{display:grid;gap:7px}
-.opt{border:3px solid var(--ink);border-radius:12px;background:#fff;box-shadow:3px 3px 0 var(--ink);
-  padding:10px 12px;font:800 13.5px/1.35 "Trebuchet MS";text-align:left;cursor:pointer;color:var(--ink)}
-.opt:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
-.opt.ok{background:#D9F5E4;border-color:var(--green)}
-.opt.no{background:#FFE1DC;border-color:var(--red)}
-input.fill{width:100%;border:3px solid var(--ink);border-radius:12px;padding:10px 12px;
-  font:900 16px Consolas,monospace;outline:0;background:#fff}
-input.fill:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(85,44,183,.18)}
-.done{display:none;text-align:center;padding:10px 0}
-.done.on{display:block}
-.big{font:900 34px/1 "Trebuchet MS";color:var(--purple);margin-bottom:6px}
-.hintbox{border:2.5px solid var(--ink);border-left-width:9px;border-radius:11px;padding:8px 11px;
-  font-size:13px;font-weight:700;margin-top:10px;background:#EAF4FF;border-color:var(--blue)}
-.hintbox.ok{background:#E8FBF0;border-color:var(--green)}
-.hintbox.bad{background:#FFF0ED;border-color:var(--red)}
-
-/* jalan keledai */
-.jk{display:grid;gap:9px;margin:10px 0}
-.jk .row{display:flex;gap:10px;align-items:flex-start;background:#fff;border:3px solid var(--ink);
-  border-radius:13px;box-shadow:4px 4px 0 var(--ink);padding:10px 12px}
-.jk .n{flex:0 0 26px;height:26px;border:2px solid var(--ink);border-radius:8px;background:var(--yellow);
-  display:grid;place-items:center;font-size:12px;font-weight:900}
-.jk b{display:block;font-size:13px;text-transform:uppercase;letter-spacing:.02em;margin-bottom:2px}
-.jk p{margin:0;font-size:12.5px;font-weight:600}
-
-/* drawer HP */
-.scrim{position:fixed;inset:0;background:rgba(20,20,20,.45);opacity:0;pointer-events:none;transition:.2s;z-index:40}
-.scrim.on{opacity:1;pointer-events:auto}
-@media(max-width:1080px){
-  .shell{grid-template-columns:216px minmax(0,1fr)}
-  .aside{position:fixed;top:0;right:0;bottom:0;width:280px;z-index:50;transform:translateX(105%);
-    transition:transform .22s;overflow:auto;box-shadow:-6px 0 0 rgba(20,20,20,.15)}
-  .aside.on{transform:none}
-  .hamb.info{display:block}
+@media print{
+  body{background:#fff;padding:0}
+  .rail,.toggles{display:none!important}
+  .wrap{display:block;max-width:none}
+  .sheet{box-shadow:none;border:none;border-radius:0;margin:0;page-break-after:always;max-width:none}
 }
-@media(max-width:860px){
-  body{padding:10px}
-  .shell{grid-template-columns:1fr;margin:10px auto;border-radius:18px;box-shadow:6px 6px 0 var(--ink)}
-  .side{position:fixed;top:0;left:0;bottom:0;width:264px;z-index:50;transform:translateX(-105%);
-    transition:transform .22s;border-right:3px solid var(--ink)}
-  .side.on{transform:none}
-  .hamb{display:block}
-  .hero{flex-direction:column;align-items:flex-start;padding:18px}
-  .hero h3{font-size:24px}
-  .mwrap{display:none}
-  .grid2{grid-template-columns:1fr}
-  .main{padding:12px 13px 34px}
-}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
+/* ---------- TAMBAHAN PDM ---------- */
+.code{
+  font-family:'Consolas',ui-monospace,monospace;font-size:13px;line-height:1.62;
+  background:#fffdf5;border:1.5px solid #ddd4bd;border-left:4px solid var(--blue);
+  border-radius:6px;padding:9px 12px;margin:8px 0 10px;overflow-x:auto;white-space:pre;
+  color:#1e2530;
+}
+.code b{color:var(--red);font-weight:700}
+ul.tight{margin:6px 0 6px 18px;padding:0;background:rgba(253,250,242,.85)}
+ul.tight li{margin:4px 0;font-size:14.5px;line-height:1.6}
+.mono{font-family:'Consolas',ui-monospace,monospace;font-size:.93em;background:#f1ece0;border-radius:4px;padding:1px 5px;border:1px solid #e2dac6}
+td.hl{background:#fff6d8;font-weight:700}
+.qmeta{font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin:14px 0 6px}
+.dq{font-size:16.5px;font-weight:600;line-height:1.55;margin:4px 0 12px;background:rgba(253,250,242,.9)}
+.opts{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.opt{
+  text-align:left;font:inherit;font-size:14.5px;line-height:1.45;cursor:pointer;
+  padding:10px 13px;border-radius:9px;border:1.5px solid var(--edge);
+  background:#fffdf5;color:var(--ink);transition:.14s;
+}
+.opt:hover:not(:disabled){border-color:var(--blue);background:#f4f8ff}
+.opt:disabled{cursor:default}
+.opt.ok{border-color:var(--ok);background:#f0fbf2;box-shadow:inset 3px 0 0 var(--ok)}
+.opt.no{border-color:var(--red);background:#fff5f3;box-shadow:inset 3px 0 0 var(--red)}
+.fill{
+  font:inherit;font-size:15px;padding:9px 12px;border-radius:9px;
+  border:1.5px solid var(--edge);background:#fffdf5;width:100%;margin-bottom:8px;
+}
+.fill:focus{outline:2px solid var(--blue);outline-offset:1px}
+.nextbtn{
+  font:inherit;font-weight:700;font-size:14px;cursor:pointer;padding:9px 18px;border-radius:9px;
+  border:none;background:var(--ink);color:#fffdf5;
+}
+.fb{margin-top:10px;font-size:14px;line-height:1.62;padding:9px 13px;border-radius:8px;background:#f7f4ea;border-left:3px solid var(--ink-soft)}
+.fb.ok{background:#f0fbf2;border-left-color:var(--ok);color:#146c2e}
+.fb.bad{background:#fff5f3;border-left-color:var(--red);color:#a5281c}
+.hud{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
+.hud span{font-size:12px;font-weight:700;padding:3px 8px;border-radius:999px;background:#fffdf5;border:1px solid #e0d9c5}
+.track2{height:6px;border-radius:999px;background:#e3dcc8;overflow:hidden;margin-top:8px}
+.track2 i{display:block;height:100%;width:0;background:var(--red);transition:width .3s}
+.shake{animation:shk .3s}
+@keyframes shk{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.donebox{text-align:center;padding:14px 0}
+.donebox .sc{font-size:40px;font-weight:800;color:var(--red);line-height:1.1}
+.btn2{
+  font:inherit;font-weight:700;cursor:pointer;padding:10px 20px;border-radius:10px;
+  border:1.5px solid var(--ink);background:var(--red);color:#fff;margin-top:12px;
+}
 </style>
 </head>
 <body>
-<div class="shell">
-  <aside class="side" id="side">
-    <div class="brand">
-      <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
-        <rect x="3" y="3" width="58" height="58" rx="14" fill="#552CB7" stroke="#141414" stroke-width="4"/>
-        <path d="M18 44V20h10a8 8 0 0 1 0 16h-10" fill="none" stroke="#FFC567" stroke-width="5" stroke-linejoin="round"/>
-        <circle cx="45" cy="24" r="4" fill="#FD5A46" stroke="#141414" stroke-width="3"/>
-      </svg>
-      <div class="btext"><b>PDM UTS</b><span>31 Okt · 08.00</span></div>
-    </div>
 
-    <div class="cta">
-      <div class="tot"><span>Progress</span><span id="pct">0%</span></div>
-      <div class="track"><i id="track"></i></div>
-      <button class="btn wide" id="toDrill">Mulai drill →</button>
-    </div>
+<div class="toggles">
+  <button id="tLeft" type="button">☰ Roadmap</button>
+  <button id="tRight" type="button">ⓘ Info</button>
+</div>
 
-    <nav class="navlist" id="navlist">
-      <a class="nav on" data-page="p0"><span class="ni">0</span><span class="nl">Jalan Keledai</span><span class="nc" id="c0">·</span></a>
-      <a class="nav" data-page="p1"><span class="ni">1</span><span class="nl">IPO &amp; Tipe Data</span><span class="nc" id="c1">·</span></a>
-      <a class="nav" data-page="p2"><span class="ni">2</span><span class="nl">Variabel &amp; Konstanta</span><span class="nc" id="c2">·</span></a>
-      <a class="nav" data-page="p3"><span class="ni">3</span><span class="nl">Decision &amp; Boolean</span><span class="nc" id="c3">·</span></a>
-      <a class="nav" data-page="p4"><span class="ni">4</span><span class="nl">Repetition &amp; Trace</span><span class="nc" id="c4">·</span></a>
-      <a class="nav" data-page="p5"><span class="ni">5</span><span class="nl">Function &amp; Parameter</span><span class="nc" id="c5">·</span></a>
-      <a class="nav" data-page="p6"><span class="ni">6</span><span class="nl">Validasi, File, Menu</span><span class="nc" id="c6">·</span></a>
-      <a class="nav" data-page="p7"><span class="ni">★</span><span class="nl">Drill 22 soal</span><span class="nc" id="c7">·</span></a>
-    </nav>
+<div class="wrap">
+
+  <aside class="rail left" id="railLeft">
+    <div class="panel">
+      <h4>Progress</h4>
+      <div class="total"><b id="pct">0%</b><span id="cnt">0 / 8</span></div>
+      <div class="pbar"><i id="pfill"></i></div>
+    </div>
+    <div class="panel">
+      <h4>Roadmap</h4>
+      <ul class="road" id="road">
+        <li class="now"><span class="dot"></span><a href="#s0">Jalan Keledai<small>Baca 60 detik</small></a></li>
+        <li><span class="dot"></span><a href="#s1">IPO &amp; Tipe Data<small>Input proses output</small></a></li>
+        <li><span class="dot"></span><a href="#s2">Variabel &amp; Konstanta<small>Format deklarasi</small></a></li>
+        <li><span class="dot"></span><a href="#s3">Decision &amp; Boolean<small>IF, CASE, NOT/AND/OR</small></a></li>
+        <li><span class="dot"></span><a href="#s4">Repetition &amp; Trace<small>Tabel trace</small></a></li>
+        <li><span class="dot"></span><a href="#s5">Function &amp; Parameter<small>Value vs REF</small></a></li>
+        <li><span class="dot"></span><a href="#s6">Validasi, File, Menu<small>Sentinel + CASE</small></a></li>
+        <li><span class="dot"></span><a href="#s7">Drill 22 soal<small id="c7">0/22</small></a></li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h4>Halaman baru</h4>
+      <div style="margin-top:6px;font-size:13px"><a href="cara.html" style="color:var(--blue);font-weight:700;text-decoration:none;border-bottom:1px solid var(--blue)">Cara Ngerjain Tiap Soal →</a><br><small style="color:var(--ink-soft)">Bedah 7 tipe mock test + latihan</small></div>
+    </div>
   </aside>
 
-  <main class="main">
-    <div class="topbar">
-      <button class="hamb" id="hamb" aria-label="Menu">☰</button>
-      <div id="pageTitle">Jalan Keledai</div>
-      <button class="hamb info" id="hambInfo" aria-label="Info" style="display:none">ⓘ</button>
-    </div>
+  <main>
 
-<section class="page on" id="p0">
-  <div class="hero">
-    <div class="htext">
-      <h3>UTS PDM<br>31 Oktober</h3>
-      <p><span class="pill">Sabtu</span><span class="pill">08.00–09.40</span><span class="pill">PASKAL-1104 · seat 20</span></p>
-      <p>100 menit, onsite. Pola soal: kasih pseudocode → trace, cari bug, atau tulis sendiri.</p>
-    </div>
-    <div class="mwrap">
-      <svg class="mascot" viewBox="0 0 120 120" aria-hidden="true">
-        <rect x="8" y="18" width="104" height="86" rx="14" fill="#FFC567" stroke="#141414" stroke-width="4"/>
-        <rect x="20" y="30" width="80" height="10" rx="5" fill="#141414"/>
-        <rect x="20" y="48" width="58" height="8" rx="4" fill="#141414" opacity=".55"/>
-        <rect x="20" y="63" width="68" height="8" rx="4" fill="#141414" opacity=".55"/>
-        <circle cx="96" cy="86" r="15" fill="#FD5A46" stroke="#141414" stroke-width="4"/>
-        <path d="M90 86l5 5 9-10" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
-      </svg>
-    </div>
-  </div>
-
-  <span class="kicker">Layar 0 · baca 60 detik</span>
-  <h2 style="font-size:20px;text-transform:uppercase;margin:4px 0 2px">Jalan keledai</h2>
-  <p class="one">Delapan trik yang bikin soal UTS kelar tanpa mikir lama.</p>
-
-  <div class="jk">
-    <div class="row"><span class="n">1</span><div><b>ID = String, bukan Integer</b><p>NIM, memberID, kode booking. Kalau Integer, nol depan hilang.</p></div></div>
-    <div class="row"><span class="n">2</span><div><b>Tarif = konstanta</b><p>Rate, denda, batas hari. Kata kunci <span class="mono">GLOBAL CONSTANT</span>.</p></div></div>
-    <div class="row"><span class="n">3</span><div><b>Trace: kondisi dulu, angka belakangan</b><p>Tulis TRUE/FALSE tiap IF/WHILE, baru isi nilai variabel.</p></div></div>
-    <div class="row"><span class="n">4</span><div><b>Cek batas &lt; vs &lt;=</b><p>count &lt; 4 = 3 putaran. count &lt;= 4 = 4 putaran. Ini jebakan favorit.</p></div></div>
-    <div class="row"><span class="n">5</span><div><b>Akumulator wajib total = total + x</b><p>Kalau total = x, nilai lama ketimpa. Jawaban jadi aneh.</p></div></div>
-    <div class="row"><span class="n">6</span><div><b>Boolean: kurung menang</b><p>Urutan NOT → AND → OR. Ada kurung, kerjain kurung dulu.</p></div></div>
-    <div class="row"><span class="n">7</span><div><b>Rata-rata: cek count &gt; 0</b><p>Bagi nol = crash. Selalu lindungi sebelum total/count.</p></div></div>
-    <div class="row"><span class="n">8</span><div><b>Value vs REF</b><p>Value = salinan (asli aman). REF = alias (asli berubah).</p></div></div>
-  </div>
-
-  <div class="warn">Scope: IPO, data type, variabel vs konstanta, decision + Boolean, repetition, function + validasi, file &amp; menu. UML di luar scope MID.</div>
+<section class="sheet" id="s0">
+  <div class="kode">COMP6839031 · Program Design Methods · UTS</div>
+  <h1 style="font-size:26px;font-weight:800;letter-spacing:-.02em;margin-top:4px">UTS PDM
+    <br><span style="font-size:17px;font-weight:600;color:var(--ink-soft)">Sabtu, 31 Oktober · 08.00–09.40 · 100 menit</span></h1>
+  <div class="sec">Jalan keledai</div>
+  <div class="step"><div class="n">1</div><div class="body"><b>ID = String, bukan Integer</b> — NIM, memberID, kode booking. Kalau Integer, nol depan hilang.</div></div>
+  <div class="step"><div class="n">2</div><div class="body"><b>Tarif = konstanta</b> — rate, denda, batas hari. Pakai <span class="mono">GLOBAL CONSTANT</span>.</div></div>
+  <div class="step"><div class="n">3</div><div class="body"><b>Trace: kondisi dulu, angka belakangan</b> — tulis TRUE/FALSE tiap IF/WHILE, baru isi nilai variabel.</div></div>
+  <div class="step"><div class="n">4</div><div class="body"><b>Cek batas &lt; vs &lt;=</b> — <span class="mono">count &lt; 4</span> = 3 putaran, <span class="mono">count &lt;= 4</span> = 4 putaran. Jebakan favorit.</div></div>
+  <div class="step"><div class="n">5</div><div class="body"><b>Akumulator wajib <span class="mono">total = total + x</span></b> — kalau <span class="mono">total = x</span>, nilai lama ketimpa.</div></div>
+  <div class="step"><div class="n">6</div><div class="body"><b>Boolean: kurung menang</b> — urutan NOT → AND → OR.</div></div>
+  <div class="step"><div class="n">7</div><div class="body"><b>Rata-rata: cek <span class="mono">count &gt; 0</span></b> — bagi nol = crash.</div></div>
+  <div class="step"><div class="n">8</div><div class="body"><b>Value vs REF</b> — value = salinan (asli aman), REF = alias (asli berubah).</div></div>
+  <div class="note"><b>Scope MID:</b> IPO, data type, variabel vs konstanta, decision + Boolean, repetition, function + validasi, file &amp; menu. UML di luar scope.</div>
+  <div class="aside"><b>Pola soal:</b> dikasih pseudocode → trace nilainya, cari bug-nya, atau tulis pseudocode sendiri pakai format dosen.</div>
 </section>
 
-<section class="page" id="p1">
-  <span class="kicker">Topik 1</span>
-  <h2 style="font-size:22px;text-transform:uppercase;margin:4px 0 8px">IPO &amp; Tipe Data</h2>
-
-  <div class="card">
-    <h3><span class="num">1A</span> IPO tiga baris</h3>
-    <pre class="code">INPUT  memberID, startHour, visitorCount
+<section class="sheet" id="s1">
+  <div class="head"><div class="badge">1</div><div>
+    <h2>IPO &amp; Tipe Data <span class="pts">pasti keluar</span></h2>
+    <div class="sub">Nentuin input, proses, output — plus milih tipe yang bener</div>
+  </div></div>
+  <p>Tiga baris, langsung. Jangan narasi panjang.</p>
+  <div class="sec">Contoh jawaban</div>
+  <pre class="code">INPUT   memberID, startHour, visitorCount
 PROCESS validasi 8 &lt;= startHour &lt;= 19
         cek ketersediaan pod
-OUTPUT status diterima / ditolak, kode konfirmasi</pre>
-    <p class="one">Jawab pakai label INPUT / PROCESS / OUTPUT. Jangan narasi.</p>
-  </div>
-
-  <div class="card">
-    <h3><span class="num">1B</span> Tipe data</h3>
-    <table class="tr">
-      <tr><th>Tipe</th><th>Buat apa</th><th>Contoh</th></tr>
-      <tr><td>Integer</td><td>bulat</td><td>10 jam, 2 orang</td></tr>
+OUTPUT  status diterima / ditolak, kode konfirmasi</pre>
+  <div class="sec">Tipe data</div>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Tipe</th><th>Buat apa</th><th>Contoh</th></tr></thead>
+    <tbody>
+      <tr><td>Integer</td><td>bilangan bulat</td><td>10 jam, 2 orang</td></tr>
       <tr><td>Real</td><td>desimal</td><td>6.5, 36.5</td></tr>
       <tr><td>String</td><td>teks / ID</td><td>"00123"</td></tr>
-      <tr><td>Boolean</td><td>TRUE/FALSE</td><td>podAvailable</td></tr>
-    </table>
-    <div class="warn">ID selalu String. "00123" jadi Integer = 123, nol depannya hilang.</div>
-  </div>
+      <tr><td>Boolean</td><td>TRUE / FALSE</td><td>podAvailable</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note"><b>Inget:</b> ID selalu String. "00123" kalau jadi Integer = 123, nol depannya hilang.</div>
 </section>
 
-<section class="page" id="p2">
-  <span class="kicker">Topik 2</span>
-  <h2 style="font-size:22px;text-transform:uppercase;margin:4px 0 8px">Variabel &amp; Konstanta</h2>
-
-  <div class="grid2">
-    <div class="card" style="margin:0"><h3>Variabel</h3><p class="one">Nilainya berubah: total, count, temperature, duration.</p></div>
-    <div class="card" style="margin:0"><h3>Konstanta</h3><p class="one">Nilai mati: HOURLY_RATE, tarif denda, batas 14 hari.</p></div>
-  </div>
-
-  <div class="card">
-    <h3><span class="num">2A</span> Format deklarasi dosen</h3>
-    <pre class="code">DECLARE GLOBAL CONSTANT Integer HOURLY_RATE = 12000
+<section class="sheet" id="s2">
+  <div class="head"><div class="badge">2</div><div>
+    <h2>Variabel &amp; Konstanta <span class="pts">format dosen</span></h2>
+    <div class="sub">Salah nulis deklarasi = poin hilang walau logikanya bener</div>
+  </div></div>
+  <div class="sec">Deklarasi</div>
+  <pre class="code">DECLARE GLOBAL CONSTANT Integer HOURLY_RATE = 12000
 DECLARE Real total
 DECLARE Integer count
 SET total = 0
 SET count = 1</pre>
-    <ul class="tight">
-      <li>Tipe di depan, nama di belakang.</li>
-      <li>Konstanta pakai <span class="mono">CONSTANT</span>, bukan <span class="mono">SET</span>.</li>
-      <li>Dipakai lintas modul → <span class="mono">GLOBAL</span>.</li>
-    </ul>
-  </div>
+  <ul class="tight">
+    <li>Tipe di depan, nama variabel di belakang.</li>
+    <li>Konstanta pakai <span class="mono">CONSTANT</span>, bukan <span class="mono">SET</span>.</li>
+    <li>Dipakai lintas modul → tambah <span class="mono">GLOBAL</span>.</li>
+    <li>Variabel: total, count, temperature, duration. Konstanta: rate, denda, batas hari.</li>
+  </ul>
+  <div class="note"><b>Jebakan:</b> nilai yang cuma dipakai sekali dan nggak pernah berubah tetap boleh variabel — tapi kalau angkanya tarif/aturan, wajib konstanta.</div>
 </section>
 
-<section class="page" id="p3">
-  <span class="kicker">Topik 3</span>
-  <h2 style="font-size:22px;text-transform:uppercase;margin:4px 0 8px">Decision &amp; Boolean</h2>
-
-  <div class="card">
-    <h3><span class="num">3A</span> Kombinasi Boolean</h3>
-    <pre class="code">IF cardValid AND (isStaff OR trainingDone)
+<section class="sheet" id="s3">
+  <div class="head"><div class="badge">3</div><div>
+    <h2>Decision &amp; Boolean <span class="pts">kombinasi</span></h2>
+    <div class="sub">Urutan evaluasi: NOT → AND → OR, kurung selalu menang</div>
+  </div></div>
+  <div class="sec">Kombinasi Boolean</div>
+  <pre class="code">IF cardValid AND (isStaff OR trainingDone)
    AND NOT isRestricted THEN
     DISPLAY "ALLOW"
 ELSE
     DISPLAY "DENY"
 END IF</pre>
-    <p class="one">Urutan hitung: NOT → AND → OR. Kurung selalu menang.</p>
-  </div>
-
-  <div class="card">
-    <h3><span class="num">3B</span> IF atau CASE?</h3>
-    <table class="tr">
-      <tr><th>Bentuk</th><th>Pakai kalau</th></tr>
+  <div class="sec">IF atau CASE?</div>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Bentuk</th><th>Pakai kalau</th></tr></thead>
+    <tbody>
       <tr><td>IF / ELSE</td><td>kondisi benar-salah, kombinasi Boolean</td></tr>
       <tr><td>CASE</td><td>pilih satu dari banyak kategori (menu 1–8)</td></tr>
-    </table>
-  </div>
+    </tbody>
+  </table></div>
+  <div class="note"><b>Kalau disuruh trace:</b> tulis nilai tiap bagian dulu — <span class="mono">cardValid=T</span>, <span class="mono">isStaff=F</span>, <span class="mono">trainingDone=T</span> → <span class="mono">F OR T = T</span> — baru gabungin.</div>
 </section>
 
-<section class="page" id="p4">
-  <span class="kicker">Topik 4</span>
-  <h2 style="font-size:22px;text-transform:uppercase;margin:4px 0 8px">Repetition &amp; Trace</h2>
-
-  <div class="card">
-    <h3><span class="num">4A</span> Pseudocode yang di-trace</h3>
-    <pre class="code">01 DECLARE Real total
+<section class="sheet" id="s4">
+  <div class="head"><div class="badge">4</div><div>
+    <h2>Repetition &amp; Trace <span class="pts">paling sering</span></h2>
+    <div class="sub">Soal favorit: kasih pseudocode + input, suruh isi tabel</div>
+  </div></div>
+  <div class="sec">Pseudocode yang di-trace</div>
+  <pre class="code">01 DECLARE Real total
 02 DECLARE Integer count
 03 SET total = 0
 04 SET count = 1
@@ -512,9 +424,10 @@ END IF</pre>
 08     SET count = count + 1
 09 END WHILE
 10 DISPLAY total / 4</pre>
-    <p class="one">Input 20, 24, 26, 30. Isi tabelnya baris per baris:</p>
-    <table class="tr">
-      <tr><th>Baris</th><th>count</th><th>temp</th><th>total</th><th>Output</th></tr>
+  <p>Input 20, 24, 26, 30. Isi tabelnya baris per baris:</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Baris</th><th>count</th><th>temp</th><th>total</th><th>Output</th></tr></thead>
+    <tbody>
       <tr><td>03–04</td><td>1</td><td>—</td><td>0</td><td>—</td></tr>
       <tr><td>05–08</td><td>1</td><td>20</td><td>20</td><td>—</td></tr>
       <tr><td>05–08</td><td>2</td><td>24</td><td>44</td><td>—</td></tr>
@@ -522,26 +435,21 @@ END IF</pre>
       <tr><td>05–08</td><td>4</td><td>30</td><td class="hl">100</td><td>—</td></tr>
       <tr><td>05</td><td>5</td><td>30</td><td>100</td><td>FALSE → stop</td></tr>
       <tr><td>10</td><td>5</td><td>30</td><td>100</td><td class="hl">25</td></tr>
-    </table>
-  </div>
-
-  <div class="card">
-    <h3><span class="num">4B</span> Dua bug klasik</h3>
-    <div class="grid2">
-      <div class="mini"><h5>Salah</h5><p class="mono">SET total = temperature</p></div>
-      <div class="mini"><h5>Bener</h5><p class="mono">SET total = total + temperature</p></div>
-    </div>
-    <p class="one">Bug kedua: <span class="mono">count &lt; 4</span> cuma 3 putaran → harusnya <span class="mono">count &lt;= 4</span>.</p>
-  </div>
+    </tbody>
+  </table></div>
+  <div class="sec">Dua bug klasik</div>
+  <div class="step"><div class="n">×</div><div class="body"><b>Salah:</b> <span class="mono">SET total = temperature</span> — nilai lama ketimpa.</div></div>
+  <div class="step"><div class="n">✓</div><div class="body"><b>Bener:</b> <span class="mono">SET total = total + temperature</span></div></div>
+  <div class="note"><b>Bug kedua:</b> <span class="mono">count &lt; 4</span> cuma 3 putaran → harusnya <span class="mono">count &lt;= 4</span>.</div>
 </section>
 
-<section class="page" id="p5">
-  <span class="kicker">Topik 5</span>
-  <h2 style="font-size:22px;text-transform:uppercase;margin:4px 0 8px">Function &amp; Parameter</h2>
-
-  <div class="card">
-    <h3><span class="num">5A</span> Header fungsi</h3>
-    <pre class="code">FUNCTION Real CalculateRentalFee(Integer hoursRented)
+<section class="sheet" id="s5">
+  <div class="head"><div class="badge">5</div><div>
+    <h2>Function &amp; Parameter <span class="pts">tulis sendiri</span></h2>
+    <div class="sub">Return type di depan, tanpa kata RETURNS</div>
+  </div></div>
+  <div class="sec">Header fungsi</div>
+  <pre class="code">FUNCTION Real CalculateRentalFee(Integer hoursRented)
     IF hoursRented &lt;= 0 THEN
         RETURN -1
     END IF
@@ -553,33 +461,31 @@ MODULE Main()
     INPUT duration
     DISPLAY CalculateRentalFee(duration)
 END MODULE</pre>
-    <ul class="tight">
-      <li>Return type di depan nama, tanpa <span class="mono">RETURNS</span> di belakang.</li>
-      <li><b>Formal parameter</b> = <span class="mono">hoursRented</span> (di header).</li>
-      <li><b>Actual argument</b> = <span class="mono">duration</span> (dikirim saat CALL).</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h3><span class="num">5B</span> Value vs REF</h3>
-    <pre class="code">MODULE ChangeByReference(Integer REF number)
+  <ul class="tight">
+    <li><b>Formal parameter</b> = <span class="mono">hoursRented</span> (di header fungsi).</li>
+    <li><b>Actual argument</b> = <span class="mono">duration</span> (dikirim saat dipanggil).</li>
+    <li>Validasi di dalam fungsi: nilai aneh → <span class="mono">RETURN -1</span>.</li>
+  </ul>
+  <div class="sec">Value vs REF</div>
+  <pre class="code">MODULE ChangeByReference(Integer REF number)
     SET number = number + 5
 END MODULE</pre>
-    <table class="tr">
-      <tr><th>Kirim</th><th>Variabel asli</th></tr>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Kirim</th><th>Variabel asli</th></tr></thead>
+    <tbody>
       <tr><td>by value</td><td>tetap (salinan)</td></tr>
-      <tr><td>REF</td><td>ikut berubah (alias)</td></tr>
-    </table>
-  </div>
+      <tr><td>REF</td><td class="F">ikut berubah (alias)</td></tr>
+    </tbody>
+  </table></div>
 </section>
 
-<section class="page" id="p6">
-  <span class="kicker">Topik 6</span>
-  <h2 style="font-size:22px;text-transform:uppercase;margin:4px 0 8px">Validasi, File, Menu</h2>
-
-  <div class="card">
-    <h3><span class="num">6A</span> Loop validasi + sentinel</h3>
-    <pre class="code">INPUT humidity
+<section class="sheet" id="s6">
+  <div class="head"><div class="badge">6</div><div>
+    <h2>Validasi, File &amp; Menu <span class="pts">gabungan</span></h2>
+    <div class="sub">Loop sentinel + CASE menu — pola yang sama terus</div>
+  </div></div>
+  <div class="sec">Loop validasi + sentinel</div>
+  <pre class="code">INPUT humidity
 WHILE humidity &lt;&gt; -1 DO
     IF humidity &lt; 0 OR humidity &gt; 100 THEN
         DISPLAY "Invalid humidity"
@@ -595,16 +501,13 @@ IF count &gt; 0 THEN
 ELSE
     DISPLAY "No readings"
 END IF</pre>
-    <ul class="tight">
-      <li>Data invalid jangan masuk total/count.</li>
-      <li>Sentinel (-1) penanda stop, bukan data.</li>
-      <li>Cek <span class="mono">count &gt; 0</span> sebelum bagi.</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h3><span class="num">6B</span> Menu pakai CASE</h3>
-    <pre class="code">DISPLAY "1. Borrow  2. Return  3. Report  0. Exit"
+  <ul class="tight">
+    <li>Data invalid jangan masuk total / count.</li>
+    <li>Sentinel (−1) penanda stop, bukan data.</li>
+    <li>Cek <span class="mono">count &gt; 0</span> sebelum bagi.</li>
+  </ul>
+  <div class="sec">Menu pakai CASE</div>
+  <pre class="code">DISPLAY "1. Borrow  2. Return  3. Report  0. Exit"
 INPUT choice
 CASE choice OF
     1: CALL BorrowBook()
@@ -612,68 +515,58 @@ CASE choice OF
     3: CALL ShowReport()
     0: DISPLAY "Bye"
 END CASE</pre>
-    <p class="one">Pola: tampil → input → validasi pilihan → panggil modul → balik ke menu.</p>
-  </div>
+  <div class="aside"><b>Pola menu:</b> tampil → input → validasi pilihan → panggil modul → balik ke menu.</div>
 </section>
 
-<section class="page" id="p7">
-  <span class="kicker">Layar 7 · drill</span>
-  <h2 style="font-size:22px;text-transform:uppercase;margin:4px 0 8px">22 soal dari mock test</h2>
-  <div class="hudrow">
-    <span class="chip" id="lives">❤❤❤</span>
-    <span class="chip hot" id="streak">🔥0</span>
-    <span class="chip" id="cnt">0/22</span>
-  </div>
-  <div class="track" style="margin-bottom:12px"><i id="dprog"></i></div>
-
-  <div class="drill" id="card">
-    <span class="dkick" id="topic">soal</span>
+<section class="sheet" id="s7">
+  <div class="head"><div class="badge">7</div><div>
+    <h2>Drill 22 soal <span class="pts">mock test</span></h2>
+    <div class="sub">Salah 3× → nyawa habis, ulang. Petunjuk naik tiap salah.</div>
+  </div></div>
+  <div id="dzone">
+    <div class="qmeta"><span id="dtopic">topik</span> · soal <b id="dqnum">1</b>/22</div>
     <p class="dq" id="dq"></p>
-    <div class="dans" id="dans"></div>
-    <div class="hintbox" id="dfb" style="display:none"></div>
+    <div class="opts" id="dans"></div>
+    <div class="fb" id="dfb" hidden></div>
+    <button class="nextbtn" id="dnext" hidden type="button">Lanjut →</button>
   </div>
-
-  <div class="done" id="ddone">
-    <div class="big" id="dscore">0/22</div>
-    <p class="one" id="dverdict"></p>
-    <p class="one" id="dweak" style="font-size:13px"></p>
-    <button class="btn" onclick="restartDrill()">Ulang dari awal</button>
+  <div class="donebox" id="ddone" hidden>
+    <div class="sc" id="dscore">0/22</div>
+    <p id="dverdict"></p>
+    <p class="aside" id="dweak"></p>
+    <button class="btn2" type="button" onclick="restartDrill()">Ulang dari awal</button>
   </div>
 </section>
-
 
   </main>
-  <aside class="aside" id="aside">
-    <div class="blk">
+
+  <aside class="rail right" id="railRight">
+    <div class="panel info">
       <h4>Ujian</h4>
-      <div class="kv"><span>Tanggal</span><span>Sabtu 31 Okt</span></div>
-      <div class="kv"><span>Jam</span><span>08.00–09.40</span></div>
-      <div class="kv"><span>Ruang</span><span>PASKAL-1104</span></div>
-      <div class="kv"><span>Seat</span><span>20</span></div>
-      <div class="kv"><span>Bobot</span><span>20% (MID)</span></div>
-      <div class="kv"><span>Waktu</span><span>100 menit</span></div>
+      <div class="kv"><span>Matkul</span><b>PDM</b></div>
+      <div class="kv"><span>Hari</span><b>Sabtu, 31 Okt</b></div>
+      <div class="kv"><span>Jam</span><b>08.00–09.40</b></div>
+      <div class="kv"><span>Durasi</span><b>100 menit</b></div>
+      <div class="kv"><span>Nyawa</span><b class="lives" id="lives">♥ ♥ ♥</b></div>
+      <div class="kv"><span>Streak</span><b id="streak">0</b></div>
+      <div class="kv"><span>Soal</span><b id="dcnt">0 / 22</b></div>
+      <div class="track2"><i id="dprog"></i></div>
     </div>
-    <div class="blk">
-      <h4>Rumus cepat</h4>
-      <ul class="cheat">
-        <li>ID = <b>String</b></li>
-        <li>Tarif = <b>GLOBAL CONST</b></li>
-        <li>Trace: baris per baris</li>
-        <li><b>&lt; 4</b> (3x) vs <b>&lt;= 4</b> (4x)</li>
-        <li><b>total = total + x</b></li>
-        <li>NOT &gt; AND &gt; OR (kurung menang)</li>
-        <li>IF count &gt; 0 THEN total/count</li>
-        <li>REF = ubah di Main</li>
-      </ul>
-    </div>
-    <div class="blk">
+    <div class="panel">
       <h4>Format dosen</h4>
-      <pre style="background:#fff;border:2px solid var(--ink);border-radius:8px;padding:6px;font:800 11px Consolas;margin:0">DECLARE Integer count
-FUNCTION Real Biaya(Int jam)</pre>
+      <div class="formula">DECLARE &lt;Type&gt; &lt;nama&gt;<small>tipe di depan, nama di belakang</small></div>
+      <div class="formula">FUNCTION &lt;ReturnType&gt; Nama(&lt;Type&gt; param)<small>tanpa kata RETURNS</small></div>
+      <div class="formula">SET total = total + x<small>akumulator, bukan total = x</small></div>
+    </div>
+    <div class="panel">
+      <h4>Jebakan</h4>
+      <div class="formula" style="font-family:'Segoe UI',sans-serif;font-size:12.5px">count &lt; 4 → 3 putaran<small>count &lt;= 4 → 4 putaran</small></div>
+      <div class="formula" style="font-family:'Segoe UI',sans-serif;font-size:12.5px">ID pakai String<small>"00123" ≠ 123</small></div>
+      <div class="formula" style="font-family:'Segoe UI',sans-serif;font-size:12.5px">count &gt; 0 sebelum bagi<small>hindari divide by zero</small></div>
     </div>
   </aside>
+
 </div>
-<div class="scrim" id="scrim"></div>
 
 <script>
 const ITEMS = [
@@ -700,100 +593,170 @@ const ITEMS = [
  {id:21,t:"Sentinel",q:"Lanjutan: dryCount = 2 (35 dan 38). Aksi akhir?",type:"mc",p:["CHECK IRRIGATION","CONTINUE MONITORING","No readings","Invalid zone"],a:["CHECK IRRIGATION"],walk:"Aturan: minimal 2 bacaan DRY → cek irigasi. Dua-duanya < 40, jadi kena.",tips:["Syaratnya dryCount >= 2.","dryCount = 2, jadi kepenuhan.","CHECK IRRIGATION."]},
  {id:22,t:"Safe average",q:"count = 0 setelah loop. Apa yang harus dicek sebelum total / count?",type:"mc",p:["IF count > 0 dulu","Gak usah, langsung bagi","IF total > 0","Pakai count + 1"],a:["IF count > 0 dulu"],walk:"Bagi nol = error. Cek count > 0, kalau nol tampilkan \"No readings\".",tips:["Pembagi nol bikin program crash.","Yang dicek pembaginya, bukan totalnya.","IF count > 0."]}
 ];
+</script>
+<script>
 
-function setupDrill() {
-  let idx = 0, lives = 3, streak = 0, right = 0, hint = 0;
-  const wrong = new Set();
-  const $ = s => document.querySelector(s);
-  const norm = s => String(s).toLowerCase().replace(/\s+/g, '').replace(',', '.');
+/* ponytail: drawer + scrollspy + progress aja. Engine drill tetap di file terpisah. */
+(function(){
+  var L = document.getElementById('railLeft');
+  var R = document.getElementById('railRight');
+  var tl = document.getElementById('tLeft');
+  var tr = document.getElementById('tRight');
+  if (tl && L) tl.addEventListener('click', function(){ L.classList.toggle('open'); if (R) R.classList.remove('open'); });
+  if (tr && R) tr.addEventListener('click', function(){ R.classList.toggle('open'); if (L) L.classList.remove('open'); });
+  if (L) L.addEventListener('click', function(e){ if (e.target.tagName === 'A') L.classList.remove('open'); });
 
-  function progress() {
-    const pct = Math.round(idx / ITEMS.length * 100);
-    $('#pct').textContent = pct + '%';
-    $('#track').style.width = pct + '%';
+  var items = [].slice.call(document.querySelectorAll('#road li'));
+  var sheets = [].slice.call(document.querySelectorAll('main .sheet'));
+  function paint(){
+    var done = items.filter(function(li){ return li.classList.contains('done'); }).length;
+    var pct = items.length ? Math.round(done / items.length * 100) : 0;
+    var p = document.getElementById('pct'), f = document.getElementById('pfill'), c = document.getElementById('cnt');
+    if (p) p.textContent = pct + '%';
+    if (f) f.style.width = pct + '%';
+    if (c) c.textContent = done + ' / ' + items.length;
   }
-  function finish() {
-    $('#card').style.display = 'none';
-    $('#ddone').classList.add('on');
+  paint();
+
+  if ('IntersectionObserver' in window && sheets.length) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        var id = en.target.id;
+        items.forEach(function(li){
+          var a = li.querySelector('a');
+          li.classList.toggle('now', !!a && a.getAttribute('href') === '#' + id && !li.classList.contains('done'));
+        });
+      });
+    }, { rootMargin: '-40% 0px -50% 0px' });
+    sheets.forEach(function(s){ io.observe(s); });
+  }
+})();
+
+</script>
+<script>
+
+/* ---------- drill engine ---------- */
+function setupDrill(){
+  var idx=0, lives=3, streak=0, right=0, hint=0, locked=false;
+  var wrong={};
+  var $=function(s){return document.querySelector(s);};
+  var norm=function(s){return String(s).toLowerCase().replace(/\s+/g,'').replace(',','.');};
+
+  function hud(){
+    $('#lives').textContent = '\u2665 '.repeat(lives) + '\u2661 '.repeat(3-lives);
+    $('#streak').textContent = streak;
+    $('#dcnt').textContent = idx + ' / ' + ITEMS.length;
+    $('#dprog').style.width = (idx/ITEMS.length*100) + '%';
+    $('#dqnum').textContent = Math.min(idx+1, ITEMS.length);
+  }
+  function finish(){
+    $('#dzone').hidden = true;
+    $('#ddone').hidden = false;
+    $('#dscore').textContent = right + '/' + ITEMS.length;
+    var acc = Math.round(right/ITEMS.length*100);
+    $('#dverdict').textContent = acc>=85 ? 'Siap UTS. Jangan panik besok.' :
+      acc>=60 ? 'Lumayan. Ulang yang masih goyang.' : 'Belum aman — ulang drill sekali lagi.';
+    var w = Object.keys(wrong);
+    $('#dweak').innerHTML = w.length ? '<b>Masih goyang:</b> ' + w.join(', ') : '<b>Semua bersih.</b>';
+    $('#c7').textContent = right + '/' + ITEMS.length;
     $('#dprog').style.width = '100%';
-    $('#dscore').textContent = right + '/22';
-    const acc = Math.round(right / ITEMS.length * 100);
-    $('#dverdict').textContent = acc >= 85 ? 'Siap UTS.' : acc >= 60 ? 'Lumayan, ulang yang salah.' : 'Belum aman, ulang drill.';
-    $('#dweak').textContent = wrong.size ? 'Yang masih goyang: ' + [...wrong].join(', ') : 'Semua bersih.';
-    $('#c7').textContent = right + '/22';
-    progress();
+    $('#dcnt').textContent = ITEMS.length + ' / ' + ITEMS.length;
   }
-  function render() {
+  function render(){
     if (idx >= ITEMS.length) return finish();
-    const it = ITEMS[idx]; hint = 0;
-    $('#topic').textContent = it.t;
+    var it = ITEMS[idx]; hint=0; locked=false;
+    $('#dtopic').textContent = it.t;
     $('#dq').textContent = it.q;
-    $('#cnt').textContent = idx + '/22';
-    $('#dprog').style.width = (idx / ITEMS.length * 100) + '%';
-    $('#lives').textContent = '❤'.repeat(lives) + '🖤'.repeat(3-lives);
-    $('#streak').textContent = '🔥' + streak;
-    const fb = $('#dfb'); fb.style.display = 'none'; fb.className = 'hintbox'; fb.textContent = '';
-    const ans = $('#dans'); ans.innerHTML = '';
-    if (it.type === 'mc') {
-      it.p.forEach(opt => {
-        const b = document.createElement('button'); b.className = 'opt'; b.textContent = opt;
-        b.onclick = () => answer(b, opt === it.a[0]); ans.appendChild(b);
+    var fb=$('#dfb'); fb.hidden=true; fb.className='fb'; fb.innerHTML='';
+    var nb=$('#dnext'); nb.hidden=true;
+    var box=$('#dans'); box.innerHTML='';
+    if (it.type === 'mc'){
+      it.p.forEach(function(opt){
+        var b=document.createElement('button');
+        b.type='button'; b.className='opt'; b.textContent=opt;
+        b.onclick=function(){ answer(b, opt===it.a[0], it); };
+        box.appendChild(b);
       });
     } else {
-      const inp = document.createElement('input'); inp.className = 'fill'; inp.inputMode = 'decimal'; inp.placeholder = 'jawaban…';
-      const check = () => answer(null, norm(inp.value) === norm(it.a[0]));
-      inp.onkeydown = e => { if (e.key === 'Enter') check(); };
-      const b = document.createElement('button'); b.className = 'btn'; b.textContent = 'Cek'; b.onclick = check;
-      ans.append(inp,b); setTimeout(() => inp.focus(), 50);
+      var inp=document.createElement('input');
+      inp.className='fill'; inp.inputMode='decimal'; inp.placeholder='jawaban angka…';
+      var b2=document.createElement('button');
+      b2.type='button'; b2.className='nextbtn'; b2.textContent='Cek';
+      var check=function(){ if(locked) return; answer(null, norm(inp.value)===norm(it.a[0]), it); };
+      inp.addEventListener('keydown', function(e){ if(e.key==='Enter') check(); });
+      b2.onclick=check;
+      box.appendChild(inp); box.appendChild(b2);
+      setTimeout(function(){ inp.focus(); }, 60);
     }
+    hud();
   }
-  function answer(btn, ok) {
-    const it = ITEMS[idx], fb = $('#dfb');
-    if (ok) {
-      right++; streak++;
+  function answer(btn, ok, it){
+    var fb=$('#dfb');
+    if (ok){
+      locked=true; right++; streak++;
       if (btn) btn.classList.add('ok');
-      fb.style.display = 'block'; fb.classList.add('ok');
-      fb.innerHTML = '✓ Bener. ' + it.walk;
-      document.querySelectorAll('.opt').forEach(b => b.disabled = true);
-      const check = document.querySelector('#dans .btn'); if (check) check.disabled = true;
-      setTimeout(() => { idx++; render(); }, 1200);
+      Array.prototype.forEach.call(document.querySelectorAll('#dans .opt'), function(b){ b.disabled=true; });
+      var cb=document.querySelector('#dans .nextbtn'); if(cb) cb.disabled=true;
+      fb.hidden=false; fb.className='fb ok';
+      fb.innerHTML='<b>✓ Bener.</b> ' + it.walk;
+      var nb=$('#dnext'); nb.hidden=false;
+      nb.onclick=function(){ idx++; render(); window.scrollTo({top: document.getElementById('s7').offsetTop, behavior:'smooth'}); };
+      setTimeout(function(){ if(!nb.hidden && document.activeElement!==nb){ idx++; render(); } }, 1500);
+      hud();
     } else {
-      lives--; streak = 0; hint++; wrong.add(it.t);
+      lives--; streak=0; hint++;
+      wrong[it.t]=1;
       if (btn) btn.classList.add('no');
-      if (lives <= 0) {
-        fb.style.display = 'block'; fb.className = 'hintbox bad'; fb.innerHTML = '💀 Nyawa habis. ' + it.walk;
-        setTimeout(() => { lives = 3; idx++; render(); }, 2200); return;
+      if (lives<=0){
+        locked=true;
+        fb.hidden=false; fb.className='fb bad';
+        fb.innerHTML='<b>Nyawa habis.</b> ' + it.walk;
+        hud();
+        setTimeout(function(){ lives=3; idx++; render(); }, 2600);
+        return;
       }
-      fb.style.display = 'block'; fb.className = 'hintbox';
-      if (hint >= 3) { fb.classList.add('ok'); fb.innerHTML = '<b>Jalan keledai:</b> ' + it.walk; }
-      else fb.textContent = 'Petunjuk ' + hint + ': ' + it.tips[hint-1];
-      $('#card').classList.add('shake'); setTimeout(() => $('#card').classList.remove('shake'), 320);
-      $('#lives').textContent = '❤'.repeat(lives) + '🖤'.repeat(3-lives);
+      fb.hidden=false;
+      if (hint>=3){ fb.className='fb ok'; fb.innerHTML='<b>Jalan keledai:</b> ' + it.walk; }
+      else { fb.className='fb'; fb.innerHTML='<b>Petunjuk '+hint+':</b> ' + it.tips[Math.min(hint-1, it.tips.length-1)]; }
+      var card=document.getElementById('s7');
+      card.classList.add('shake'); setTimeout(function(){ card.classList.remove('shake'); }, 320);
+      hud();
     }
   }
-  window.restartDrill = () => {
-    idx=0; lives=3; streak=0; right=0; hint=0; wrong.clear();
-    $('#card').style.display='block'; $('#ddone').classList.remove('on'); render();
+  window.restartDrill=function(){
+    idx=0; lives=3; streak=0; right=0; hint=0; wrong={};
+    $('#dzone').hidden=false; $('#ddone').hidden=true; render();
   };
   render();
 }
 
-function setupNavigation() {
-  const side=document.querySelector('#side'), aside=document.querySelector('#aside'), scrim=document.querySelector('#scrim');
-  const close=()=>{side.classList.remove('on');aside.classList.remove('on');scrim.classList.remove('on');};
-  document.querySelectorAll('.nav[data-page]').forEach(n=>n.addEventListener('click',()=>{
-    document.querySelectorAll('.nav').forEach(x=>x.classList.remove('on'));
-    n.classList.add('on');
-    document.querySelectorAll('.page').forEach(p=>p.classList.toggle('on',p.id===n.dataset.page));
-    document.querySelector('#pageTitle').textContent=n.querySelector('.nl').textContent;
-    close(); window.scrollTo({top:0,behavior:'smooth'});
-  }));
-  document.querySelector('#hamb').onclick=()=>{side.classList.toggle('on');scrim.classList.toggle('on');};
-  document.querySelector('#hambInfo').onclick=()=>{aside.classList.toggle('on');scrim.classList.toggle('on');};
-  document.querySelector('#toDrill').onclick=()=>document.querySelector('[data-page="p7"]').click();
-  scrim.onclick=close;
-}
-setupNavigation(); setupDrill();
+/* ---------- progress baca ---------- */
+(function(){
+  var items=[].slice.call(document.querySelectorAll('#road li'));
+  var sheets=[].slice.call(document.querySelectorAll('main .sheet'));
+  function paint(){
+    var done=items.filter(function(li){return li.classList.contains('done');}).length;
+    var pct=items.length?Math.round(done/items.length*100):0;
+    var p=document.getElementById('pct'), f=document.getElementById('pfill'), c=document.getElementById('cnt');
+    if(p) p.textContent=pct+'%';
+    if(f) f.style.width=pct+'%';
+    if(c) c.textContent=done+' / '+items.length;
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(en){
+        if(!en.isIntersecting) return;
+        var li=items.filter(function(x){var a=x.querySelector('a');return a&&a.getAttribute('href')==='#'+en.target.id;})[0];
+        if(li && !li.classList.contains('done')){ li.classList.add('done'); paint(); }
+      });
+    },{rootMargin:'0px 0px -55% 0px'});
+    sheets.forEach(function(s){ io.observe(s); });
+  }
+  paint();
+})();
+
+setupDrill();
 
 </script>
 </body>
