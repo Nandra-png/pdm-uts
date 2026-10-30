@@ -1,0 +1,800 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PDM UTS · Persiapan Lengkap</title>
+<style>
+:root{
+  --bg:#F5B942; --grid:#E8A82E; --ink:#141414; --paper:#fff; --cream:#FFF7E6;
+  --yellow:#FFC567; --pink:#FB7DA8; --red:#FD5A46; --purple:#552CB7; --green:#00995E; --blue:#058CD7;
+  --acc:#FD5A46;
+  --motion:#4C97FF; --looks:#9966FF; --sound:#CF63CF; --events:#FFBF00; --ctrl:#FFAB19;
+  --sensing:#5CB1D6; --ops:#59C059; --varb:#FF8C1A; --myblk:#FF6680;
+}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);
+  font:16px/1.5 "Trebuchet MS","Avenir Next",-apple-system,system-ui,sans-serif;
+  background:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 26px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 26px),
+    var(--bg);
+  -webkit-font-smoothing:antialiased}
+a{color:var(--purple)}
+h1,h2,h3,h4,h5{margin:0;line-height:1.2}
+b,strong{font-weight:800}
+.shell{max-width:1340px;margin:26px auto;background:var(--paper);border:3px solid var(--ink);
+  border-radius:22px;box-shadow:10px 10px 0 var(--ink);display:grid;
+  grid-template-columns:216px minmax(0,1fr);overflow:hidden}
+.side{padding:16px 13px;background:var(--cream);border-right:3px solid var(--ink);
+  display:flex;flex-direction:column;gap:14px}
+.brand{display:flex;align-items:center;gap:9px;padding:2px 4px 4px}
+.brand .logo{width:44px;height:44px;flex:0 0 auto}
+.btext b{display:block;font-size:15px;font-weight:900;text-transform:uppercase;letter-spacing:.4px}
+.btext span{display:block;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#6B6250}
+.navlist{display:flex;flex-direction:column;gap:6px;flex:1;min-height:0;overflow:auto}
+.nav{position:relative;display:flex;align-items:center;gap:9px;min-height:44px;padding:6px 9px;
+  border:3px solid transparent;border-radius:12px;text-decoration:none;color:var(--ink);
+  font-size:13px;font-weight:600;cursor:pointer}
+.nav:hover{background:var(--yellow);border-color:var(--ink);box-shadow:3px 3px 0 var(--ink)}
+.nav.on{background:var(--purple);color:#fff;border-color:var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.ni{flex:0 0 auto;width:24px;height:24px;border:2px solid var(--ink);border-radius:8px;background:#fff;
+  color:var(--ink);font-size:11.5px;font-weight:900;display:grid;place-items:center}
+.nav.on .ni{background:var(--yellow);color:var(--ink)}
+.nl{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  font-size:12px;font-weight:800;letter-spacing:.02em;text-transform:uppercase}
+.nc{font-size:10px;font-weight:800;background:#fff;border:2px solid var(--ink);border-radius:8px;padding:2px 5px}
+.nav.on .nc{background:var(--yellow);color:var(--ink)}
+.nav.done .nc{background:var(--green);color:#fff}
+.cta{background:#fff;border:3px solid var(--ink);border-radius:16px;box-shadow:4px 4px 0 var(--ink);padding:13px}
+.cta .tot{display:flex;justify-content:space-between;font-size:12px;font-weight:800;
+  text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.track{height:12px;background:#fff;border:2px solid var(--ink);border-radius:99px;overflow:hidden}
+.track i{display:block;height:100%;width:0;background:var(--purple);transition:width .25s}
+.btn{border:3px solid var(--ink);border-radius:11px;padding:10px 12px;font:900 12.5px/1 inherit;
+  cursor:pointer;background:var(--red);color:#fff;box-shadow:3px 3px 0 var(--ink);
+  text-transform:uppercase;letter-spacing:.04em}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.btn.ghost{background:#fff;color:var(--ink)}
+.btn.wide{width:100%;margin-top:9px}
+.main{padding:16px 20px 34px;min-width:0}
+.topbar{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.hamb{display:none;border:3px solid var(--ink);background:var(--yellow);border-radius:11px;
+  width:46px;height:46px;font-size:18px;font-weight:900;cursor:pointer;color:var(--ink);box-shadow:3px 3px 0 var(--ink)}
+#pageTitle{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.04em;
+  flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.page{display:none}
+.page.on{display:block;animation:pop .22s ease}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.hero{position:relative;overflow:hidden;background:var(--purple);border:3px solid var(--ink);
+  border-radius:20px;box-shadow:7px 7px 0 var(--ink);padding:24px 26px;color:#fff;
+  margin-bottom:20px;display:flex;gap:18px;align-items:center}
+.hero::before{content:"";position:absolute;inset:0;opacity:.28;
+  background:
+    repeating-linear-gradient(0deg,var(--pink) 0 1px,transparent 1px 24px),
+    repeating-linear-gradient(90deg,var(--pink) 0 1px,transparent 1px 24px)}
+.hero>*{position:relative;z-index:2}
+.hero .htext{flex:1;min-width:0}
+.hero h3{font:400 32px/1.1 "Arial Black","Avenir Next Heavy","Trebuchet MS",sans-serif;
+  text-transform:uppercase;color:var(--yellow);letter-spacing:.5px;
+  text-shadow:3.5px 3.5px 0 var(--ink)}
+.hero p{margin:9px 0 0;font-size:13.5px;color:#F4EBFF;max-width:60ch}
+.hero .pill{background:var(--yellow);color:var(--ink);border:2px solid var(--ink);
+  border-radius:99px;padding:5px 11px;font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin-right:6px}
+.mwrap{flex:0 0 auto;width:150px;height:150px;display:grid;place-items:center}
+.mascot{width:140px;height:140px;filter:drop-shadow(5px 5px 0 rgba(20,20,20,.35))}
+.kicker{display:inline-block;background:var(--ink);color:#fff;border-radius:9px;padding:4px 10px;
+  font-size:10.5px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin:0 0 9px}
+.lead{font-size:15.5px;font-weight:600;line-height:1.55;margin:8px 0 14px}
+.card{background:var(--cream);border:3px solid var(--ink);border-radius:16px;box-shadow:5px 5px 0 var(--ink);
+  padding:15px 17px;margin:14px 0}
+.card h3{font-size:15px;text-transform:uppercase;letter-spacing:.03em;margin-bottom:8px}
+.card table{border-collapse:collapse;width:100%}
+.card th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:#6B6250}
+.card td,.card th{padding:7px 9px;border-bottom:2px solid #E8DFC8;font-size:13px;vertical-align:top}
+.warn{background:var(--yellow);border:3px solid var(--ink);border-left-width:10px;border-radius:12px;
+  padding:11px 13px;font-size:13px;font-weight:600;margin:14px 0;box-shadow:4px 4px 0 var(--ink)}
+.minigrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:14px 0}
+.mini{background:#fff;border:3px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 var(--ink);padding:12px}
+.mini h5{font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.mini p{font-size:12.5px;margin:0;line-height:1.5}
+.ic{display:inline-grid;place-items:center;width:22px;height:22px;border:2px solid var(--ink);border-radius:7px;
+  background:var(--yellow);margin-right:6px;font-size:11px;font-weight:900}
+.sechead{display:flex;align-items:baseline;gap:10px;margin:20px 0 8px}
+.sechead h4{font-size:16px;text-transform:uppercase;letter-spacing:.03em}
+.why{display:flex;gap:8px;background:#EAF4FF;border:2.5px solid var(--ink);border-left-width:9px;
+  border-radius:12px;padding:10px 12px;font-size:12.5px;font-weight:600;margin:12px 0;line-height:1.5}
+.why b{text-transform:uppercase;letter-spacing:.03em}
+.mono{font-family:Consolas,"Cascadia Mono",monospace;font-weight:800}
+.big{font:900 26px/1 "Arial Black",sans-serif;color:var(--purple)}
+ol.steps{margin:8px 0 0;padding-left:20px}
+ol.steps li{font-size:13px;margin:5px 0}
+
+/* ---------- scratchblocks containers ---------- */
+.sbbox{background:#fff;border:3px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 var(--ink);
+  padding:12px;margin:10px 0;overflow-x:auto}
+.sbbox pre{margin:0}
+.sv{background:#F9F9F9;border:2px solid var(--ink);border-radius:14px;padding:10px;margin:10px 0;overflow-x:auto}
+.sv svg{display:block;max-width:100%;height:auto}
+
+/* ---------- editor mockup ---------- */
+.edwrap{background:#fff;border:3px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink);
+  padding:10px;margin:12px 0}
+.edbar{display:flex;align-items:center;gap:8px;background:#E6F0FF;border:2px solid var(--ink);border-radius:10px;
+  padding:6px 10px;margin-bottom:8px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}
+.edbar .dotrow{display:flex;gap:5px;margin-left:auto}
+.edbar .dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--ink)}
+.edgrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:10px}
+@media (max-width:760px){.edgrid{grid-template-columns:1fr}}
+.edstage{border:2px solid var(--ink);border-radius:10px;overflow:hidden}
+.edstage .sttop{display:flex;gap:8px;align-items:center;background:#fff;border-bottom:2px solid var(--ink);padding:5px 8px}
+.flagbtn{width:30px;height:26px;border:2px solid var(--ink);border-radius:7px;background:#fff;
+  display:grid;place-items:center;cursor:pointer}
+.flagbtn svg{width:17px;height:17px}
+.stopbtn{width:30px;height:26px;border:2px solid var(--ink);border-radius:7px;background:#fff;
+  display:grid;place-items:center}
+.stopbtn i{width:11px;height:11px;background:var(--red);border-radius:3px;display:block}
+.edstage .stbody{position:relative;aspect-ratio:4/3;background:#fff;
+  background-image:radial-gradient(#E4E4E4 1.2px,transparent 1.2px);background-size:22px 22px}
+.edstage .stbody canvas{position:absolute;inset:0;width:100%;height:100%}
+.sprow{display:flex;gap:7px;background:#fff;border:2px solid var(--ink);border-radius:10px;padding:6px;margin-top:8px}
+.sp{width:52px;height:52px;border:2px solid var(--ink);border-radius:9px;background:var(--cream);
+  display:grid;place-items:center;position:relative}
+.sp.sel{outline:3px solid var(--ctrl);outline-offset:2px}
+.sp .nm{position:absolute;bottom:-2px;left:0;right:0;font-size:8px;font-weight:900;text-align:center;background:#fff;
+  border:2px solid var(--ink);border-radius:0 0 7px 7px;padding:1px 0}
+.edpal{border:2px solid var(--ink);border-radius:10px;background:#fff;display:flex;flex-direction:column;min-height:0}
+.edpal .cats{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;padding:8px;border-bottom:2px solid var(--ink)}
+.cat{height:26px;border:2px solid var(--ink);border-radius:8px;display:grid;place-items:center;
+  font-size:9px;font-weight:900;color:#fff;text-transform:uppercase}
+.edpal .blocks{flex:1;padding:8px;overflow:auto;max-height:330px}
+.callout{display:flex;gap:8px;align-items:flex-start;background:var(--cream);border:2.5px solid var(--ink);
+  border-radius:11px;padding:8px 10px;margin:9px 0;font-size:12px;font-weight:600;line-height:1.45}
+.callout .cn{flex:0 0 auto;width:24px;height:24px;border:2px solid var(--ink);border-radius:50%;background:var(--red);
+  color:#fff;font:900 12px/1 inherit;display:grid;place-items:center}
+
+/* ---------- kamus blok ---------- */
+.blrow{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:12px;align-items:center;
+  border:2.5px solid var(--ink);border-radius:13px;background:#fff;padding:9px 12px;margin:8px 0;box-shadow:3px 3px 0 var(--ink)}
+@media (max-width:760px){.blrow{grid-template-columns:1fr}}
+.blrow .bvis{overflow-x:auto}
+.blrow .bvis pre{margin:0}
+.blrow .bexp{font-size:12.5px;line-height:1.5}
+.blrow .bexp .cat{display:inline-block;height:auto;padding:2px 7px;border-radius:6px;font-size:9px;margin-bottom:4px}
+.blrow .bexp b{text-transform:none}
+
+/* ---------- puzzle ---------- */
+.pz{position:relative;background:#fff;border:3px solid var(--ink);border-radius:16px;box-shadow:6px 6px 0 var(--ink);
+  padding:14px 16px;margin-bottom:16px}
+.pz.done{box-shadow:6px 6px 0 var(--green)}
+.pzhead{display:flex;align-items:center;gap:9px;margin-bottom:6px;flex-wrap:wrap}
+.pzhead h3{font-size:15px;font-weight:900;text-transform:uppercase}
+.pzgoal{font-size:13px;font-weight:600;margin:0 0 12px;line-height:1.5}
+.blank{border:2.5px solid var(--ink);border-radius:12px;background:var(--cream);padding:9px 11px;margin:9px 0}
+.blank .bq{font-size:12.5px;font-weight:800;margin-bottom:7px}
+.blank .cands{display:flex;gap:7px;flex-wrap:wrap}
+.cand{border:2.5px solid var(--ink);border-radius:10px;background:#fff;padding:7px 10px;font:800 12.5px/1.2 inherit;
+  cursor:pointer;box-shadow:2.5px 2.5px 0 var(--ink);display:flex;align-items:center;gap:5px}
+.cand:hover{transform:translate(-1px,-1px);box-shadow:3.5px 3.5px 0 var(--ink)}
+.cand:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--ink)}
+.cand.pick{background:var(--green);color:#fff}
+.pzbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.fb{display:none;font-size:12.5px;font-weight:600;border:2px dashed var(--ink);border-radius:12px;
+  padding:10px 11px;margin-top:10px;background:#fff;line-height:1.5}
+.fb.show{display:block}
+.fb.ok{background:#DFF7EA;border-color:var(--green);border-style:solid}
+.fb.bad{background:#FFE3DC;border-color:var(--red);border-style:solid}
+.fb.warn{background:#FFF3D6;border-color:#B98B00;border-style:solid}
+.shake{animation:shk .3s ease}
+@keyframes shk{0%,100%{transform:none}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.stamp{position:absolute;top:-13px;right:12px;transform:rotate(-6deg);background:var(--green);color:#fff;
+  border:3px solid var(--ink);border-radius:10px;padding:4px 10px;font:900 10.5px/1 inherit;
+  letter-spacing:.1em;text-transform:uppercase;box-shadow:2px 2px 0 var(--ink);display:none}
+.pz.done .stamp{display:block;animation:drop .3s ease}
+@keyframes drop{from{transform:rotate(-6deg) translateY(-10px);opacity:0}to{transform:rotate(-6deg);opacity:1}}
+.cvwrap{background:#fff;border:2.5px solid var(--ink);border-radius:12px;padding:6px;margin-top:10px}
+canvas{display:block;width:100%;height:auto;border-radius:8px;background:#FFFDF7}
+
+/* topes / wadah huruf */
+.wadah{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:14px 0}
+.tope{background:#fff;border:3px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 var(--ink);
+  padding:12px;text-align:center}
+.tope .jar{width:64px;height:64px;margin:0 auto 8px;border:3px solid var(--ink);border-radius:12px 12px 18px 18px;
+  background:var(--cream);display:grid;place-items:center;font:900 26px/1 "Arial Black",sans-serif;color:var(--purple)}
+.tope .nm{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}
+.tope .is{font-size:12px;margin-top:4px;color:#6B6250;font-weight:600}
+.demo{background:var(--cream);border:3px solid var(--ink);border-radius:14px;padding:13px;margin-top:12px}
+.demo .rowin{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}
+.field input{width:92px;font:800 16px/1 inherit;padding:10px;border:2.5px solid var(--ink);border-radius:9px;
+  background:#fff;color:var(--ink)}
+.arrowline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px;font-size:13px;font-weight:700}
+.chip{background:#fff;border:2.5px solid var(--ink);border-radius:9px;padding:5px 9px;font-weight:900;font-size:12.5px}
+.chip.hot{background:var(--green);color:#fff}
+.chip.cold{background:#EDE7D8}
+.scrim{display:none}
+@media (max-width:900px){
+  body{background:#FFF3D6}
+  .shell{margin:0;border-radius:0;border-width:0 0 3px;box-shadow:none;grid-template-columns:1fr}
+  .side{position:fixed;left:0;top:0;bottom:0;width:262px;z-index:30;transform:translateX(-103%);
+    transition:transform .22s ease;border-right:3px solid var(--ink);overflow:auto;box-shadow:none}
+  .side.open{transform:none;box-shadow:9px 0 0 var(--ink)}
+  .hamb{display:block}
+  .scrim.on{display:block;position:fixed;inset:0;background:rgba(20,20,20,.42);z-index:25}
+  .main{padding:14px 14px 30px}
+  .hero{padding:18px;box-shadow:5px 5px 0 var(--ink)}
+  .hero h3{font-size:22px;text-shadow:3px 3px 0 var(--ink)}
+  .mwrap{width:100px;height:100px}
+  .mascot{width:90px;height:90px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== Sitasi slide PPT + kartu kutipan (v6) ===== */
+.src{display:inline-flex;align-items:center;gap:6px;background:#EFE7FF;border:2.5px solid var(--ink);
+  border-radius:999px;padding:4px 12px;font-size:11px;font-weight:900;text-transform:uppercase;
+  letter-spacing:.05em;color:#3B1B85;box-shadow:3px 3px 0 var(--ink);margin:2px 0 12px}
+.slideq{background:#FFFDF5;border:2.5px dashed #B08D4F;border-radius:12px;padding:12px 14px;
+  font-size:13px;line-height:1.65;color:#3A3226;margin:12px 0}
+.slideq b{color:var(--ink)}
+.slideq .mono{background:#F0E9D8;padding:1px 5px;border-radius:5px;font-size:12px}
+.stepbox{background:#fff;border:2px solid var(--ink);border-radius:11px;padding:10px 12px;
+  font-size:13.5px;line-height:1.6;box-shadow:3px 3px 0 rgba(20,20,20,.12)}
+.stepbox b:first-child{display:inline-block;margin-bottom:2px}
+.stepbox code{background:#F1EDE0;border:1.5px solid #D9CFB4;border-radius:5px;padding:1px 5px;
+  font-family:Consolas,"Cascadia Mono",monospace;font-size:12px;font-weight:800}
+.ov{display:inline-block;background:var(--yellow);border:2px solid var(--ink);border-radius:50%;
+  padding:0 7px;font-weight:900;font-size:12px}
+/* peta slide */
+.smap{width:100%;border-collapse:collapse;font-size:12.5px;background:#fff}
+.smap th{background:var(--yellow);border:2.5px solid var(--ink);padding:7px 9px;text-align:left;
+  font-size:10.5px;text-transform:uppercase;letter-spacing:.06em}
+.smap td{border:2px solid var(--ink);padding:7px 9px;vertical-align:top;line-height:1.45}
+.smap td.n{font-weight:900;text-align:center;width:42px;background:var(--cream);font-size:14px}
+.smap tr.hl td{background:#EFE7FF}
+.smap code{font-family:Consolas,"Cascadia Mono",monospace;font-size:11.5px;font-weight:800;
+  background:#F1EDE0;border-radius:4px;padding:0 4px}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px}
+@media (max-width:600px){.smap{font-size:11.5px}.smap td,.smap th{padding:6px}}
+
+/* ==== PDM UTS · tambahan di atas part_css.css ==== */
+.shell{grid-template-columns:216px minmax(0,1fr) 272px}
+.main{padding:16px 20px 40px}
+.aside{padding:16px 14px;background:#fff;border-left:3px solid var(--ink);display:flex;flex-direction:column;gap:12px}
+.aside .blk{background:var(--cream);border:3px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 var(--ink);padding:11px 12px}
+.aside h4{font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:#6B6250;margin-bottom:7px}
+.aside .kv{display:flex;justify-content:space-between;gap:8px;font-size:12px;font-weight:700;padding:3px 0;border-bottom:1px dashed #D8CDB4}
+.aside .kv:last-child{border:0}
+.aside .kv span:last-child{font-weight:900;text-align:right}
+.aside .cheat{font-size:11.5px;font-weight:700;line-height:1.45;margin:0;padding-left:14px}
+.aside .cheat li{margin:3px 0}
+.hudrow{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.hudrow .chip{font-size:11px}
+
+/* kartu isi */
+.card{margin:12px 0}
+.card h3{display:flex;align-items:center;gap:7px}
+.card h3 .num{background:var(--ink);color:#fff;border-radius:7px;font-size:10px;padding:2px 6px;letter-spacing:.06em}
+pre.code{background:#fff;border:3px solid var(--ink);border-radius:12px;padding:10px 12px;margin:9px 0;
+  font:800 12.5px/1.5 Consolas,"Cascadia Mono",monospace;overflow-x:auto;white-space:pre;box-shadow:3px 3px 0 var(--ink)}
+p.one{font-size:14px;font-weight:600;margin:6px 0}
+ul.tight{margin:6px 0;padding-left:18px}
+ul.tight li{font-size:13.5px;font-weight:600;margin:4px 0}
+.warn{background:var(--yellow);border:3px solid var(--ink);border-left-width:10px;border-radius:12px;
+  padding:9px 12px;font-size:13px;font-weight:700;margin:11px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+table.tr{border-collapse:collapse;width:100%;font-size:12.5px;background:#fff;border:3px solid var(--ink);border-radius:10px;overflow:hidden}
+table.tr th{background:var(--ink);color:#fff;text-align:left;font-size:10px;letter-spacing:.07em;text-transform:uppercase;padding:6px 8px}
+table.tr td{padding:6px 8px;border-top:2px solid #EDE3CB;font-family:Consolas,monospace;font-weight:700}
+table.tr td.hl{background:#FFF3C9}
+
+/* drill */
+.drill{background:var(--cream);border:3px solid var(--ink);border-radius:18px;box-shadow:6px 6px 0 var(--ink);padding:15px 16px;margin:6px 0 14px}
+.drill.shake{animation:sh .3s}
+@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.dkick{display:inline-block;background:var(--ink);color:#fff;border-radius:8px;padding:3px 9px;
+  font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.dq{font-size:17px;font-weight:800;line-height:1.35;margin:0 0 9px}
+.dans{display:grid;gap:7px}
+.opt{border:3px solid var(--ink);border-radius:12px;background:#fff;box-shadow:3px 3px 0 var(--ink);
+  padding:10px 12px;font:800 13.5px/1.35 "Trebuchet MS";text-align:left;cursor:pointer;color:var(--ink)}
+.opt:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.opt.ok{background:#D9F5E4;border-color:var(--green)}
+.opt.no{background:#FFE1DC;border-color:var(--red)}
+input.fill{width:100%;border:3px solid var(--ink);border-radius:12px;padding:10px 12px;
+  font:900 16px Consolas,monospace;outline:0;background:#fff}
+input.fill:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(85,44,183,.18)}
+.done{display:none;text-align:center;padding:10px 0}
+.done.on{display:block}
+.big{font:900 34px/1 "Trebuchet MS";color:var(--purple);margin-bottom:6px}
+.hintbox{border:2.5px solid var(--ink);border-left-width:9px;border-radius:11px;padding:8px 11px;
+  font-size:13px;font-weight:700;margin-top:10px;background:#EAF4FF;border-color:var(--blue)}
+.hintbox.ok{background:#E8FBF0;border-color:var(--green)}
+.hintbox.bad{background:#FFF0ED;border-color:var(--red)}
+
+/* jalan keledai */
+.jk{display:grid;gap:9px;margin:10px 0}
+.jk .row{display:flex;gap:10px;align-items:flex-start;background:#fff;border:3px solid var(--ink);
+  border-radius:13px;box-shadow:4px 4px 0 var(--ink);padding:10px 12px}
+.jk .n{flex:0 0 26px;height:26px;border:2px solid var(--ink);border-radius:8px;background:var(--yellow);
+  display:grid;place-items:center;font-size:12px;font-weight:900}
+.jk b{display:block;font-size:13px;text-transform:uppercase;letter-spacing:.02em;margin-bottom:2px}
+.jk p{margin:0;font-size:12.5px;font-weight:600}
+
+/* drawer HP */
+.scrim{position:fixed;inset:0;background:rgba(20,20,20,.45);opacity:0;pointer-events:none;transition:.2s;z-index:40}
+.scrim.on{opacity:1;pointer-events:auto}
+@media(max-width:1080px){
+  .shell{grid-template-columns:216px minmax(0,1fr)}
+  .aside{position:fixed;top:0;right:0;bottom:0;width:280px;z-index:50;transform:translateX(105%);
+    transition:transform .22s;overflow:auto;box-shadow:-6px 0 0 rgba(20,20,20,.15)}
+  .aside.on{transform:none}
+  .hamb.info{display:block}
+}
+@media(max-width:860px){
+  body{padding:10px}
+  .shell{grid-template-columns:1fr;margin:10px auto;border-radius:18px;box-shadow:6px 6px 0 var(--ink)}
+  .side{position:fixed;top:0;left:0;bottom:0;width:264px;z-index:50;transform:translateX(-105%);
+    transition:transform .22s;border-right:3px solid var(--ink)}
+  .side.on{transform:none}
+  .hamb{display:block}
+  .hero{flex-direction:column;align-items:flex-start;padding:18px}
+  .hero h3{font-size:24px}
+  .mwrap{display:none}
+  .grid2{grid-template-columns:1fr}
+  .main{padding:12px 13px 34px}
+}
+
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="side" id="side">
+    <div class="brand">
+      <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
+        <rect x="3" y="3" width="58" height="58" rx="14" fill="#552CB7" stroke="#141414" stroke-width="4"/>
+        <path d="M18 44V20h10a8 8 0 0 1 0 16h-10" fill="none" stroke="#FFC567" stroke-width="5" stroke-linejoin="round"/>
+        <circle cx="45" cy="24" r="4" fill="#FD5A46" stroke="#141414" stroke-width="3"/>
+      </svg>
+      <div class="btext"><b>PDM UTS</b><span>31 Okt · 08.00</span></div>
+    </div>
+
+    <div class="cta">
+      <div class="tot"><span>Progress</span><span id="pct">0%</span></div>
+      <div class="track"><i id="track"></i></div>
+      <button class="btn wide" id="toDrill">Mulai drill →</button>
+    </div>
+
+    <nav class="navlist" id="navlist">
+      <a class="nav on" data-page="p0"><span class="ni">0</span><span class="nl">Jalan Keledai</span><span class="nc" id="c0">·</span></a>
+      <a class="nav" data-page="p1"><span class="ni">1</span><span class="nl">IPO &amp; Tipe Data</span><span class="nc" id="c1">·</span></a>
+      <a class="nav" data-page="p2"><span class="ni">2</span><span class="nl">Variabel &amp; Konstanta</span><span class="nc" id="c2">·</span></a>
+      <a class="nav" data-page="p3"><span class="ni">3</span><span class="nl">Decision &amp; Boolean</span><span class="nc" id="c3">·</span></a>
+      <a class="nav" data-page="p4"><span class="ni">4</span><span class="nl">Repetition &amp; Trace</span><span class="nc" id="c4">·</span></a>
+      <a class="nav" data-page="p5"><span class="ni">5</span><span class="nl">Function &amp; Parameter</span><span class="nc" id="c5">·</span></a>
+      <a class="nav" data-page="p6"><span class="ni">6</span><span class="nl">Validasi, File, Menu</span><span class="nc" id="c6">·</span></a>
+      <a class="nav" data-page="p7"><span class="ni">★</span><span class="nl">Drill 22 soal</span><span class="nc" id="c7">·</span></a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <button class="hamb" id="hamb" aria-label="Menu">☰</button>
+      <div id="pageTitle">Jalan Keledai</div>
+      <button class="hamb info" id="hambInfo" aria-label="Info" style="display:none">ⓘ</button>
+    </div>
+
+<section class="page on" id="p0">
+  <div class="hero">
+    <div class="htext">
+      <h3>UTS PDM<br>31 Oktober</h3>
+      <p><span class="pill">Sabtu</span><span class="pill">08.00–09.40</span><span class="pill">PASKAL-1104 · seat 20</span></p>
+      <p>100 menit, onsite. Pola soal: kasih pseudocode → trace, cari bug, atau tulis sendiri.</p>
+    </div>
+    <div class="mwrap">
+      <svg class="mascot" viewBox="0 0 120 120" aria-hidden="true">
+        <rect x="8" y="18" width="104" height="86" rx="14" fill="#FFC567" stroke="#141414" stroke-width="4"/>
+        <rect x="20" y="30" width="80" height="10" rx="5" fill="#141414"/>
+        <rect x="20" y="48" width="58" height="8" rx="4" fill="#141414" opacity=".55"/>
+        <rect x="20" y="63" width="68" height="8" rx="4" fill="#141414" opacity=".55"/>
+        <circle cx="96" cy="86" r="15" fill="#FD5A46" stroke="#141414" stroke-width="4"/>
+        <path d="M90 86l5 5 9-10" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <span class="kicker">Layar 0 · baca 60 detik</span>
+  <h2 style="font-size:20px;text-transform:uppercase;margin:4px 0 2px">Jalan keledai</h2>
+  <p class="one">Delapan trik yang bikin soal UTS kelar tanpa mikir lama.</p>
+
+  <div class="jk">
+    <div class="row"><span class="n">1</span><div><b>ID = String, bukan Integer</b><p>NIM, memberID, kode booking. Kalau Integer, nol depan hilang.</p></div></div>
+    <div class="row"><span class="n">2</span><div><b>Tarif = konstanta</b><p>Rate, denda, batas hari. Kata kunci <span class="mono">GLOBAL CONSTANT</span>.</p></div></div>
+    <div class="row"><span class="n">3</span><div><b>Trace: kondisi dulu, angka belakangan</b><p>Tulis TRUE/FALSE tiap IF/WHILE, baru isi nilai variabel.</p></div></div>
+    <div class="row"><span class="n">4</span><div><b>Cek batas &lt; vs &lt;=</b><p>count &lt; 4 = 3 putaran. count &lt;= 4 = 4 putaran. Ini jebakan favorit.</p></div></div>
+    <div class="row"><span class="n">5</span><div><b>Akumulator wajib total = total + x</b><p>Kalau total = x, nilai lama ketimpa. Jawaban jadi aneh.</p></div></div>
+    <div class="row"><span class="n">6</span><div><b>Boolean: kurung menang</b><p>Urutan NOT → AND → OR. Ada kurung, kerjain kurung dulu.</p></div></div>
+    <div class="row"><span class="n">7</span><div><b>Rata-rata: cek count &gt; 0</b><p>Bagi nol = crash. Selalu lindungi sebelum total/count.</p></div></div>
+    <div class="row"><span class="n">8</span><div><b>Value vs REF</b><p>Value = salinan (asli aman). REF = alias (asli berubah).</p></div></div>
+  </div>
+
+  <div class="warn">Scope: IPO, data type, variabel vs konstanta, decision + Boolean, repetition, function + validasi, file &amp; menu. UML di luar scope MID.</div>
+</section>
+
+<section class="page" id="p1">
+  <span class="kicker">Topik 1</span>
+  <h2 style="font-size:22px;text-transform:uppercase;margin:4px 0 8px">IPO &amp; Tipe Data</h2>
+
+  <div class="card">
+    <h3><span class="num">1A</span> IPO tiga baris</h3>
+    <pre class="code">INPUT  memberID, startHour, visitorCount
+PROCESS validasi 8 &lt;= startHour &lt;= 19
+        cek ketersediaan pod
+OUTPUT status diterima / ditolak, kode konfirmasi</pre>
+    <p class="one">Jawab pakai label INPUT / PROCESS / OUTPUT. Jangan narasi.</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="num">1B</span> Tipe data</h3>
+    <table class="tr">
+      <tr><th>Tipe</th><th>Buat apa</th><th>Contoh</th></tr>
+      <tr><td>Integer</td><td>bulat</td><td>10 jam, 2 orang</td></tr>
+      <tr><td>Real</td><td>desimal</td><td>6.5, 36.5</td></tr>
+      <tr><td>String</td><td>teks / ID</td><td>"00123"</td></tr>
+      <tr><td>Boolean</td><td>TRUE/FALSE</td><td>podAvailable</td></tr>
+    </table>
+    <div class="warn">ID selalu String. "00123" jadi Integer = 123, nol depannya hilang.</div>
+  </div>
+</section>
+
+<section class="page" id="p2">
+  <span class="kicker">Topik 2</span>
+  <h2 style="font-size:22px;text-transform:uppercase;margin:4px 0 8px">Variabel &amp; Konstanta</h2>
+
+  <div class="grid2">
+    <div class="card" style="margin:0"><h3>Variabel</h3><p class="one">Nilainya berubah: total, count, temperature, duration.</p></div>
+    <div class="card" style="margin:0"><h3>Konstanta</h3><p class="one">Nilai mati: HOURLY_RATE, tarif denda, batas 14 hari.</p></div>
+  </div>
+
+  <div class="card">
+    <h3><span class="num">2A</span> Format deklarasi dosen</h3>
+    <pre class="code">DECLARE GLOBAL CONSTANT Integer HOURLY_RATE = 12000
+DECLARE Real total
+DECLARE Integer count
+SET total = 0
+SET count = 1</pre>
+    <ul class="tight">
+      <li>Tipe di depan, nama di belakang.</li>
+      <li>Konstanta pakai <span class="mono">CONSTANT</span>, bukan <span class="mono">SET</span>.</li>
+      <li>Dipakai lintas modul → <span class="mono">GLOBAL</span>.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="page" id="p3">
+  <span class="kicker">Topik 3</span>
+  <h2 style="font-size:22px;text-transform:uppercase;margin:4px 0 8px">Decision &amp; Boolean</h2>
+
+  <div class="card">
+    <h3><span class="num">3A</span> Kombinasi Boolean</h3>
+    <pre class="code">IF cardValid AND (isStaff OR trainingDone)
+   AND NOT isRestricted THEN
+    DISPLAY "ALLOW"
+ELSE
+    DISPLAY "DENY"
+END IF</pre>
+    <p class="one">Urutan hitung: NOT → AND → OR. Kurung selalu menang.</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="num">3B</span> IF atau CASE?</h3>
+    <table class="tr">
+      <tr><th>Bentuk</th><th>Pakai kalau</th></tr>
+      <tr><td>IF / ELSE</td><td>kondisi benar-salah, kombinasi Boolean</td></tr>
+      <tr><td>CASE</td><td>pilih satu dari banyak kategori (menu 1–8)</td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="page" id="p4">
+  <span class="kicker">Topik 4</span>
+  <h2 style="font-size:22px;text-transform:uppercase;margin:4px 0 8px">Repetition &amp; Trace</h2>
+
+  <div class="card">
+    <h3><span class="num">4A</span> Pseudocode yang di-trace</h3>
+    <pre class="code">01 DECLARE Real total
+02 DECLARE Integer count
+03 SET total = 0
+04 SET count = 1
+05 WHILE count &lt;= 4 DO
+06     INPUT temperature
+07     SET total = total + temperature
+08     SET count = count + 1
+09 END WHILE
+10 DISPLAY total / 4</pre>
+    <p class="one">Input 20, 24, 26, 30. Isi tabelnya baris per baris:</p>
+    <table class="tr">
+      <tr><th>Baris</th><th>count</th><th>temp</th><th>total</th><th>Output</th></tr>
+      <tr><td>03–04</td><td>1</td><td>—</td><td>0</td><td>—</td></tr>
+      <tr><td>05–08</td><td>1</td><td>20</td><td>20</td><td>—</td></tr>
+      <tr><td>05–08</td><td>2</td><td>24</td><td>44</td><td>—</td></tr>
+      <tr><td>05–08</td><td>3</td><td>26</td><td>70</td><td>—</td></tr>
+      <tr><td>05–08</td><td>4</td><td>30</td><td class="hl">100</td><td>—</td></tr>
+      <tr><td>05</td><td>5</td><td>30</td><td>100</td><td>FALSE → stop</td></tr>
+      <tr><td>10</td><td>5</td><td>30</td><td>100</td><td class="hl">25</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3><span class="num">4B</span> Dua bug klasik</h3>
+    <div class="grid2">
+      <div class="mini"><h5>Salah</h5><p class="mono">SET total = temperature</p></div>
+      <div class="mini"><h5>Bener</h5><p class="mono">SET total = total + temperature</p></div>
+    </div>
+    <p class="one">Bug kedua: <span class="mono">count &lt; 4</span> cuma 3 putaran → harusnya <span class="mono">count &lt;= 4</span>.</p>
+  </div>
+</section>
+
+<section class="page" id="p5">
+  <span class="kicker">Topik 5</span>
+  <h2 style="font-size:22px;text-transform:uppercase;margin:4px 0 8px">Function &amp; Parameter</h2>
+
+  <div class="card">
+    <h3><span class="num">5A</span> Header fungsi</h3>
+    <pre class="code">FUNCTION Real CalculateRentalFee(Integer hoursRented)
+    IF hoursRented &lt;= 0 THEN
+        RETURN -1
+    END IF
+    RETURN hoursRented * HOURLY_RATE
+END FUNCTION
+
+MODULE Main()
+    DECLARE Integer duration
+    INPUT duration
+    DISPLAY CalculateRentalFee(duration)
+END MODULE</pre>
+    <ul class="tight">
+      <li>Return type di depan nama, tanpa <span class="mono">RETURNS</span> di belakang.</li>
+      <li><b>Formal parameter</b> = <span class="mono">hoursRented</span> (di header).</li>
+      <li><b>Actual argument</b> = <span class="mono">duration</span> (dikirim saat CALL).</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3><span class="num">5B</span> Value vs REF</h3>
+    <pre class="code">MODULE ChangeByReference(Integer REF number)
+    SET number = number + 5
+END MODULE</pre>
+    <table class="tr">
+      <tr><th>Kirim</th><th>Variabel asli</th></tr>
+      <tr><td>by value</td><td>tetap (salinan)</td></tr>
+      <tr><td>REF</td><td>ikut berubah (alias)</td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="page" id="p6">
+  <span class="kicker">Topik 6</span>
+  <h2 style="font-size:22px;text-transform:uppercase;margin:4px 0 8px">Validasi, File, Menu</h2>
+
+  <div class="card">
+    <h3><span class="num">6A</span> Loop validasi + sentinel</h3>
+    <pre class="code">INPUT humidity
+WHILE humidity &lt;&gt; -1 DO
+    IF humidity &lt; 0 OR humidity &gt; 100 THEN
+        DISPLAY "Invalid humidity"
+    ELSE
+        SET total = total + humidity
+        SET count = count + 1
+    END IF
+    INPUT humidity
+END WHILE
+
+IF count &gt; 0 THEN
+    DISPLAY total / count
+ELSE
+    DISPLAY "No readings"
+END IF</pre>
+    <ul class="tight">
+      <li>Data invalid jangan masuk total/count.</li>
+      <li>Sentinel (-1) penanda stop, bukan data.</li>
+      <li>Cek <span class="mono">count &gt; 0</span> sebelum bagi.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3><span class="num">6B</span> Menu pakai CASE</h3>
+    <pre class="code">DISPLAY "1. Borrow  2. Return  3. Report  0. Exit"
+INPUT choice
+CASE choice OF
+    1: CALL BorrowBook()
+    2: CALL ReturnBook()
+    3: CALL ShowReport()
+    0: DISPLAY "Bye"
+END CASE</pre>
+    <p class="one">Pola: tampil → input → validasi pilihan → panggil modul → balik ke menu.</p>
+  </div>
+</section>
+
+<section class="page" id="p7">
+  <span class="kicker">Layar 7 · drill</span>
+  <h2 style="font-size:22px;text-transform:uppercase;margin:4px 0 8px">22 soal dari mock test</h2>
+  <div class="hudrow">
+    <span class="chip" id="lives">❤❤❤</span>
+    <span class="chip hot" id="streak">🔥0</span>
+    <span class="chip" id="cnt">0/22</span>
+  </div>
+  <div class="track" style="margin-bottom:12px"><i id="dprog"></i></div>
+
+  <div class="drill" id="card">
+    <span class="dkick" id="topic">soal</span>
+    <p class="dq" id="dq"></p>
+    <div class="dans" id="dans"></div>
+    <div class="hintbox" id="dfb" style="display:none"></div>
+  </div>
+
+  <div class="done" id="ddone">
+    <div class="big" id="dscore">0/22</div>
+    <p class="one" id="dverdict"></p>
+    <p class="one" id="dweak" style="font-size:13px"></p>
+    <button class="btn" onclick="restartDrill()">Ulang dari awal</button>
+  </div>
+</section>
+
+
+  </main>
+  <aside class="aside" id="aside">
+    <div class="blk">
+      <h4>Ujian</h4>
+      <div class="kv"><span>Tanggal</span><span>Sabtu 31 Okt</span></div>
+      <div class="kv"><span>Jam</span><span>08.00–09.40</span></div>
+      <div class="kv"><span>Ruang</span><span>PASKAL-1104</span></div>
+      <div class="kv"><span>Seat</span><span>20</span></div>
+      <div class="kv"><span>Bobot</span><span>20% (MID)</span></div>
+      <div class="kv"><span>Waktu</span><span>100 menit</span></div>
+    </div>
+    <div class="blk">
+      <h4>Rumus cepat</h4>
+      <ul class="cheat">
+        <li>ID = <b>String</b></li>
+        <li>Tarif = <b>GLOBAL CONST</b></li>
+        <li>Trace: baris per baris</li>
+        <li><b>&lt; 4</b> (3x) vs <b>&lt;= 4</b> (4x)</li>
+        <li><b>total = total + x</b></li>
+        <li>NOT &gt; AND &gt; OR (kurung menang)</li>
+        <li>IF count &gt; 0 THEN total/count</li>
+        <li>REF = ubah di Main</li>
+      </ul>
+    </div>
+    <div class="blk">
+      <h4>Format dosen</h4>
+      <pre style="background:#fff;border:2px solid var(--ink);border-radius:8px;padding:6px;font:800 11px Consolas;margin:0">DECLARE Integer count
+FUNCTION Real Biaya(Int jam)</pre>
+    </div>
+  </aside>
+</div>
+<div class="scrim" id="scrim"></div>
+
+<script>
+const ITEMS = [
+ {id:1,t:"Data type",q:"memberID = \"00123\". Tipe yang benar?",type:"mc",p:["String — angka 0 di depan harus kejaga","Integer — kan isinya angka","Real — bisa desimal","Boolean — cuma 0/1"],a:["String — angka 0 di depan harus kejaga"],walk:"ID itu identifier, bukan kuantitas. \"00123\" jadi Integer = 123, nol depannya hilang.",tips:["Ini ID, bukan angka buat dihitung.","Kalau jadi Integer, nol di depan hilang.","Gunakan String."]},
+ {id:2,t:"Data type",q:"startHour = 10. Tipe paling tepat?",type:"mc",p:["Integer","Real","String","Boolean"],a:["Integer"],walk:"Jam 10 itu bilangan bulat. Real buat desimal (10.5), String buat teks, Boolean buat TRUE/FALSE.",tips:["Jamnya bulat, gak ada koma.","Bilangan bulat = Integer.","Integer."]},
+ {id:3,t:"Named constant",q:"HOURLY_RATE = 12000 dipakai semua kios. Deklarasi yang benar?",type:"mc",p:["DECLARE GLOBAL CONSTANT Integer HOURLY_RATE = 12000","DECLARE Integer HOURLY_RATE = 12000","SET HOURLY_RATE = 12000","CONSTANT HOURLY_RATE Integer"],a:["DECLARE GLOBAL CONSTANT Integer HOURLY_RATE = 12000"],walk:"Konstanta = nilai mati, gak boleh berubah. Tarif sama di semua kios → GLOBAL.",tips:["Dia konstanta, bukan variabel.","Kata kuncinya CONSTANT, dan dipakai lintas modul → GLOBAL.","DECLARE GLOBAL CONSTANT Integer HOURLY_RATE = 12000."]},
+ {id:4,t:"Hand tracing",q:"WHILE count < 4, count mulai 1. Berapa input yang diproses?",type:"mc",p:["3","4","5","Gak terbatas"],a:["3"],walk:"count 1,2,3 lolos; count 4 → 4 < 4 FALSE. Jadi cuma 3 putaran.",tips:["Coba hitung manual: 1<4? 2<4? 3<4? 4<4?","Yang terakhir FALSE, jadi gak masuk.","3 input."]},
+ {id:5,t:"Hand tracing",q:"Program 2A: input 20, 24, 26, 30. Cuma 20,24,26 yang kepakai, dan total = temperature (nimpa). Output DISPLAY total/4?",type:"mc",p:["6.5","25","26","20"],a:["6.5"],walk:"total akhir 26 (input terakhir yang kepakai). 26 / 4 = 6.5. Pembaginya tetap 4 walau cuma 3 input.",tips:["total isinya berapa di akhir?","total = 26, bukan jumlah.","26/4 = 6.5."]},
+ {id:6,t:"Debugging",q:"Kenapa total di program 2A salah?",type:"mc",p:["total = temperature menimpa nilai lama","total gak dideklarasikan","DISPLAY salah rumus","count gak naik"],a:["total = temperature menimpa nilai lama"],walk:"Harusnya total = total + temperature biar numpuk. Kalau total = temperature, nilai sebelumnya hilang tiap putaran.",tips:["Lihat baris SET total = temperature.","Nilai lama kehapus, bukan ditambah.","Pakai total = total + temperature."]},
+ {id:7,t:"Debugging",q:"Bug kedua di program 2A: WHILE count < 4 seharusnya?",type:"mc",p:["count <= 4","count > 4","count <> 4","gak perlu diubah"],a:["count <= 4"],walk:"count < 4 berhenti di 4, jadi cuma 3 putaran. <= 4 bikin 4 putaran sesuai jumlah data.",tips:["Hitung putarannya: 1,2,3 doang.","Batasnya harus ikut masuk.","count <= 4."]},
+ {id:8,t:"Hand tracing",q:"Setelah dibenerin, input 20,24,26,30. total akhir?",type:"fill",a:["100"],walk:"20 → 44 → 70 → 100. Numpuk, bukan nimpa.",tips:["Jumlahin keempatnya.","20+24=44, +26=70, +30=?","100."]},
+ {id:9,t:"Hand tracing",q:"total = 100, count berhenti di 5, DISPLAY total / 4. Output?",type:"fill",a:["25"],walk:"100 / 4 = 25. Pembagi tetap 4 (hardcoded di soal).",tips:["Totalnya 100.","Bagi 4.","25."]},
+ {id:10,t:"Boolean",q:"cardValid AND (isStaff OR trainingDone) AND NOT isRestricted. Kasus: T, F, T, T. Output?",type:"mc",p:["DENY","ALLOW"],a:["DENY"],walk:"T AND (F OR T)=T AND NOT T=F → FALSE semua → DENY. Kartu valid tapi ruangan restricted.",tips:["Hitung kurung dulu: F OR T = ?","Hasilnya T, tapi NOT isRestricted = FALSE.","DENY."]},
+ {id:11,t:"Boolean",q:"Kenapa (isStaff OR trainingDone) harus pakai kurung?",type:"mc",p:["Supaya OR dihitung duluan sebelum AND","Supaya lebih rapi aja","Supaya bisa jadi String","Gak ada efek apa-apa"],a:["Supaya OR dihitung duluan sebelum AND"],walk:"Tanpa kurung, AND dievaluasi dulu → hasilnya beda. Kurung = prioritas hitung.",tips:["Urutan operasi: kurung dulu.","AND lebih kuat dari OR.","Tanpa kurung, artinya jadi lain."]},
+ {id:12,t:"Function",q:"HOURLY_RATE = 12000. CalculateRentalFee(3). Return-nya?",type:"fill",a:["36000"],walk:"3 × 12000 = 36000.",tips:["3 jam × tarif.","12000 × 3.","36000."]},
+ {id:13,t:"Function",q:"Di Main ada variabel duration, di fungsi ada parameter hoursRented. duration disebut apa?",type:"mc",p:["Actual argument","Formal parameter","Return value","Konstanta"],a:["Actual argument"],walk:"Yang dikirim saat CALL = actual argument. Yang diterima di header fungsi = formal parameter.",tips:["Yang di dalam fungsi itu formal parameter.","Yang dikirim dari Main itu actual argument.","duration = actual argument."]},
+ {id:14,t:"Pass by value",q:"x = 10. CALL ChangeByValue(x) → number = number + 5. Setelah balik, x = ?",type:"fill",a:["10"],walk:"By value = salinan. number jadi 15 di dalam, x di Main tetap 10.",tips:["By value itu fotokopi.","Yang berubah cuma salinannya.","10."]},
+ {id:15,t:"Pass by reference",q:"y = 20. CALL ChangeByReference(y) → number = number + 5. Setelah balik, y = ?",type:"fill",a:["25"],walk:"REF = nunjuk variabel asli. number naik 5, y ikut jadi 25.",tips:["REF itu bukan salinan, tapi alias.","y kena efeknya langsung.","25."]},
+ {id:16,t:"Hand tracing",q:"a=4, b=7. CALL Update(a, b) dengan (Integer p, Integer REF q). Di dalam: p = p*2; q = q + p. DISPLAY p, q?",type:"mc",p:["8, 15","8, 11","4, 15","8, 7"],a:["8, 15"],walk:"p = 4*2 = 8. q = 7 + 8 = 15. q REF ke b, jadi b juga 15.",tips:["p dihitung dulu: 4×2.","q pakai p yang BARU (8), bukan 4.","8 dan 15."]},
+ {id:17,t:"Hand tracing",q:"Lanjutan soal tadi. Setelah balik ke Main, DISPLAY a, b?",type:"mc",p:["4, 15","8, 15","4, 7","8, 7"],a:["4, 15"],walk:"a by value → tetap 4. b REF → ikut berubah jadi 15.",tips:["a dikirim by value.","b dikirim REF.","4 dan 15."]},
+ {id:18,t:"Validation",q:"classifyHumidity: < 40 DRY, <= 75 NORMAL, else HUMID. Input 40 → ?",type:"mc",p:["NORMAL","DRY","HUMID","Invalid"],a:["NORMAL"],walk:"40 gak < 40, tapi <= 75 → NORMAL. Batas 40 masuk NORMAL.",tips:["40 < 40? Bukan.","Lanjut ke kondisi kedua: 40 <= 75?","NORMAL."]},
+ {id:19,t:"Validation",q:"classifyHumidity(76) → ?",type:"mc",p:["HUMID","NORMAL","DRY","Invalid"],a:["HUMID"],walk:"76 > 75, jadi masuk ELSE → HUMID.",tips:["Batas NORMAL sampai 75.","76 lewat batas.","HUMID."]},
+ {id:20,t:"Sentinel",q:"Greenhouse: valid 35, 38, 80; 120 ditolak; -1 stop. count dan total?",type:"mc",p:["count 3, total 153","count 4, total 273","count 3, total 273","count 4, total 153"],a:["count 3, total 153"],walk:"120 invalid → gak dihitung. -1 sentinel → stop, bukan data. 35+38+80 = 153.",tips:["Data invalid jangan dihitung.","-1 itu penanda stop, bukan nilai.","3 data, total 153."]},
+ {id:21,t:"Sentinel",q:"Lanjutan: dryCount = 2 (35 dan 38). Aksi akhir?",type:"mc",p:["CHECK IRRIGATION","CONTINUE MONITORING","No readings","Invalid zone"],a:["CHECK IRRIGATION"],walk:"Aturan: minimal 2 bacaan DRY → cek irigasi. Dua-duanya < 40, jadi kena.",tips:["Syaratnya dryCount >= 2.","dryCount = 2, jadi kepenuhan.","CHECK IRRIGATION."]},
+ {id:22,t:"Safe average",q:"count = 0 setelah loop. Apa yang harus dicek sebelum total / count?",type:"mc",p:["IF count > 0 dulu","Gak usah, langsung bagi","IF total > 0","Pakai count + 1"],a:["IF count > 0 dulu"],walk:"Bagi nol = error. Cek count > 0, kalau nol tampilkan \"No readings\".",tips:["Pembagi nol bikin program crash.","Yang dicek pembaginya, bukan totalnya.","IF count > 0."]}
+];
+
+function setupDrill() {
+  let idx = 0, lives = 3, streak = 0, right = 0, hint = 0;
+  const wrong = new Set();
+  const $ = s => document.querySelector(s);
+  const norm = s => String(s).toLowerCase().replace(/\s+/g, '').replace(',', '.');
+
+  function progress() {
+    const pct = Math.round(idx / ITEMS.length * 100);
+    $('#pct').textContent = pct + '%';
+    $('#track').style.width = pct + '%';
+  }
+  function finish() {
+    $('#card').style.display = 'none';
+    $('#ddone').classList.add('on');
+    $('#dprog').style.width = '100%';
+    $('#dscore').textContent = right + '/22';
+    const acc = Math.round(right / ITEMS.length * 100);
+    $('#dverdict').textContent = acc >= 85 ? 'Siap UTS.' : acc >= 60 ? 'Lumayan, ulang yang salah.' : 'Belum aman, ulang drill.';
+    $('#dweak').textContent = wrong.size ? 'Yang masih goyang: ' + [...wrong].join(', ') : 'Semua bersih.';
+    $('#c7').textContent = right + '/22';
+    progress();
+  }
+  function render() {
+    if (idx >= ITEMS.length) return finish();
+    const it = ITEMS[idx]; hint = 0;
+    $('#topic').textContent = it.t;
+    $('#dq').textContent = it.q;
+    $('#cnt').textContent = idx + '/22';
+    $('#dprog').style.width = (idx / ITEMS.length * 100) + '%';
+    $('#lives').textContent = '❤'.repeat(lives) + '🖤'.repeat(3-lives);
+    $('#streak').textContent = '🔥' + streak;
+    const fb = $('#dfb'); fb.style.display = 'none'; fb.className = 'hintbox'; fb.textContent = '';
+    const ans = $('#dans'); ans.innerHTML = '';
+    if (it.type === 'mc') {
+      it.p.forEach(opt => {
+        const b = document.createElement('button'); b.className = 'opt'; b.textContent = opt;
+        b.onclick = () => answer(b, opt === it.a[0]); ans.appendChild(b);
+      });
+    } else {
+      const inp = document.createElement('input'); inp.className = 'fill'; inp.inputMode = 'decimal'; inp.placeholder = 'jawaban…';
+      const check = () => answer(null, norm(inp.value) === norm(it.a[0]));
+      inp.onkeydown = e => { if (e.key === 'Enter') check(); };
+      const b = document.createElement('button'); b.className = 'btn'; b.textContent = 'Cek'; b.onclick = check;
+      ans.append(inp,b); setTimeout(() => inp.focus(), 50);
+    }
+  }
+  function answer(btn, ok) {
+    const it = ITEMS[idx], fb = $('#dfb');
+    if (ok) {
+      right++; streak++;
+      if (btn) btn.classList.add('ok');
+      fb.style.display = 'block'; fb.classList.add('ok');
+      fb.innerHTML = '✓ Bener. ' + it.walk;
+      document.querySelectorAll('.opt').forEach(b => b.disabled = true);
+      const check = document.querySelector('#dans .btn'); if (check) check.disabled = true;
+      setTimeout(() => { idx++; render(); }, 1200);
+    } else {
+      lives--; streak = 0; hint++; wrong.add(it.t);
+      if (btn) btn.classList.add('no');
+      if (lives <= 0) {
+        fb.style.display = 'block'; fb.className = 'hintbox bad'; fb.innerHTML = '💀 Nyawa habis. ' + it.walk;
+        setTimeout(() => { lives = 3; idx++; render(); }, 2200); return;
+      }
+      fb.style.display = 'block'; fb.className = 'hintbox';
+      if (hint >= 3) { fb.classList.add('ok'); fb.innerHTML = '<b>Jalan keledai:</b> ' + it.walk; }
+      else fb.textContent = 'Petunjuk ' + hint + ': ' + it.tips[hint-1];
+      $('#card').classList.add('shake'); setTimeout(() => $('#card').classList.remove('shake'), 320);
+      $('#lives').textContent = '❤'.repeat(lives) + '🖤'.repeat(3-lives);
+    }
+  }
+  window.restartDrill = () => {
+    idx=0; lives=3; streak=0; right=0; hint=0; wrong.clear();
+    $('#card').style.display='block'; $('#ddone').classList.remove('on'); render();
+  };
+  render();
+}
+
+function setupNavigation() {
+  const side=document.querySelector('#side'), aside=document.querySelector('#aside'), scrim=document.querySelector('#scrim');
+  const close=()=>{side.classList.remove('on');aside.classList.remove('on');scrim.classList.remove('on');};
+  document.querySelectorAll('.nav[data-page]').forEach(n=>n.addEventListener('click',()=>{
+    document.querySelectorAll('.nav').forEach(x=>x.classList.remove('on'));
+    n.classList.add('on');
+    document.querySelectorAll('.page').forEach(p=>p.classList.toggle('on',p.id===n.dataset.page));
+    document.querySelector('#pageTitle').textContent=n.querySelector('.nl').textContent;
+    close(); window.scrollTo({top:0,behavior:'smooth'});
+  }));
+  document.querySelector('#hamb').onclick=()=>{side.classList.toggle('on');scrim.classList.toggle('on');};
+  document.querySelector('#hambInfo').onclick=()=>{aside.classList.toggle('on');scrim.classList.toggle('on');};
+  document.querySelector('#toDrill').onclick=()=>document.querySelector('[data-page="p7"]').click();
+  scrim.onclick=close;
+}
+setupNavigation(); setupDrill();
+
+</script>
+</body>
+</html>
