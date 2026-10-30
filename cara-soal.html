@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Cara Ngerjain Tiap Soal · PDM UTS</title>
+<style>
+:root{
+  --ink:#1c2430; --soft:#4a5568; --red:#c0392b; --blue:#1f5fa8;
+  --paper:#fdfaf2; --edge:#cac3ad; --desk:#e5e1d4; --ok:#1e7a3c; --warn:#a8760f;
+  --code:#f4f6f8; --line:rgba(80,120,175,.16);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--desk);
+  background-image:radial-gradient(circle at 20% 0%,#f0ece0 0%,#d8d3c2 70%);
+  color:var(--ink);
+  font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,sans-serif;
+  font-size:15.5px; line-height:1.62; -webkit-font-smoothing:antialiased;
+  padding:0 12px 80px;
+}
+.nav{
+  position:sticky; top:0; z-index:30; display:flex; gap:7px; align-items:center;
+  overflow-x:auto; padding:10px 2px; margin-bottom:18px;
+  background:linear-gradient(to bottom,rgba(229,225,212,.97),rgba(229,225,212,.86));
+  backdrop-filter:blur(6px); border-bottom:1px solid rgba(160,152,128,.35);
+  scrollbar-width:none;
+}
+.nav::-webkit-scrollbar{display:none}
+.nav a{
+  flex:0 0 auto; text-decoration:none; font-size:12.5px; color:var(--soft);
+  border:1px solid var(--edge); background:rgba(253,250,242,.7);
+  padding:5px 11px; border-radius:99px; white-space:nowrap;
+}
+.nav a:hover{color:var(--ink); border-color:#a9a08a; background:#fffdf6}
+.nav .cnt{
+  flex:0 0 auto; margin-left:auto; font-size:12px; color:var(--soft);
+  font-variant-numeric:tabular-nums; padding-left:10px;
+}
+.sheet{
+  max-width:880px; margin:0 auto; background:var(--paper);
+  border:1px solid var(--edge); position:relative;
+  box-shadow:0 20px 44px -20px rgba(40,35,20,.4);
+  padding:36px 42px 70px;
+}
+.sheet:before{
+  content:""; position:absolute; left:28px; top:0; bottom:0; width:1px;
+  background:rgba(215,65,65,.32);
+}
+h1{font-size:26px; margin:0 0 6px; letter-spacing:-.3px; line-height:1.25}
+.lede{color:var(--soft); font-size:14px; margin:0 0 4px}
+.howto{
+  border:1px solid var(--line); background:#fffdf5; border-radius:8px;
+  padding:13px 16px; margin:20px 0 6px; font-size:13.5px; color:var(--soft);
+}
+.howto b{color:var(--ink)}
+.howto ol{margin:6px 0 0; padding-left:20px}
+.howto li{margin:2px 0}
+
+.bab{margin:44px 0 0; padding-top:6px; border-top:2px solid #e3ddc9}
+.bab-head{display:flex; gap:14px; align-items:flex-start; margin:18px 0 14px}
+.bab-head .n{
+  flex:0 0 auto; width:34px; height:34px; border-radius:50%;
+  background:var(--ink); color:var(--paper); font-size:15px; font-weight:700;
+  display:grid; place-items:center; margin-top:2px;
+}
+.bab-head h2{font-size:20px; margin:0; letter-spacing:-.2px}
+.bab-head .s{color:var(--soft); font-size:13px; margin:1px 0 0}
+
+.orig{
+  border-left:3px solid var(--blue); background:#eef4fb;
+  padding:12px 16px; border-radius:0 8px 8px 0; font-size:14px; margin:0 0 22px;
+}
+.orig .lbl{
+  display:block; font-size:10.5px; letter-spacing:1px; text-transform:uppercase;
+  color:var(--blue); font-weight:700; margin-bottom:5px;
+}
+.orig ul{margin:7px 0 0; padding-left:19px}
+.orig li{margin:2px 0}
+
+.step{margin:0 0 22px; padding-left:0}
+.step h3{
+  font-size:15px; margin:0 0 8px; display:flex; gap:9px; align-items:baseline;
+}
+.step h3 .i{
+  flex:0 0 auto; font-size:11px; font-weight:700; letter-spacing:.5px;
+  color:#fff; background:var(--blue); border-radius:4px; padding:2px 7px;
+  position:relative; top:-1px;
+}
+.step p{margin:0 0 9px}
+.step p:last-child{margin-bottom:0}
+
+pre.code{
+  background:var(--code); border:1px solid #dfe5ea; border-left:3px solid #b8c4ce;
+  border-radius:6px; padding:13px 15px; overflow-x:auto; margin:10px 0 12px;
+  font-family:"Cascadia Mono",Consolas,"Courier New",monospace;
+  font-size:12.8px; line-height:1.6; color:#22303c; white-space:pre; tab-size:2;
+}
+pre.code .kw{color:#8c2d6b; font-weight:600; font-style:normal}
+pre.code .ln{color:#9aa7b1; margin-right:9px; user-select:none}
+
+code{
+  font-family:"Cascadia Mono",Consolas,monospace; font-size:12.8px;
+  background:#eceff2; padding:1px 5px; border-radius:4px; color:#2a3742;
+}
+
+table.t{
+  width:100%; border-collapse:collapse; margin:10px 0 14px; font-size:13.2px;
+  background:#fffdf6;
+}
+table.t th{
+  text-align:left; font-size:10.5px; letter-spacing:.7px; text-transform:uppercase;
+  color:var(--soft); font-weight:700; padding:7px 9px;
+  border-bottom:1.5px solid #d8d2be; background:#f6f2e6;
+}
+table.t td{padding:6px 9px; border-bottom:1px solid #e8e3d4; vertical-align:top}
+table.t td.mono{font-family:Consolas,monospace; font-size:12.5px}
+table.t td.c{text-align:center; font-variant-numeric:tabular-nums}
+table.t tr.hl td{background:#fdf3d4}
+table.t tr.hl td:first-child{box-shadow:inset 3px 0 0 var(--warn)}
+table.t tr.stop td{background:#f7e6e3; color:#8a3227}
+
+.callout{
+  border:1px solid var(--line); border-left:3px solid var(--blue);
+  background:#f4f8fd; padding:12px 16px; border-radius:0 8px 8px 0;
+  margin:14px 0; font-size:13.8px;
+}
+.callout .lbl{
+  display:block; font-size:10.5px; letter-spacing:1px; text-transform:uppercase;
+  color:var(--blue); font-weight:700; margin-bottom:5px;
+}
+.callout.warn{border-left-color:var(--red); background:#fdf3f1}
+.callout.warn .lbl{color:var(--red)}
+
+.flow{
+  display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:12px 0;
+  font-size:12.8px;
+}
+.flow .box{
+  border:1px solid #c9d2da; background:#f7f9fb; border-radius:6px;
+  padding:7px 11px; font-family:Consolas,monospace; font-size:12.3px;
+}
+.flow .ar{color:var(--soft); font-weight:700}
+.flow .box.hi{border-color:var(--blue); background:#eaf2fc}
+
+.ruler{margin:12px 0 6px; border-radius:5px; overflow:hidden; display:flex; font-size:11px; font-weight:700; letter-spacing:.5px}
+.ruler span{padding:6px 0; text-align:center; color:#fff}
+.ruler .a{background:#7fa8c9; width:40%}
+.ruler .b{background:#8fae7c; width:35%}
+.ruler .c{background:#c98f6a; width:25%}
+.scale{display:flex; justify-content:space-between; font-size:11.5px; color:var(--soft); font-family:Consolas,monospace; margin-bottom:4px}
+
+.practice{
+  border:1.5px dashed #c3b48c; background:#fdf8e8; border-radius:9px;
+  padding:16px 18px; margin:20px 0 8px;
+}
+.practice .ph{
+  font-size:10.5px; letter-spacing:1.1px; text-transform:uppercase; font-weight:700;
+  color:#8a6d1f; margin-bottom:8px; display:flex; justify-content:space-between; gap:10px;
+}
+.practice .ph .pts{color:#a08a4a; font-weight:600; letter-spacing:.3px}
+.practice p{margin:0 0 9px}
+textarea{
+  width:100%; min-height:120px; resize:vertical; padding:11px 13px;
+  border:1px solid #cfc4a4; border-radius:6px; background:#fffdf6;
+  font-family:"Cascadia Mono",Consolas,monospace; font-size:12.8px; line-height:1.6;
+  color:var(--ink);
+}
+textarea:focus{outline:none; border-color:var(--blue)}
+input.chk{
+  border:0; border-bottom:1.5px solid #b9ab84; background:transparent;
+  font-family:Consolas,monospace; font-size:13px; color:var(--ink);
+  width:110px; padding:2px 4px; margin:0 3px;
+}
+input.chk:focus{outline:none; border-bottom-color:var(--blue); background:#fffdf6}
+input.chk.good{border-bottom-color:var(--ok); background:#eaf6ec; color:var(--ok); font-weight:700}
+input.chk.bad{border-bottom-color:var(--red); background:#fbeceb; color:var(--red)}
+.field{margin:7px 0; font-size:13.8px}
+.field .lab{color:var(--soft); font-size:12.5px; display:block; margin-bottom:2px}
+.row{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px}
+button{
+  font:inherit; font-size:13px; padding:7px 14px; border-radius:6px; cursor:pointer;
+  border:1px solid #b9ab84; background:#fffdf6; color:var(--ink); transition:.12s;
+}
+button:hover{background:#f6efd8; border-color:#9d8f68}
+button.pri{background:var(--ink); border-color:var(--ink); color:var(--paper); font-weight:600}
+button.pri:hover{background:#2b3646}
+button.gho{background:transparent}
+.pfb{font-size:13px; margin-top:10px; font-weight:600}
+.pfb.good{color:var(--ok)}
+.pfb.bad{color:var(--red)}
+.kws{margin-top:9px}
+.kw-chip{
+  display:inline-block; font-size:11.5px; padding:2px 8px; margin:3px 4px 0 0;
+  border-radius:99px; border:1px solid #d5cbaa; color:#8a8264;
+}
+.kw-chip.hit{background:#eaf6ec; border-color:#a9cbb1; color:var(--ok)}
+.ans{margin-top:14px; border-top:1px dashed #d5cbaa; padding-top:13px}
+.ans .albl{
+  font-size:10.5px; letter-spacing:1px; text-transform:uppercase; font-weight:700;
+  color:var(--blue); display:block; margin-bottom:6px;
+}
+.hide{display:none}
+.foot{
+  margin-top:46px; padding-top:14px; border-top:1px solid #e3ddc9;
+  font-size:12px; color:#8d8672; text-align:center;
+}
+@media(max-width:700px){
+  body{padding:0 8px 60px; font-size:15px}
+  .sheet{padding:24px 18px 50px}
+  .sheet:before{left:9px}
+  .bab-head h2{font-size:18px}
+  table.t{font-size:12.3px}
+  table.t th,table.t td{padding:5px 6px}
+  pre.code{font-size:11.8px; padding:11px 12px}
+  input.chk{width:88px}
+}
+@media print{
+  body{background:#fff;padding:0}
+  .nav{display:none}
+  .sheet{box-shadow:none;border:0;max-width:none;padding:0}
+  .ans{display:block!important}
+  .practice{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <a href="#b1">1 · IPO &amp; tipe data</a>
+  <a href="#b2">2 · tracing loop</a>
+  <a href="#b3">3 · boolean &amp; IF</a>
+  <a href="#b4">4 · fungsi &amp; parameter</a>
+  <a href="#b5">5 · sentinel</a>
+  <a href="#b6">6 · greenhouse</a>
+  <a href="#b7">7 · REF</a>
+  <a href="#cheat">cheat sheet</a>
+  <span class="cnt" id="cnt">0 / 7 latihan</span>
+</div>
+
+<div class="sheet">
+  <h1>Cara ngerjain tiap soal</h1>
+  <p class="lede">COMP6839031 · Program Design Methods · berdasarkan PDM Alternative B (kunci jawaban versi guru)</p>
+
+  <div class="howto">
+    <b>Cara pakai halaman ini:</b> tiap bab isinya sama urutannya.
+    <ol>
+      <li><b>Soal asli</b> — apa yang diminta di kertas ujian.</li>
+      <li><b>Cara ngerjain</b> — gua kerjain dari nol, langkah per langkah, sambil nunjukin potongan kodenya.</li>
+      <li><b>Polanya</b> — aturan yang bisa lu pakai buat soal lain yang mirip.</li>
+      <li><b>Latihan lu</b> — soal baru buatan gua. Kerjain dulu, baru buka kuncinya.</li>
+    </ol>
+  </div>
+
+  <!-- ================= BAB 1 ================= -->
+  <section class="bab" id="b1">
+    <div class="bab-head">
+      <div class="n">1</div>
+      <div><h2>Spesifikasi &amp; desain data</h2><p class="s">IPO, deklarasi, tipe data, test case · 15 poin</p></div>
+    </div>
+
+    <div class="orig">
+      <span class="lbl">soal asli · Q1</span>
+      Program reservasi pod. User mengetik <code>memberID</code>, jam mulai, dan jumlah pengunjung. Kalau pod masih kosong, program bikin kode konfirmasi.
+      <ul>
+        <li>(a) tulis IPO-nya</li>
+        <li>(b) deklarasi semua variabel + 2 assignment + jelasin kenapa memberID bukan Integer</li>
+        <li>(c) kasih 3 test case yang hasilnya beda-beda</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">1</span> Pisahin kalimat soal jadi 3 ember</h3>
+      <p>Jangan ngarang IPO. Baca soalnya, tarik kata kuncinya. Tiga pemicu yang selalu dipakai:</p>
+      <table class="t">
+        <tr><th>kata di soal</th><th>masuk ember</th><th>contoh dari soal ini</th></tr>
+        <tr><td>"user <b>mengetik</b>", "user <b>memasukkan</b>", "dibaca dari"</td><td><b>INPUT</b></td><td>memberID, jam mulai, jumlah pengunjung, status pod</td></tr>
+        <tr><td>"<b>validasi</b>", "<b>cek</b>", "<b>hitung</b>", "<b>bikin</b>"</td><td><b>PROCESS</b></td><td>cek 8 ≤ jam ≤ 19, cek 1 ≤ orang ≤ 3, cek pod kosong, bikin kode</td></tr>
+        <tr><td>"<b>menampilkan</b>", "muncul di layar", "pesan ke user"</td><td><b>OUTPUT</b></td><td>status diterima/ditolak, kode konfirmasi, jam mulai</td></tr>
+      </table>
+      <p>Catatan: <b>status pod</b> itu input juga, walaupun user gak ngetik. Datanya datang dari sistem, bukan dari orang.</p>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">2</span> Tulis IPO-nya polos</h3>
+      <p>Gak usah pakai kalimat panjang. Tiga baris, isinya variabel.</p>
+<pre class="code">INPUT   : memberID, startHour, visitorCount, podAvailable
+PROCESS : validasi 8 &lt;= startHour &lt;= 19
+          validasi 1 &lt;= visitorCount &lt;= 3
+          cek podAvailable
+          buat reservationCode
+OUTPUT  : confirmationMessage, reservationCode, startHour</pre>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">3</span> Tentukan tipe data pakai tabel pemicu</h3>
+      <p>Ini yang bikin nilai keluar. Hafalin 4 baris ini aja:</p>
+      <table class="t">
+        <tr><th>yang disimpan</th><th>tipe</th><th>contoh</th></tr>
+        <tr><td>kode, ID, nama, teks, status pesan</td><td class="mono">String</td><td class="mono">"00123" · "R001" · "Pending"</td></tr>
+        <tr><td>cacah bulat: orang, jam, jumlah, hitungan</td><td class="mono">Integer</td><td class="mono">2 · 10 · 4</td></tr>
+        <tr><td>uang, desimal, hasil pembagian</td><td class="mono">Real</td><td class="mono">36000.0 · 6.5 · 51.0</td></tr>
+        <tr><td>ya/tidak, benar/salah, tersedia/penuh</td><td class="mono">Boolean</td><td class="mono">TRUE · FALSE</td></tr>
+      </table>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">4</span> Baru tulis DECLARE + assignment</h3>
+      <p>Urutan wajib: <code>DECLARE Tipe nama</code>. Assignment pakai <code>SET nama = nilai</code>.</p>
+<pre class="code">01  DECLARE String memberID
+02  DECLARE Integer startHour
+03  DECLARE Integer visitorCount
+04  DECLARE Boolean podAvailable
+05  DECLARE String reservationCode
+06  DECLARE String confirmationMessage
+07  SET podAvailable = FALSE
+08  SET confirmationMessage = "Pending"</pre>
+      <p>Assignment itu <b>nilai awal</b>. Kenapa perlu? Biar variabelnya gak kosong waktu dipakai di IF. Kalau gak diisi, hasil ceknya gak bisa diprediksi.</p>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">5</span> Jawab "kenapa bukan Integer" pakai bukti, bukan alasan</h3>
+      <p>Ini pertanyaan 1 poin yang paling sering dijawab ngambang. Bandingin dua baris ini:</p>
+<pre class="code">"00123"  disimpan sebagai teks     -&gt; 00123   (5 karakter, nol depan utuh)
+ 00123   disimpan sebagai Integer   -&gt;   123   (3 digit, nol depan hilang)</pre>
+      <p>Kesimpulan yang ditulis di kertas: <i>memberID itu identifier, bukan kuantitas. Gak pernah dijumlah atau dikali. Kalau pakai Integer, nol di depan hilang dan ID-nya berubah jadi ID lain.</i></p>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">6</span> Test case: 3 baris, 3 cabang beda</h3>
+      <p>Test case yang bener bukan "input bagus, input bagus, input bagus". Harus nyentuh cabang yang beda.</p>
+      <table class="t">
+        <tr><th>#</th><th>input</th><th>yang diuji</th><th>hasil</th></tr>
+        <tr><td class="c">1</td><td class="mono">"00123", 10, 2, TRUE</td><td>jalur normal</td><td>Confirmed, R001</td></tr>
+        <tr><td class="c">2</td><td class="mono">"00123", 21, 2, TRUE</td><td>jam di luar 8–19</td><td>Rejected: invalid hour</td></tr>
+        <tr><td class="c">3</td><td class="mono">"00123", 11, 2, FALSE</td><td>pod udah dipakai</td><td>Rejected: pod unavailable</td></tr>
+      </table>
+    </div>
+
+    <div class="callout">
+      <span class="lbl">polanya</span>
+      Cari kata <b>mengetik</b> → INPUT. Cari kata <b>menampilkan</b> → OUTPUT. Sisanya PROCESS.
+      Tipe data: teks→String, cacah→Integer, uang/desimal→Real, ya-tidak→Boolean.
+      Test case minimal 1 normal + 1 invalid + 1 kondisi gagal.
+    </div>
+
+    <div class="practice" data-id="p1">
+      <div class="ph"><span>latihan lu · bab 1</span><span class="pts">baru, bukan dari dokumen</span></div>
+      <p>Mesin vending kampus. Mahasiswa mengetik <code>studentID</code>, <code>productCode</code> (misal "A1"), dan <code>quantity</code>. Program cek stok produk, cek saldo mahasiswa, hitung total harga, lalu menampilkan status berhasil/gagal, nama produk, dan sisa saldo.</p>
+      <p>Tulis: (a) IPO-nya, (b) deklarasi 6 variabel dengan tipe yang bener, (c) 3 test case.</p>
+      <textarea data-kw="studentid|productcode|quantity|stock|balance|totalprice|remainingbalance|string|integer|boolean|real"></textarea>
+      <div class="kws"></div>
+      <div class="row">
+        <button class="pri" data-act="kw">cek kata kunci</button>
+        <button data-act="reveal">lihat cara ngerjain</button>
+      </div>
+      <div class="pfb"></div>
+      <div class="ans hide">
+        <span class="albl">kunci</span>
+<pre class="code">(a) IPO
+INPUT   : studentID, productCode, quantity
+PROCESS : cek stock &gt;= quantity
+          cek balance &gt;= quantity * unitPrice
+          totalPrice = quantity * unitPrice
+          balance = balance - totalPrice
+          stock = stock - quantity
+OUTPUT  : status, productName, remainingBalance
+
+(b) deklarasi
+DECLARE String studentID
+DECLARE String productCode
+DECLARE Integer quantity
+DECLARE Integer stock
+DECLARE Real balance
+DECLARE Real totalPrice
+DECLARE Real remainingBalance
+DECLARE Boolean isAvailable
+DECLARE String status
+
+(c) test case
+1. "3001", "A1", 2   -> stok cukup, saldo cukup -> Berhasil, sisa saldo
+2. "3001", "A1", 99  -> stok kurang           -> Gagal: stok habis
+3. "3001", "A1", 2   -> saldo kurang          -> Gagal: saldo tidak cukup</pre>
+        <p style="margin-top:10px"><b>Yang dinilai di ujian:</b> tipe data harus pas (saldo = Real, quantity = Integer), dan tiap test case harus jatuh di cabang yang beda. Tiga kasus "berhasil" cuma dapet 1 poin.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BAB 2 ================= -->
+  <section class="bab" id="b2">
+    <div class="bab-head">
+      <div class="n">2</div>
+      <div><h2>Tracing loop + cari bug</h2><p class="s">soal paling sering keluar, dan paling sering salah</p></div>
+    </div>
+
+    <div class="orig">
+      <span class="lbl">soal asli · Q2</span>
+      Program ini harusnya baca <b>empat</b> suhu lalu tampilkan rata-ratanya. Tapi ada dua kesalahan di dalamnya.
+      <ul>
+        <li>(a) trace program aslinya, outputnya apa</li>
+        <li>(b) sebutin dua errornya + tulis versi yang bener</li>
+        <li>(c) boleh gak pakai FOR?</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">1</span> Bikin tabel trace DULU, jangan langsung jalanin di kepala</h3>
+      <p>Kepala manusia gak bisa nyimpen 4 variabel sekaligus. Jadi siapin kolomnya dulu — kolom = variabel yang berubah + satu kolom output.</p>
+      <table class="t">
+        <tr><th>baris</th><th>aksi / kondisi</th><th class="c">count</th><th class="c">temperature</th><th class="c">total</th><th class="c">output</th></tr>
+        <tr><td colspan="6" style="color:#9a927c; text-align:center">diisi sambil jalan →</td></tr>
+      </table>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">2</span> Jalanin baris per baris</h3>
+      <p>Program aslinya (yang masih salah), nomor barisnya sama kayak di dokumen soal:</p>
+<pre class="code">01  DECLARE Real total
+02  DECLARE Integer count
+03  DECLARE Real temperature
+04  SET total = 0
+05  SET count = 1
+06  WHILE count &lt; 4 DO
+07      INPUT temperature
+08      SET total = temperature
+09      SET count = count + 1
+10  END WHILE
+11  DISPLAY total / 4</pre>
+      <p>Input yang diketik: <b>20, 24, 26, 30</b>. Sekarang isi tabelnya:</p>
+      <table class="t">
+        <tr><th>baris</th><th>aksi / kondisi</th><th class="c">count</th><th class="c">temperature</th><th class="c">total</th><th class="c">output</th></tr>
+        <tr><td class="mono">04–05</td><td>SET awal</td><td class="c">1</td><td class="c">—</td><td class="c">0</td><td class="c">—</td></tr>
+        <tr><td class="mono">06</td><td>1 &lt; 4 → TRUE</td><td class="c">1</td><td class="c">—</td><td class="c">0</td><td class="c">—</td></tr>
+        <tr><td class="mono">07</td><td>INPUT 20</td><td class="c">1</td><td class="c">20</td><td class="c">0</td><td class="c">—</td></tr>
+        <tr class="hl"><td class="mono">08</td><td>total = 20 <b>(nimpa)</b></td><td class="c">1</td><td class="c">20</td><td class="c">20</td><td class="c">—</td></tr>
+        <tr><td class="mono">09</td><td>count + 1</td><td class="c">2</td><td class="c">20</td><td class="c">20</td><td class="c">—</td></tr>
+        <tr><td class="mono">06</td><td>2 &lt; 4 → TRUE</td><td class="c">2</td><td class="c">20</td><td class="c">20</td><td class="c">—</td></tr>
+        <tr><td class="mono">07–09</td><td>INPUT 24, nimpa, count++</td><td class="c">3</td><td class="c">24</td><td class="c">24</td><td class="c">—</td></tr>
+        <tr><td class="mono">06</td><td>3 &lt; 4 → TRUE</td><td class="c">3</td><td class="c">24</td><td class="c">24</td><td class="c">—</td></tr>
+        <tr><td class="mono">07–09</td><td>INPUT 26, nimpa, count++</td><td class="c">4</td><td class="c">26</td><td class="c">26</td><td class="c">—</td></tr>
+        <tr><td class="mono">06</td><td>4 &lt; 4 → <b>FALSE</b>, loop berhenti</td><td class="c">4</td><td class="c">26</td><td class="c">26</td><td class="c">—</td></tr>
+        <tr class="hl"><td class="mono">11</td><td>DISPLAY 26 / 4</td><td class="c">4</td><td class="c">26</td><td class="c">26</td><td class="c"><b>6.5</b></td></tr>
+      </table>
+      <p><b>Outputnya 6.5.</b> Angka 30 gak pernah kebaca, karena loop udah berhenti di count 4.</p>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">3</span> Tiga pertanyaan diagnosis — ini inti bab ini</h3>
+      <p>Kalau lu cuma ngafalin "outputnya 6.5", lu bakal mati di soal lain. Yang harus lu bawa pulang itu <b>cara nemuin bug</b>. Tiga pertanyaan, urutannya selalu sama:</p>
+      <table class="t">
+        <tr><th>pertanyaan</th><th>cara cek</th><th>jawaban di soal ini</th><th>artinya</th></tr>
+        <tr><td><b>1.</b> Loop jalan berapa kali?</td><td>hitung berapa INPUT yang kebaca</td><td>3 kali (20, 24, 26)</td><td>padahal butuh 4 → <b>kondisinya salah</b></td></tr>
+        <tr><td><b>2.</b> Nilai akhir variabelnya berapa?</td><td>lihat kolom total di baris terakhir</td><td>26, bukan 100</td><td>cuma nyimpen input terakhir → <b>akumulasinya salah</b></td></tr>
+        <tr><td><b>3.</b> Hasilnya masuk akal?</td><td>bandingin sama perkiraan kasar</td><td>rata-rata data 20–30 masak 6.5</td><td>mustahil → pasti ada bug</td></tr>
+      </table>
+      <p>Pertanyaan ke-3 itu yang paling sering nyelametin. Rata-rata dari angka 20-an gak mungkin 6.5. Kalau hasil akhirnya aneh, berarti cara ngitungnya rusak, bukan datanya.</p>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">4</span> Perbaiki: dua baris doang</h3>
+      <p>Bug-nya cuma di dua baris. Bandingin:</p>
+<pre class="code">SALAH                                  BENER
+06  WHILE count &lt; 4 DO                  06  WHILE count &lt;= 4 DO
+08  SET total = temperature             08  SET total = total + temperature</pre>
+      <p>Kenapa? <code>count</code> mulai dari 1, jadi <code>count &lt; 4</code> cuma ngasih 1, 2, 3. Mau empat kali, batasnya harus <code>&lt;= 4</code>.
+      Dan <code>total = temperature</code> itu <b>nimpa</b> — nilai lama dibuang. Yang numpuk itu <code>total = total + temperature</code>.</p>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">5</span> Trace ulang versi bener (wajib, buat bukti)</h3>
+      <p>Jangan cuma nulis kode bener terus selesai. Ujian minta bukti outputnya. Trace-nya sekarang pendek karena totalnya numpuk:</p>
+      <table class="t">
+        <tr><th>putaran</th><th class="c">count</th><th class="c">temperature</th><th class="c">total (numpuk)</th></tr>
+        <tr><td>1</td><td class="c">1</td><td class="c">20</td><td class="c">0 + 20 = 20</td></tr>
+        <tr><td>2</td><td class="c">2</td><td class="c">24</td><td class="c">20 + 24 = 44</td></tr>
+        <tr><td>3</td><td class="c">3</td><td class="c">26</td><td class="c">44 + 26 = 70</td></tr>
+        <tr><td>4</td><td class="c">4</td><td class="c">30</td><td class="c">70 + 30 = 100</td></tr>
+        <tr class="hl"><td>selesai</td><td class="c">5</td><td class="c">—</td><td class="c">100 → DISPLAY 100 / 4 = <b>25</b></td></tr>
+      </table>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">6</span> Versi FOR (jawaban poin (c))</h3>
+<pre class="code">SET total = 0
+FOR count = 1 TO 4 DO
+    INPUT temperature
+    SET total = total + temperature
+END FOR
+DISPLAY total / 4</pre>
+      <p>Lebih pendek, dan hitungan putarannya otomatis bener. Tapi kalau soal minta WHILE, ya jawab WHILE — jangan ganti bentuk sendiri.</p>
+    </div>
+
+    <div class="callout warn">
+      <span class="lbl">jebakan yang bikin nilai 0</span>
+      Jangan pernah nulis "outputnya 6.5 karena 26 dibagi 4" tanpa tabel. Yang dinilai itu <b>tabel trace-nya</b> (6 poin), bukan angka akhirnya. Angka doang = 1 poin.
+    </div>
+
+    <div class="callout">
+      <span class="lbl">polanya</span>
+      Dua bug klasik di soal loop: <b>(1)</b> <code>count &lt; n</code> padahal harusnya <code>count &lt;= n</code> — kurang satu putaran.
+      <b>(2)</b> <code>total = x</code> padahal harusnya <code>total = total + x</code> — nimpa, bukan numpuk.
+      Cek pakai 3 pertanyaan: jumlah putaran, nilai akhir, masuk akal gak.
+    </div>
+
+    <div class="practice" data-id="p2">
+      <div class="ph"><span>latihan lu · bab 2</span><span class="pts">hati-hati, jangan asal tuduh</span></div>
+      <p>Kasir koperasi kampus. Program harusnya jumlahin harga 5 barang:</p>
+<pre class="code">SET total = 0
+SET i = 0
+WHILE i &lt; 5 DO
+    INPUT price
+    SET total = price
+    SET i = i + 1
+END WHILE
+DISPLAY total</pre>
+      <p>Input berturut-turut: <b>10, 20, 30, 40, 50</b>.</p>
+      <div class="field"><span class="lab">(a) output program di atas</span><input class="chk" data-a="50" placeholder="..."></div>
+      <div class="field"><span class="lab">(b) berapa kali loop jalan (berapa input kebaca)?</span><input class="chk" data-a="5|lima" placeholder="..."></div>
+      <div class="field"><span class="lab">(c) kalau <code>SET total = price</code> dibenerin jadi <code>SET total = total + price</code>, outputnya jadi berapa?</span><input class="chk" data-a="150" placeholder="..."></div>
+      <div class="row">
+        <button class="pri" data-act="check">cek jawaban</button>
+        <button data-act="reveal">lihat cara ngerjain</button>
+      </div>
+      <div class="pfb"></div>
+      <div class="ans hide">
+        <span class="albl">cara ngerjain</span>
+        <p>Trace dulu. <code>i</code> mulai 0, kondisi <code>i &lt; 5</code>:</p>
+        <table class="t">
+          <tr><th>putaran</th><th class="c">i sebelum</th><th class="c">i &lt; 5?</th><th class="c">price</th><th class="c">total</th></tr>
+          <tr><td>1</td><td class="c">0</td><td class="c">TRUE</td><td class="c">10</td><td class="c">10</td></tr>
+          <tr><td>2</td><td class="c">1</td><td class="c">TRUE</td><td class="c">20</td><td class="c">20</td></tr>
+          <tr><td>3</td><td class="c">2</td><td class="c">TRUE</td><td class="c">30</td><td class="c">30</td></tr>
+          <tr><td>4</td><td class="c">3</td><td class="c">TRUE</td><td class="c">40</td><td class="c">40</td></tr>
+          <tr><td>5</td><td class="c">4</td><td class="c">TRUE</td><td class="c">50</td><td class="c">50</td></tr>
+          <tr><td>—</td><td class="c">5</td><td class="c">FALSE</td><td class="c">—</td><td class="c">50</td></tr>
+        </table>
+        <p><b>(a) 50.</b> <b>(b) 5 kali</b> — di sini kondisinya justru <b>bener</b>, karena <code>i</code> mulai dari 0, bukan 1. Ini beda sama soal asli yang <code>count</code>-nya mulai dari 1.</p>
+        <p>Jadi cuma ada <b>satu</b> bug di program ini: <code>total = price</code>. Kalau lu nulis "kondisinya juga salah", itu salah tuduh.</p>
+        <p><b>(c) 10+20+30+40+50 = 150.</b></p>
+        <p><b>Pelajaran:</b> nilai awal counter nentuin arti kondisinya. <code>i</code> mulai 0 → <code>i &lt; 5</code> = 5 putaran. <code>count</code> mulai 1 → <code>count &lt; 5</code> = 4 putaran.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BAB 3 ================= -->
+  <section class="bab" id="b3">
+    <div class="bab-head">
+      <div class="n">3</div>
+      <div><h2>Boolean &amp; struktur IF</h2><p class="s">kombinasi AND / OR / NOT, dan kenapa kurung menentukan segalanya</p></div>
+    </div>
+
+    <div class="orig">
+      <span class="lbl">soal asli · Q3</span>
+      Akses ruangan: kartu valid, orangnya staff <b>atau</b> udah training, dan ruangan <b>gak</b> sedang dikunci.
+      <ul>
+        <li>(a) tentuin ALLOW / DENY buat 4 kasus</li>
+        <li>(b) tulis ekspresi boolean-nya (pakai kurung)</li>
+        <li>(c) tulis IF/ELSE-nya, dan apakah wajib pakai CASE?</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">1</span> Pecah ekspresi panjang jadi potongan kecil</h3>
+      <p>Jangan evaluasi 4 variabel sekaligus. Bikin kolom antara buat tiap potongan:</p>
+<pre class="code">cardValid AND (isStaff OR trainingDone) AND NOT isRestricted
+                └────── potongan A ──────┘      └── potongan B ──┘</pre>
+      <p>Potongan A = "staff atau udah training". Potongan B = "ruangan gak dikunci". Baru hasil akhirnya: kartu valid AND A AND B.</p>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">2</span> Isi tabel kasusnya</h3>
+      <p>Ini yang dikumpulin di kertas. Perhatiin dua kolom tengah — itu jembatan biar gak salah:</p>
+      <table class="t">
+        <tr><th>kasus</th><th class="c">cardValid</th><th class="c">isStaff</th><th class="c">trainingDone</th><th class="c">isRestricted</th><th class="c">A: staff OR trained</th><th class="c">B: NOT restricted</th><th class="c">output</th></tr>
+        <tr><td class="c">i</td><td class="c">T</td><td class="c">T</td><td class="c">F</td><td class="c">F</td><td class="c">T</td><td class="c">T</td><td><b>ALLOW</b></td></tr>
+        <tr><td class="c">ii</td><td class="c">T</td><td class="c">F</td><td class="c">T</td><td class="c">T</td><td class="c">T</td><td class="c">F</td><td><b>DENY</b></td></tr>
+        <tr><td class="c">iii</td><td class="c">F</td><td class="c">T</td><td class="c">T</td><td class="c">F</td><td class="c">T</td><td class="c">T</td><td><b>DENY</b></td></tr>
+        <tr><td class="c">iv</td><td class="c">T</td><td class="c">F</td><td class="c">T</td><td class="c">F</td><td class="c">T</td><td class="c">T</td><td><b>ALLOW</b></td></tr>
+      </table>
+      <p>Kasus iii itu jebakan favorit: staff, udah training, ruangan kebuka — tapi kartunya <b>gak valid</b>. Satu FALSE di rangkaian AND langsung bikin semuanya FALSE.</p>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">3</span> Kenapa kurung penting (ini poin (b), 4 poin)</h3>
+      <p>Tanpa kurung, komputer ngikutin urutan: <b>NOT dulu, terus AND, terakhir OR</b>. Jadi artinya berubah. Buktiin pakai kasus ii:</p>
+<pre class="code">tanpa kurung:
+cardValid AND isStaff OR trainingDone AND NOT isRestricted
+  T    AND    F    OR     T     AND  (NOT T)
+       F          OR           T AND F
+       F          OR              F      -&gt; hmm, ikut urutan AND dulu:
+
+  (T AND F) OR (T AND NOT T)
+      F     OR      F        = FALSE  -&gt; DENY
+
+dengan kurung:
+T AND (F OR T) AND NOT T
+T AND    T     AND   F       = FALSE  -&gt; DENY</pre>
+      <p>Nah di kasus ii hasilnya kebetulan sama. Yang bikin beda itu kasus lain — coba <code>cardValid=T, isStaff=F, trainingDone=T, isRestricted=T</code> di dua versi yang beda susunannya:</p>
+      <table class="t">
+        <tr><th>versi</th><th>hitungan</th><th>hasil</th></tr>
+        <tr><td class="mono">cardValid AND isStaff OR trainingDone AND NOT isRestricted</td><td class="mono">(T AND F) OR (T AND F) = F OR F</td><td><b>DENY</b></td></tr>
+        <tr><td class="mono">cardValid AND (isStaff OR trainingDone) AND NOT isRestricted</td><td class="mono">T AND (F OR T) AND F = T AND T AND F</td><td><b>DENY</b></td></tr>
+      </table>
+      <p>Yang bener-bener beda: <code>cardValid=T, isStaff=F, trainingDone=T, isRestricted=F</code>.</p>
+      <table class="t">
+        <tr><th>versi</th><th>hitungan</th><th>hasil</th></tr>
+        <tr><td class="mono">tanpa kurung</td><td class="mono">(T AND F) OR (T AND T) = F OR T</td><td><b>ALLOW</b> ← salah, dia bukan staff</td></tr>
+        <tr class="hl"><td class="mono">dengan kurung</td><td class="mono">T AND (F OR T) AND T = T AND T AND T</td><td><b>ALLOW</b> ← bener, dia udah training</td></tr>
+      </table>
+      <p>Intinya: <b>selalu tandai kurung di ekspresi campuran AND + OR</b>. Kalau lu tulis tanpa kurung, lu nebak-nebakan, dan yang dinilai cuma 1 dari 4 poin.</p>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">4</span> Tulis IF/ELSE-nya</h3>
+<pre class="code">IF cardValid AND (isStaff OR trainingDone) AND NOT isRestricted THEN
+    DISPLAY "ALLOW"
+ELSE
+    DISPLAY "DENY"
+END IF</pre>
+      <p>Satu blok doang. Gak usah ada ELSE IF, karena hasilnya cuma dua: boleh atau gak.</p>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">5</span> Kapan CASE, kapan IF (jawaban poin (c))</h3>
+      <p>Ini pertanyaan konsep. Aturannya simpel:</p>
+      <table class="t">
+        <tr><th>pakai</th><th>kalau yang dipilih...</th><th>contoh</th></tr>
+        <tr><td><b>CASE</b></td><td><b>satu</b> nilai dari beberapa kategori</td><td class="mono">zone = "A" / "B" / "C"</td></tr>
+        <tr><td><b>IF</b></td><td>kombinasi beberapa boolean (AND/OR/NOT)</td><td class="mono">cardValid AND (isStaff OR trainingDone)</td></tr>
+      </table>
+      <p>Jadi jawabannya: <b>CASE gak wajib di sini</b>, karena aksesnya ditentuin kombinasi boolean, bukan milih satu kategori. Kalau soalnya nanya zona A/B/C, baru CASE yang pas.</p>
+    </div>
+
+    <div class="callout">
+      <span class="lbl">polanya</span>
+      Ekspresi campuran → <b>kasih kurung</b>, jangan andelin urutan operator.
+      Buat tabel kasus dengan <b>kolom antara</b> per potongan ekspresi.
+      Satu FALSE di rangkaian AND = hasil akhir FALSE. Satu TRUE di rangkaian OR = hasil akhir TRUE.
+    </div>
+
+    <div class="practice" data-id="p3">
+      <div class="ph"><span>latihan lu · bab 3</span><span class="pts">2 kasus, tulis ALLOW atau DENY</span></div>
+      <p>Akses lab komputer. Aturannya: boleh masuk kalau <b>(mahasiswa terdaftar DAN udah bayar) ATAU asisten lab</b>, dan labnya lagi buka.</p>
+      <p>Ekspresinya: <code>((isEnrolled AND hasPaid) OR isAssistant) AND isLabOpen</code></p>
+      <div class="field"><span class="lab">kasus 1 — isEnrolled=F, hasPaid=T, isAssistant=T, isLabOpen=T</span><input class="chk" data-a="allow" placeholder="ALLOW / DENY"></div>
+      <div class="field"><span class="lab">kasus 2 — isEnrolled=T, hasPaid=T, isAssistant=F, isLabOpen=F</span><input class="chk" data-a="deny" placeholder="ALLOW / DENY"></div>
+      <div class="row">
+        <button class="pri" data-act="check">cek jawaban</button>
+        <button data-act="reveal">lihat cara ngerjain</button>
+      </div>
+      <div class="pfb"></div>
+      <div class="ans hide">
+        <span class="albl">cara ngerjain</span>
+        <table class="t">
+          <tr><th>kasus</th><th class="mono">(enrolled AND paid)</th><th class="mono">OR assistant</th><th class="mono">AND labOpen</th><th>hasil</th></tr>
+          <tr><td>1</td><td class="mono">F AND T = F</td><td class="mono">F OR T = T</td><td class="mono">T AND T = T</td><td><b>ALLOW</b></td></tr>
+          <tr><td>2</td><td class="mono">T AND T = T</td><td class="mono">T OR F = T</td><td class="mono">T AND F = F</td><td><b>DENY</b></td></tr>
+        </table>
+        <p><b>Kasus 1 ALLOW</b> — dia asisten, jadi syarat "terdaftar dan bayar" dilewatin. <b>Kasus 2 DENY</b> — semua syarat pribadi terpenuhi, tapi labnya tutup.</p>
+        <p><b>Perhatiin:</b> <code>isAssistant</code> itu jalur alternatif, makanya dia ada di dalam kurung yang sama dengan <code>isEnrolled AND hasPaid</code>. Kalau lu tulis <code>isEnrolled AND (hasPaid OR isAssistant)</code>, artinya beda total — asisten yang gak terdaftar jadi ditolak.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BAB 4 ================= -->
+  <section class="bab" id="b4">
+    <div class="bab-head">
+      <div class="n">4</div>
+      <div><h2>Konstanta, fungsi &amp; parameter</h2><p class="s">bedain 4 makhluk yang mirip: konstanta, variabel lokal, parameter, argumen</p></div>
+    </div>
+
+    <div class="orig">
+      <span class="lbl">soal asli · Q4</span>
+      Sewa sepeda. <code>HOURLY_RATE = 12000</code> dipakai semua kios, gak pernah berubah.
+      <ul>
+        <li>(a) sebutin mana konstanta, mana parameter, mana variabel lokal</li>
+        <li>(b) tulis header fungsi + tandain parameter formal, argumen aktual, return value</li>
+        <li>(c) tulis fungsi lengkap + Main yang validasi inputnya</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">1</span> Empat istilah, satu per satu</h3>
+      <p>Ini bagian yang paling sering ketuker. Baca tabel ini pelan-pelan, satu baris satu baris:</p>
+      <table class="t">
+        <tr><th>istilah</th><th>arti sehari-hari</th><th>di kode ini</th></tr>
+        <tr><td><b>konstanta global</b></td><td>nilai yang dipakai bareng-bareng dan <b>gak boleh berubah</b></td><td class="mono">HOURLY_RATE = 12000</td></tr>
+        <tr><td><b>variabel lokal</b></td><td>wadah yang cuma hidup di dalam satu modul</td><td class="mono">duration, fee (di Main)</td></tr>
+        <tr><td><b>parameter formal</b></td><td>nama slot yang ditulis di <b>header</b> fungsi — baru ada isinya kalau dipanggil</td><td class="mono">hoursRented</td></tr>
+        <tr><td><b>argumen aktual</b></td><td>nilai yang <b>beneran dikirim</b> waktu manggil</td><td class="mono">duration di CalculateRentalFee(duration)</td></tr>
+      </table>
+      <p>Analogi: parameter itu <b>gelas kosong</b> yang udah disiapin di meja. Argumen itu <b>air yang lu tuang</b> ke gelas itu.</p>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">2</span> Bedah header fungsi jadi 4 potong</h3>
+      <p>Konvensi kelas: tipe kembalian nempel di <b>depan</b> nama fungsi, dan <b>gak ada</b> kata RETURNS di ujung.</p>
+<pre class="code">FUNCTION   Real   CalculateRentalFee   (Integer hoursRented)
+   │         │            │                    │
+   │         │            │                    └─ parameter formal
+   │         │            └─ nama fungsi
+   │         └─ tipe nilai yang dikembalikan (RETURN)
+   └─ kata kunci</pre>
+      <p>Kalau lu nulis <code>FUNCTION CalculateRentalFee(Integer hoursRented) RETURNS Real</code>, itu gaya bahasa lain, bukan konvensi kelas ini. Salah format = poin hilang walau logikanya bener.</p>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">3</span> Trace satu pemanggilan</h3>
+      <p>Durasi 3 jam. Ikutin alurnya:</p>
+      <div class="flow">
+        <span class="box">Main: duration = 3</span><span class="ar">→</span>
+        <span class="box hi">CalculateRentalFee: hoursRented = 3</span><span class="ar">→</span>
+        <span class="box">RETURN 3 × 12000</span><span class="ar">→</span>
+        <span class="box hi">Main: fee = 36000</span>
+      </div>
+      <table class="t">
+        <tr><th>baris</th><th>kejadian</th><th class="c">duration</th><th class="c">hoursRented</th><th class="c">fee</th><th class="c">output</th></tr>
+        <tr><td class="mono">01</td><td>konstanta diinisialisasi</td><td class="c">—</td><td class="c">—</td><td class="c">—</td><td class="c">—</td></tr>
+        <tr><td class="mono">09–11</td><td>INPUT 3</td><td class="c">3</td><td class="c">—</td><td class="c">—</td><td class="c">—</td></tr>
+        <tr><td class="mono">12</td><td>3 ≤ 0 → FALSE (lolos validasi)</td><td class="c">3</td><td class="c">—</td><td class="c">—</td><td class="c">—</td></tr>
+        <tr class="hl"><td class="mono">16→02</td><td>argumen 3 masuk ke parameter</td><td class="c">3</td><td class="c">3</td><td class="c">—</td><td class="c">—</td></tr>
+        <tr><td class="mono">06</td><td>RETURN 3 × 12000 = 36000</td><td class="c">3</td><td class="c">3</td><td class="c">—</td><td class="c">—</td></tr>
+        <tr class="hl"><td class="mono">17</td><td>DISPLAY fee</td><td class="c">3</td><td class="c">selesai</td><td class="c">36000</td><td class="c"><b>36000</b></td></tr>
+      </table>
+      <p>Perhatiin: setelah fungsi selesai, <code>hoursRented</code> <b>hilang</b>. Yang nyisa cuma <code>fee</code> di Main. Itu bukti parameter itu lokal.</p>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">4</span> Kenapa return -1, bukan 0</h3>
+      <p>Fungsi ini punya dua jalur keluar:</p>
+<pre class="code">FUNCTION Real CalculateRentalFee(Integer hoursRented)
+    IF hoursRented &lt;= 0 THEN
+        RETURN -1                    &lt;-- tanda "input gak masuk akal"
+    END IF
+    RETURN hoursRented * HOURLY_RATE &lt;-- jalur normal
+END FUNCTION</pre>
+      <p><b>0 itu jawaban yang sah</b> (0 jam = 0 rupiah). Jadi 0 gak bisa dipakai buat nandain error. -1 itu mustahil secara bisnis, makanya aman dipakai sebagai penanda.</p>
+      <p>Tapi penanda doang gak cukup. <b>Main wajib ngecek dulu</b> sebelum nampilin:</p>
+<pre class="code">MODULE Main()
+    DECLARE Integer duration
+    DECLARE Real fee
+    INPUT duration
+    WHILE duration &lt;= 0 DO
+        DISPLAY "Hours must be positive"
+        INPUT duration
+    END WHILE
+    SET fee = CalculateRentalFee(duration)
+    DISPLAY fee
+END MODULE</pre>
+      <p>Loop validasi itu gunanya: user gak bisa lanjut sebelum ngasih jam yang bener. Jadi -1 gak pernah nyampe ke layar.</p>
+    </div>
+
+    <div class="callout">
+      <span class="lbl">polanya</span>
+      Header selalu <code>FUNCTION TipeKembalian NamaFungsi(Tipe parameter)</code>.
+      Parameter = slot di header, argumen = nilai yang dikirim.
+      Nilai error pakai angka yang <b>gak mungkin</b> jadi jawaban sah (misal -1), dan pemanggilnya wajib ngecek.
+    </div>
+
+    <div class="practice" data-id="p4">
+      <div class="ph"><span>latihan lu · bab 4</span><span class="pts">fungsi baru</span></div>
+      <p>Kurir kampus. Ongkir dihitung <code>kg × RATE_PER_KG</code> dengan <code>RATE_PER_KG = 9000</code> (konstanta global). Kalau berat yang dikirim ≤ 0, fungsi harus ngembaliin -1.</p>
+      <p>Fungsi: <code>CalculateShippingFee(Integer kg)</code>, ngembaliin Real.</p>
+      <div class="field"><span class="lab">(a) output <code>CalculateShippingFee(4)</code></span><input class="chk" data-a="36000" placeholder="angka"></div>
+      <div class="field"><span class="lab">(b) output <code>CalculateShippingFee(0)</code></span><input class="chk" data-a="-1" placeholder="angka"></div>
+      <div class="field"><span class="lab">(c) di sini yang disebut parameter formal itu variabel apa?</span><input class="chk" data-a="kg" placeholder="nama variabel"></div>
+      <div class="row">
+        <button class="pri" data-act="check">cek jawaban</button>
+        <button data-act="reveal">lihat cara ngerjain</button>
+      </div>
+      <div class="pfb"></div>
+      <div class="ans hide">
+        <span class="albl">cara ngerjain</span>
+<pre class="code">DECLARE GLOBAL CONSTANT Integer RATE_PER_KG = 9000
+
+FUNCTION Real CalculateShippingFee(Integer kg)
+    IF kg &lt;= 0 THEN
+        RETURN -1
+    END IF
+    RETURN kg * RATE_PER_KG
+END FUNCTION
+
+MODULE Main()
+    DECLARE Integer weight
+    DECLARE Real fee
+    INPUT weight
+    WHILE weight &lt;= 0 DO
+        DISPLAY "Weight must be positive"
+        INPUT weight
+    END WHILE
+    SET fee = CalculateShippingFee(weight)
+    DISPLAY fee
+END MODULE</pre>
+        <p><b>(a) 4 × 9000 = 36000.</b> <b>(b) -1</b>, karena 0 ≤ 0 jadi masuk jalur error — bukan 0 rupiah.</p>
+        <p><b>(c) <code>kg</code>.</b> Dia ditulis di header fungsi, jadi dia parameter formal. Kalau nanti Main manggil <code>CalculateShippingFee(weight)</code>, maka <code>weight</code> itu argumen aktual.</p>
+        <p><b>Jebakan:</b> kalau lu jawab (b) = 0, artinya lu belum paham kenapa 0 gak bisa jadi penanda error. 0 itu ongkir yang sah buat berat 0 kg.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BAB 5 ================= -->
+  <section class="bab" id="b5">
+    <div class="bab-head">
+      <div class="n">5</div>
+      <div><h2>Sentinel &amp; validasi input</h2><p class="s">loop yang berhenti karena nilai penanda, bukan karena hitungan</p></div>
+    </div>
+
+    <div class="orig">
+      <span class="lbl">soal asli · Q5</span>
+      Survei kepuasan. Skor yang sah 1–5. Nilai <b>-1</b> dipakai buat nyetop input.
+      <ul>
+        <li>(a) tulis loop sentinel-nya</li>
+        <li>(b) tulis lengkap: validasi + hitung rata-rata + jaga pembagian nol</li>
+        <li>(c) trace input 5, 9, 3, -1 → outputnya apa</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">1</span> Apa itu sentinel</h3>
+      <p><b>Sentinel</b> = nilai penanda berhenti. Dia <b>bukan data</b>, dia cuma lampu merah. Analoginya: antrian loket yang ditutup pakai papan "TUTUP" — papannya bukan pelanggan, jadi gak dihitung.</p>
+      <p>Di soal ini sentinel-nya <code>-1</code>, karena skor sah cuma 1–5. Angka negatif mustahil jadi jawaban, makanya aman dipakai sebagai penanda.</p>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">2</span> Pola loop sentinel: 4 bagian, urutannya wajib</h3>
+      <p>Ini kerangka yang dipakai di semua soal sentinel. Hafalin bentuknya, bukan angkanya:</p>
+<pre class="code">INPUT score                     &lt;-- (1) baca SEKALI di luar loop
+WHILE score &lt;&gt; -1 DO            &lt;-- (2) selama bukan sentinel
+    IF score &gt;= 1 AND score &lt;= 5 THEN
+        SET total = total + score
+        SET count = count + 1
+    ELSE
+        DISPLAY "Invalid score"
+    END IF
+    INPUT score                 &lt;-- (3) baca LAGI di dalam loop
+END WHILE
+IF count &gt; 0 THEN               &lt;-- (4) jaga pembagian nol
+    DISPLAY total / count
+ELSE
+    DISPLAY "No scores"
+END IF</pre>
+      <p>Kenapa input-nya dua kali? Karena kondisi WHILE dicek <b>sebelum</b> masuk. Kalau input cuma di dalam loop, kondisi pertama gak punya nilai buat dibandingin. Kalau input cuma di luar, loop-nya jalan terus tanpa henti (<i>infinite loop</i>).</p>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">3</span> Validasi range: pakai AND, bukan OR</h3>
+      <p>Ini kesalahan nomor satu. Bandingin:</p>
+<pre class="code">BENER : IF score &gt;= 1 AND score &lt;= 5 THEN    &lt;-- di antara 1 dan 5
+SALAH : IF score &gt;= 1 OR  score &lt;= 5 THEN    &lt;-- hampir semua angka lolos</pre>
+      <p>Kenapa OR salah? Angka 9: <code>9 &gt;= 1</code> TRUE, jadi seluruh OR langsung TRUE. Angka -50 juga lolos. Range <b>selalu</b> pakai AND, karena dua syaratnya harus terpenuhi <b>bersamaan</b>.</p>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">4</span> Trace 5, 9, 3, -1</h3>
+      <table class="t">
+        <tr><th>tahap</th><th class="c">score</th><th class="c">valid?</th><th class="c">total</th><th class="c">count</th><th>output</th></tr>
+        <tr><td class="mono">04–05</td><td class="c">—</td><td class="c">—</td><td class="c">0</td><td class="c">0</td><td>—</td></tr>
+        <tr><td class="mono">06–10</td><td class="c">5</td><td class="c">ya</td><td class="c">5</td><td class="c">1</td><td>—</td></tr>
+        <tr class="hl"><td class="mono">07–12</td><td class="c">9</td><td class="c">tidak</td><td class="c">5</td><td class="c">1</td><td>Invalid score</td></tr>
+        <tr><td class="mono">07–10</td><td class="c">3</td><td class="c">ya</td><td class="c">8</td><td class="c">2</td><td>—</td></tr>
+        <tr class="stop"><td class="mono">07</td><td class="c">-1</td><td class="c">stop</td><td class="c">8</td><td class="c">2</td><td>—</td></tr>
+        <tr class="hl"><td class="mono">16–17</td><td class="c">—</td><td class="c">count &gt; 0</td><td class="c">8</td><td class="c">2</td><td><b>4</b></td></tr>
+      </table>
+      <p>8 dibagi 2 = <b>4</b>. Angka 9 gak masuk total dan gak nambah count, karena ditolak validasi. Sentinel -1 juga gak dihitung — dia berhenti sebelum diproses.</p>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">5</span> Kenapa harus ada <code>IF count &gt; 0</code></h3>
+      <p>Bayangin user langsung ngetik -1. Loop gak jalan sama sekali, jadi <code>count = 0</code>. Terus <code>total / count</code> = 8 dibagi 0. Program error (crash), bukan nampilin angka.</p>
+      <p>Jadi penjaganya bukan basa-basi: <code>IF count &gt; 0</code> itu yang nentuin program selamat atau mati.</p>
+    </div>
+
+    <div class="callout warn">
+      <span class="lbl">tiga kesalahan yang bikin poin hilang</span>
+      <b>1.</b> Sentinel ikut dijumlah. <b>2.</b> INPUT cuma sekali (di luar atau di dalam loop doang) → infinite loop atau loop gak jalan.
+      <b>3.</b> Range pakai OR. Tiga-tiganya kelihatan sepele, tiga-tiganya bikin jawaban salah total.
+    </div>
+
+    <div class="practice" data-id="p5">
+      <div class="ph"><span>latihan lu · bab 5</span><span class="pts">sentinel-nya beda angka</span></div>
+      <p>Kuesioner kebersihan kantin. Nilai sah <b>1 sampai 10</b>. Nilai <b>0</b> dipakai buat berhenti (bukan -1 lagi — baca soalnya baik-baik).</p>
+      <p>Input berturut-turut: <b>4, 12, 6, 0</b>.</p>
+      <div class="field"><span class="lab">(a) berapa nilai <code>count</code> di akhir?</span><input class="chk" data-a="2" placeholder="angka"></div>
+      <div class="field"><span class="lab">(b) berapa nilai <code>total</code> di akhir?</span><input class="chk" data-a="10" placeholder="angka"></div>
+      <div class="field"><span class="lab">(c) apa yang ditampilkan?</span><input class="chk" data-a="5" placeholder="angka"></div>
+      <div class="row">
+        <button class="pri" data-act="check">cek jawaban</button>
+        <button data-act="reveal">lihat cara ngerjain</button>
+      </div>
+      <div class="pfb"></div>
+      <div class="ans hide">
+        <span class="albl">cara ngerjain</span>
+        <table class="t">
+          <tr><th>tahap</th><th class="c">score</th><th class="c">1 ≤ score ≤ 10?</th><th class="c">total</th><th class="c">count</th><th>output</th></tr>
+          <tr><td class="mono">awal</td><td class="c">—</td><td class="c">—</td><td class="c">0</td><td class="c">0</td><td>—</td></tr>
+          <tr><td class="mono">input 1</td><td class="c">4</td><td class="c">ya</td><td class="c">4</td><td class="c">1</td><td>—</td></tr>
+          <tr class="hl"><td class="mono">input 2</td><td class="c">12</td><td class="c">tidak</td><td class="c">4</td><td class="c">1</td><td>Invalid score</td></tr>
+          <tr><td class="mono">input 3</td><td class="c">6</td><td class="c">ya</td><td class="c">10</td><td class="c">2</td><td>—</td></tr>
+          <tr class="stop"><td class="mono">input 4</td><td class="c">0</td><td class="c">stop</td><td class="c">10</td><td class="c">2</td><td>—</td></tr>
+          <tr class="hl"><td class="mono">akhir</td><td class="c">—</td><td class="c">2 &gt; 0</td><td class="c">10</td><td class="c">2</td><td><b>5</b></td></tr>
+        </table>
+        <p><b>(a) 2</b> · <b>(b) 10</b> · <b>(c) 5</b> (10 dibagi 2).</p>
+        <p><b>Kenapa 12 gak dihitung:</b> dia gagal di <code>score &lt;= 10</code>. Kalau program lu pakai range 1–5 (kayak soal asli), 6 juga bakal ditolak dan jawabannya beda. <b>Baca batas validnya, jangan hafal angka soal lama.</b></p>
+        <p><b>Kenapa 0 gak dihitung:</b> 0 itu sentinel di soal ini. Dia berhenti sebelum masuk IF validasi.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BAB 6 ================= -->
+  <section class="bab" id="b6">
+    <div class="bab-head">
+      <div class="n">6</div>
+      <div><h2>Studi kasus greenhouse</h2><p class="s">soal gabungan: fungsi klasifikasi + sentinel + validasi + ringkasan, 25 poin</p></div>
+    </div>
+
+    <div class="orig">
+      <span class="lbl">soal asli · Q6</span>
+      Sistem greenhouse. Input <code>zoneCode</code> (A/B/C) dan <code>reading</code> kelembaban 0–100; <code>-1</code> buat berhenti.
+      <ul>
+        <li>(a) tentuin input, output, validasi, aturan</li>
+        <li>(b) tulis fungsi klasifikasi dengan ambang 40 dan 75</li>
+        <li>(c) tulis Main lengkap (validasi zona, loop, rata-rata aman, aksi akhir)</li>
+        <li>(d) trace zone B dengan bacaan 35, 120, 38, 80, -1</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">1</span> Ubah aturan jadi garis bilangan</h3>
+      <p>Sebelum nulis kode, gambar dulu batasnya. Soal yang ada angka ambang <b>selalu</b> dimulai dari sini:</p>
+      <div class="scale"><span>0</span><span>40</span><span>75</span><span>100</span></div>
+      <div class="ruler"><span class="a">DRY</span><span class="b">NORMAL</span><span class="c">HUMID</span></div>
+      <p>Terus uji tepat di batasnya — di situ letak jebakannya:</p>
+      <table class="t">
+        <tr><th class="c">nilai</th><th>kategori</th><th>alasannya</th></tr>
+        <tr><td class="c">0</td><td>DRY</td><td>masih valid, di bawah 40</td></tr>
+        <tr><td class="c">39</td><td>DRY</td><td>di bawah ambang 40</td></tr>
+        <tr class="hl"><td class="c">40</td><td>NORMAL</td><td>batas bawah NORMAL — <code>40 &lt; 40</code> FALSE, jadi bukan DRY</td></tr>
+        <tr class="hl"><td class="c">75</td><td>NORMAL</td><td>batas atas NORMAL — <code>75 &lt;= 75</code> TRUE</td></tr>
+        <tr><td class="c">76</td><td>HUMID</td><td>lewat satu dari 75</td></tr>
+        <tr><td class="c">100</td><td>HUMID</td><td>nilai maksimum yang sah</td></tr>
+        <tr class="stop"><td class="c">101</td><td>ditolak</td><td>di luar 0–100, bukan data</td></tr>
+        <tr class="stop"><td class="c">-1</td><td>stop</td><td>sentinel, bukan bacaan</td></tr>
+      </table>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">2</span> Tulis fungsinya</h3>
+<pre class="code">FUNCTION String classifyHumidity(Real value)
+    IF value &lt; 40 THEN
+        RETURN "DRY"
+    ELSE IF value &lt;= 75 THEN
+        RETURN "NORMAL"
+    ELSE
+        RETURN "HUMID"
+    END IF
+END FUNCTION</pre>
+      <p>Perhatiin tandanya: <code>&lt; 40</code> (bukan <code>&lt;=</code>) dan <code>&lt;= 75</code> (bukan <code>&lt;</code>). Dua tanda ini yang nentuin 40 masuk DRY atau NORMAL. Di soal ini 40 harus <b>NORMAL</b>.</p>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">3</span> Susun Main jadi 5 blok</h3>
+      <p>Kode lengkapnya 40 baris, dan gampang bikin panik. Padahal isinya cuma 5 blok yang ditumpuk:</p>
+      <table class="t">
+        <tr><th>blok</th><th>isi</th><th>poin</th></tr>
+        <tr><td><b>1</b> deklarasi + inisialisasi</td><td>zone, humidity, category, count, dryCount, total — semuanya di-set 0 dulu</td><td class="c">—</td></tr>
+        <tr><td><b>2</b> validasi zona</td><td>loop sampai zone-nya A, B, atau C</td><td class="c">2</td></tr>
+        <tr><td><b>3</b> loop bacaan</td><td>sentinel -1 + validasi 0–100 + panggil fungsi + update count/total/dryCount</td><td class="c">7</td></tr>
+        <tr><td><b>4</b> ringkasan</td><td>tampilkan zone &amp; count, rata-rata aman (jaga count = 0)</td><td class="c">3</td></tr>
+        <tr><td><b>5</b> aksi akhir</td><td><code>dryCount &gt;= 2</code> → CHECK IRRIGATION, selain itu CONTINUE MONITORING</td><td class="c">1</td></tr>
+      </table>
+      <p>Blok 2 dan 3 itu dua loop terpisah, jangan digabung. Zona divalidasi dulu sampai bener, baru bacaan diproses.</p>
+<pre class="code">MODULE Main()
+    DECLARE String zone
+    DECLARE Real humidity
+    DECLARE String category
+    DECLARE Integer count
+    DECLARE Integer dryCount
+    DECLARE Real total
+    SET count = 0
+    SET dryCount = 0
+    SET total = 0
+
+    INPUT zone                                   &lt;-- blok 2: validasi zona
+    WHILE zone &lt;&gt; "A" AND zone &lt;&gt; "B" AND zone &lt;&gt; "C" DO
+        DISPLAY "Invalid zone"
+        INPUT zone
+    END WHILE
+
+    INPUT humidity                               &lt;-- blok 3: loop bacaan
+    WHILE humidity &lt;&gt; -1 DO
+        IF humidity &lt; 0 OR humidity &gt; 100 THEN
+            DISPLAY "Invalid humidity"
+        ELSE
+            SET category = classifyHumidity(humidity)
+            DISPLAY category
+            SET count = count + 1
+            SET total = total + humidity
+            IF category = "DRY" THEN
+                SET dryCount = dryCount + 1
+            END IF
+        END IF
+        INPUT humidity
+    END WHILE
+
+    DISPLAY zone, count                          &lt;-- blok 4: ringkasan
+    IF count = 0 THEN
+        DISPLAY "No readings"
+    ELSE
+        DISPLAY total / count
+    END IF
+
+    IF dryCount &gt;= 2 THEN                        &lt;-- blok 5: aksi
+        DISPLAY "CHECK IRRIGATION"
+    ELSE
+        DISPLAY "CONTINUE MONITORING"
+    END IF
+END MODULE</pre>
+      <p>Perhatiin urutan di dalam ELSE: <b>panggil fungsi → DISPLAY kategori → baru tambah count dan total</b>. Kalau DISPLAY-nya ditaruh di luar IF validasi, angka 120 bakal ikut kecetak sebagai kategori padahal ditolak.</p>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">4</span> Trace zone B: 35, 120, 38, 80, -1</h3>
+      <table class="t">
+        <tr><th>tahap</th><th class="c">humidity</th><th class="c">valid?</th><th class="c">category</th><th class="c">count</th><th class="c">dryCount</th><th class="c">total</th><th>output</th></tr>
+        <tr><td>start</td><td class="c">—</td><td class="c">—</td><td class="c">—</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td>—</td></tr>
+        <tr><td>zona</td><td class="c">—</td><td class="c">B valid</td><td class="c">—</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td>—</td></tr>
+        <tr><td>putaran 1</td><td class="c">35</td><td class="c">ya</td><td class="c">DRY</td><td class="c">1</td><td class="c">1</td><td class="c">35</td><td>DRY</td></tr>
+        <tr class="hl"><td>putaran 2</td><td class="c">120</td><td class="c">tidak</td><td class="c">tetap</td><td class="c">1</td><td class="c">1</td><td class="c">35</td><td>Invalid humidity</td></tr>
+        <tr><td>putaran 3</td><td class="c">38</td><td class="c">ya</td><td class="c">DRY</td><td class="c">2</td><td class="c">2</td><td class="c">73</td><td>DRY</td></tr>
+        <tr><td>putaran 4</td><td class="c">80</td><td class="c">ya</td><td class="c">HUMID</td><td class="c">3</td><td class="c">2</td><td class="c">153</td><td>HUMID</td></tr>
+        <tr class="stop"><td>sentinel</td><td class="c">-1</td><td class="c">stop</td><td class="c">tetap</td><td class="c">3</td><td class="c">2</td><td class="c">153</td><td>—</td></tr>
+        <tr class="hl"><td>akhir</td><td class="c">—</td><td class="c">—</td><td class="c">—</td><td class="c">3</td><td class="c">2</td><td class="c">153</td><td><b>B, 3 · 51 · CHECK IRRIGATION</b></td></tr>
+      </table>
+      <p>Rata-rata 153 / 3 = <b>51</b>. dryCount = 2, jadi <b>CHECK IRRIGATION</b>.</p>
+      <p>Jebakan: kalau lu ngitung count = 4, berarti 120 ikut masuk. Kalau rata-ratanya 38.25, itu 153 / 4 — pembaginya salah.</p>
+    </div>
+
+    <div class="callout">
+      <span class="lbl">polanya</span>
+      Soal besar selalu bisa dipecah: <b>deklarasi → validasi awal → loop utama → ringkasan → aksi</b>.
+      Ambang angka → gambar garis bilangan dulu, uji tepat di batasnya.
+      Nilai yang ditolak <b>gak boleh</b> nambah count, total, atau dryCount.
+    </div>
+
+    <div class="practice" data-id="p6">
+      <div class="ph"><span>latihan lu · bab 6</span><span class="pts">4 batas, 4 jawaban</span></div>
+      <p>Fungsi klasifikasi suhu gudang:</p>
+<pre class="code">FUNCTION String classifyTemp(Real t)
+    IF t &lt; 18 THEN
+        RETURN "COLD"
+    ELSE IF t &lt;= 30 THEN
+        RETURN "NORMAL"
+    ELSE
+        RETURN "HOT"
+    END IF
+END FUNCTION</pre>
+      <p>Isi kategori buat tiap nilai. Tulis persis: <code>COLD</code>, <code>NORMAL</code>, atau <code>HOT</code>.</p>
+      <div class="field"><span class="lab">classifyTemp(17)</span><input class="chk" data-a="cold" placeholder="..."></div>
+      <div class="field"><span class="lab">classifyTemp(18)</span><input class="chk" data-a="normal" placeholder="..."></div>
+      <div class="field"><span class="lab">classifyTemp(30)</span><input class="chk" data-a="normal" placeholder="..."></div>
+      <div class="field"><span class="lab">classifyTemp(31)</span><input class="chk" data-a="hot" placeholder="..."></div>
+      <div class="row">
+        <button class="pri" data-act="check">cek jawaban</button>
+        <button data-act="reveal">lihat cara ngerjain</button>
+      </div>
+      <div class="pfb"></div>
+      <div class="ans hide">
+        <span class="albl">cara ngerjain</span>
+        <table class="t">
+          <tr><th class="c">nilai</th><th class="mono">t &lt; 18?</th><th class="mono">t &lt;= 30?</th><th>hasil</th></tr>
+          <tr><td class="c">17</td><td class="mono">TRUE</td><td class="mono">—</td><td><b>COLD</b></td></tr>
+          <tr><td class="c">18</td><td class="mono">FALSE</td><td class="mono">TRUE</td><td><b>NORMAL</b></td></tr>
+          <tr><td class="c">30</td><td class="mono">FALSE</td><td class="mono">TRUE</td><td><b>NORMAL</b></td></tr>
+          <tr><td class="c">31</td><td class="mono">FALSE</td><td class="mono">FALSE</td><td><b>HOT</b></td></tr>
+        </table>
+        <p>Kuncinya: cek dari atas, <b>berhenti di cabang pertama yang TRUE</b>. 18 gagal di <code>&lt; 18</code>, jadi turun ke cabang kedua dan langsung kena <code>&lt;= 30</code>.</p>
+        <p><b>Pola yang harus lu hafal:</b> <code>&lt;</code> bikin nilai batas masuk ke <b>cabang bawah</b>. <code>&lt;=</code> bikin nilai batas <b>berhenti di cabang itu</b>. Kalau soalnya bilang "40 masuk NORMAL", berarti DRY harus pakai <code>&lt; 40</code>, bukan <code>&lt;=</code>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BAB 7 ================= -->
+  <section class="bab" id="b7">
+    <div class="bab-head">
+      <div class="n">7</div>
+      <div><h2>Parameter by value vs REF</h2><p class="s">soal tambahan — yang nentuin variabel di Main berubah atau nggak</p></div>
+    </div>
+
+    <div class="orig">
+      <span class="lbl">soal asli · Q7 (latihan tambahan)</span>
+      Dua submodul: satu nerima parameter biasa, satu nerima parameter <code>REF</code>.
+      <ul>
+        <li>tentuin 4 output sesuai urutan eksekusi</li>
+        <li>lengkapi trace table</li>
+        <li>jelasin kenapa <code>x</code> gak berubah tapi <code>y</code> berubah</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">1</span> Analoginya dulu</h3>
+      <table class="t">
+        <tr><th>mode</th><th>analogi</th><th>efeknya</th></tr>
+        <tr><td><b>by value</b> (tanpa REF)</td><td>lu dikasih <b>fotokopi</b> dokumen. Lu corat-coret fotokopinya.</td><td>dokumen asli di Main <b>utuh</b></td></tr>
+        <tr><td><b>by reference</b> (pakai REF)</td><td>lu dikasih <b>remote yang sama</b> dengan TV di ruang tamu.</td><td>TV-nya ikut berubah</td></tr>
+      </table>
+      <p>Jadi pertanyaan "variabel di Main berubah gak?" jawabannya cuma satu: <b>ada REF di header atau nggak</b>.</p>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">2</span> Cara ngenalin di kode</h3>
+<pre class="code">MODULE ChangeByValue(Integer number)          &lt;-- gak ada REF: salinan
+MODULE ChangeByReference(Integer REF number)  &lt;-- ada REF: nempel ke variabel asli</pre>
+      <p>Bedanya cuma satu kata. Tapi efeknya besar: di versi REF, <code>number</code> itu <b>nama lain</b> buat variabel di Main. Ubah <code>number</code>, ubah juga variabel aslinya.</p>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">3</span> Trace Part A (x dan y)</h3>
+<pre class="code">01  MODULE Main()
+02      DECLARE Integer x
+03      DECLARE Integer y
+04      SET x = 10
+05      SET y = 20
+06      CALL ChangeByValue(x)
+07      DISPLAY x
+08      CALL ChangeByReference(y)
+09      DISPLAY y
+10  END MODULE</pre>
+      <table class="t">
+        <tr><th>baris</th><th>kejadian</th><th class="c">x</th><th class="c">y</th><th class="c">number</th><th class="c">output</th></tr>
+        <tr><td class="mono">04–05</td><td>inisialisasi</td><td class="c">10</td><td class="c">20</td><td class="c">—</td><td class="c">—</td></tr>
+        <tr><td class="mono">06</td><td>parameter value nerima salinan</td><td class="c">10</td><td class="c">20</td><td class="c">10</td><td class="c">—</td></tr>
+        <tr class="hl"><td class="mono">12–13</td><td>number = 15, DISPLAY</td><td class="c">10</td><td class="c">20</td><td class="c">15</td><td class="c"><b>15</b></td></tr>
+        <tr class="hl"><td class="mono">07</td><td>balik ke Main, DISPLAY x</td><td class="c">10</td><td class="c">20</td><td class="c">—</td><td class="c"><b>10</b></td></tr>
+        <tr><td class="mono">08</td><td>parameter REF nempel ke y</td><td class="c">10</td><td class="c">20</td><td class="c">20</td><td class="c">—</td></tr>
+        <tr class="hl"><td class="mono">16–17</td><td>number = 25, DISPLAY</td><td class="c">10</td><td class="c">25</td><td class="c">25</td><td class="c"><b>25</b></td></tr>
+        <tr class="hl"><td class="mono">09</td><td>balik ke Main, DISPLAY y</td><td class="c">10</td><td class="c">25</td><td class="c">—</td><td class="c"><b>25</b></td></tr>
+      </table>
+      <p>Urutan output: <b>15, 10, 25, 25</b>. Perhatiin baris 16–17: kolom <code>y</code> ikut jadi 25 <b>sebelum</b> balik ke Main. Itu tanda dia reference, bukan salinan.</p>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">4</span> Trace Part B — campuran, dan ini jebakannya</h3>
+<pre class="code">01  MODULE Main()
+02      DECLARE Integer a
+03      DECLARE Integer b
+04      SET a = 4
+05      SET b = 7
+06      CALL Update(a, b)
+07      DISPLAY a, b
+08  END MODULE
+09  MODULE Update(Integer p, Integer REF q)
+10      SET p = p * 2
+11      SET q = q + p
+12      DISPLAY p, q
+13  END MODULE</pre>
+      <table class="t">
+        <tr><th>baris</th><th>kejadian</th><th class="c">a</th><th class="c">b</th><th class="c">p</th><th class="c">q</th><th class="c">output</th></tr>
+        <tr><td class="mono">04–05</td><td>inisialisasi</td><td class="c">4</td><td class="c">7</td><td class="c">—</td><td class="c">—</td><td class="c">—</td></tr>
+        <tr><td class="mono">06/09</td><td>masuk Update</td><td class="c">4</td><td class="c">7</td><td class="c">4</td><td class="c">7</td><td class="c">—</td></tr>
+        <tr><td class="mono">10</td><td>p = p × 2</td><td class="c">4</td><td class="c">7</td><td class="c">8</td><td class="c">7</td><td class="c">—</td></tr>
+        <tr class="hl"><td class="mono">11</td><td>q = q + p → 7 + <b>8</b></td><td class="c">4</td><td class="c">15</td><td class="c">8</td><td class="c">15</td><td class="c">—</td></tr>
+        <tr class="hl"><td class="mono">12</td><td>DISPLAY p, q</td><td class="c">4</td><td class="c">15</td><td class="c">8</td><td class="c">15</td><td class="c"><b>8, 15</b></td></tr>
+        <tr class="hl"><td class="mono">07</td><td>balik, DISPLAY a, b</td><td class="c">4</td><td class="c">15</td><td class="c">—</td><td class="c">—</td><td class="c"><b>4, 15</b></td></tr>
+      </table>
+      <p>Ini bagian yang paling sering salah: baris 11 pakai <code>p</code> yang <b>sudah jadi 8</b>, bukan 4. Kalau lu pakai 4, hasilnya q = 11 dan semuanya ikut salah.</p>
+      <p>Aturannya: <b>baca nilai variabel saat baris itu jalan</b>, bukan nilai awal.</p>
+    </div>
+
+    <div class="callout">
+      <span class="lbl">polanya</span>
+      Ada <code>REF</code> → variabel Main ikut berubah. Gak ada → cuma salinan.
+      Di dalam submodul, hitungan pakai nilai <b>terbaru</b> (yang udah diubah baris sebelumnya).
+      Output di dalam submodul keluar <b>dulu</b>, baru output di Main.
+    </div>
+
+    <div class="practice" data-id="p7">
+      <div class="ph"><span>latihan lu · bab 7</span><span class="pts">angka baru, pola sama</span></div>
+<pre class="code">MODULE Main()
+    DECLARE Integer m
+    DECLARE Integer n
+    SET m = 6
+    SET n = 9
+    CALL Hit(m, n)
+    DISPLAY m, n
+END MODULE
+
+MODULE Hit(Integer a, Integer REF b)
+    SET a = a + 4
+    SET b = b - a
+    DISPLAY a, b
+END MODULE</pre>
+      <div class="field"><span class="lab">(a) output DISPLAY di dalam Hit</span><input class="chk" data-a="10, -1|10,-1" placeholder="misal: 1, 2"></div>
+      <div class="field"><span class="lab">(b) output DISPLAY di Main</span><input class="chk" data-a="6, -1|6,-1" placeholder="misal: 1, 2"></div>
+      <div class="row">
+        <button class="pri" data-act="check">cek jawaban</button>
+        <button data-act="reveal">lihat cara ngerjain</button>
+      </div>
+      <div class="pfb"></div>
+      <div class="ans hide">
+        <span class="albl">cara ngerjain</span>
+        <table class="t">
+          <tr><th>baris</th><th>kejadian</th><th class="c">m</th><th class="c">n</th><th class="c">a</th><th class="c">b</th></tr>
+          <tr><td class="mono">04–05</td><td>inisialisasi</td><td class="c">6</td><td class="c">9</td><td class="c">—</td><td class="c">—</td></tr>
+          <tr><td class="mono">06/10</td><td>masuk Hit</td><td class="c">6</td><td class="c">9</td><td class="c">6</td><td class="c">9</td></tr>
+          <tr><td class="mono">11</td><td>a = a + 4</td><td class="c">6</td><td class="c">9</td><td class="c">10</td><td class="c">9</td></tr>
+          <tr class="hl"><td class="mono">12</td><td>b = b − a → 9 − <b>10</b></td><td class="c">6</td><td class="c">-1</td><td class="c">10</td><td class="c">-1</td></tr>
+          <tr class="hl"><td class="mono">13</td><td>DISPLAY a, b</td><td class="c">6</td><td class="c">-1</td><td class="c">10</td><td class="c">-1</td></tr>
+          <tr class="hl"><td class="mono">08</td><td>balik, DISPLAY m, n</td><td class="c">6</td><td class="c">-1</td><td class="c">—</td><td class="c">—</td></tr>
+        </table>
+        <p><b>(a) 10, -1</b> · <b>(b) 6, -1</b></p>
+        <p>Tiga hal yang harus lu tangkap:</p>
+        <p><b>1.</b> <code>a</code> itu salinan dari <code>m</code>. Jadi <code>m</code> tetap 6 walaupun <code>a</code> jadi 10.</p>
+        <p><b>2.</b> <code>b</code> itu REF ke <code>n</code>. Jadi waktu <code>b</code> jadi -1, <code>n</code> juga langsung -1.</p>
+        <p><b>3.</b> <code>b = b - a</code> pakai <code>a</code> yang udah 10, bukan 6. Kalau lu pakai 6, hasilnya 3 — dan itu salah walaupun keliatannya rapi.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CHEAT SHEET ================= -->
+  <section class="bab" id="cheat">
+    <div class="bab-head">
+      <div class="n">★</div>
+      <div><h2>Cheat sheet — baca 5 menit sebelum ujian</h2><p class="s">tabel pemicu + 5 pertanyaan yang nyelametin</p></div>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">A</span> Dengar kata ini di soal → pakai teknik ini</h3>
+      <table class="t">
+        <tr><th>kata di soal</th><th>yang harus langsung lu tulis</th></tr>
+        <tr><td>"tulis IPO"</td><td>3 ember: mengetik→INPUT, menampilkan→OUTPUT, sisanya PROCESS</td></tr>
+        <tr><td>"tentukan tipe data"</td><td>teks→String · cacah→Integer · uang/desimal→Real · ya-tidak→Boolean</td></tr>
+        <tr><td>"trace / tentukan output"</td><td>tabel: baris | aksi | tiap variabel | output. Jangan di kepala.</td></tr>
+        <tr><td>"ada kesalahan, perbaiki"</td><td>cek 2 hal: jumlah putaran (kondisi) &amp; akumulasi (total = total + x)</td></tr>
+        <tr><td>"tulis ekspresi boolean"</td><td>kurung wajib kalau ada AND + OR campur</td></tr>
+        <tr><td>"apakah CASE wajib?"</td><td>kategori tunggal→CASE · kombinasi boolean→IF</td></tr>
+        <tr><td>"tulis header fungsi"</td><td><code>FUNCTION Tipe Nama(Tipe param)</code>, tanpa RETURNS</td></tr>
+        <tr><td>"parameter / argumen"</td><td>di header = parameter · yang dikirim = argumen</td></tr>
+        <tr><td>"sentinel"</td><td>input di luar loop + WHILE x &lt;&gt; sentinel + input lagi di dalam</td></tr>
+        <tr><td>"validasi range"</td><td>AND, bukan OR. Lalu jaga <code>count &gt; 0</code> sebelum bagi</td></tr>
+        <tr><td>"ambang / threshold"</td><td>gambar garis bilangan, uji tepat di batasnya</td></tr>
+        <tr><td>"REF"</td><td>variabel Main ikut berubah. Tanpa REF: cuma salinan</td></tr>
+      </table>
+    </div>
+
+    <div class="step">
+      <h3><span class="i">B</span> Lima pertanyaan yang harus lu tanya ke diri sendiri</h3>
+      <table class="t">
+        <tr><th class="c">#</th><th>pertanyaan</th><th>kalau jawabannya aneh, berarti...</th></tr>
+        <tr><td class="c">1</td><td>Loop-nya jalan berapa kali?</td><td>kondisinya salah (<code>&lt;</code> vs <code>&lt;=</code>)</td></tr>
+        <tr><td class="c">2</td><td>Variabel penampung nilainya berapa di akhir?</td><td>akumulasinya nimpa, bukan numpuk</td></tr>
+        <tr><td class="c">3</td><td>Hasil akhirnya masuk akal?</td><td>ada bug aritmatika atau pembagi salah</td></tr>
+        <tr><td class="c">4</td><td>Nilai yang ditolak udah bener-bener gak dihitung?</td><td>validasi bocor, atau count nambah di tempat salah</td></tr>
+        <tr><td class="c">5</td><td>Ada kemungkinan dibagi nol?</td><td>belum ada <code>IF count &gt; 0</code></td></tr>
+      </table>
+    </div>
+
+    <div class="callout warn">
+      <span class="lbl">yang bikin poin hilang padahal logikanya bener</span>
+      <b>1.</b> Header fungsi pakai RETURNS di ujung. <b>2.</b> Ekspresi boolean tanpa kurung.
+      <b>3.</b> Cuma nulis angka akhir tanpa tabel trace. <b>4.</b> Variabel gak dideklarasi.
+      <b>5.</b> Sentinel ikut dijumlah. <b>6.</b> Bagi tanpa jaga nol.
+    </div>
+  </section>
+
+  <div class="foot">
+    dibuat buat latihan · semua latihan di halaman ini soal baru, bukan salinan dokumen<br>
+    kalau ada yang masih bingung, balik ke bab-nya, jangan lompat ke latihan
+  </div>
+</div>
+
+<script>
+/* ---------- highlight kode ---------- */
+const KWRE = /\b(SET|INPUT|OUTPUT|DISPLAY|IF|THEN|ELSE|END IF|WHILE|DO|END WHILE|FOR|TO|END FOR|FUNCTION|END FUNCTION|MODULE|END MODULE|PROCEDURE|END PROCEDURE|RETURN|DECLARE|GLOBAL|CONSTANT|CALL|REPEAT|UNTIL|AND|OR|NOT|REF)\b/g;
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function hlLine(l){return esc(l).replace(KWRE,'<i class="kw">$1</i>');}
+document.querySelectorAll('pre.code').forEach(pre=>{
+  const raw = pre.textContent.replace(/^\n+|\s+$/g,'');
+  pre.innerHTML = raw.split('\n').map(l=>{
+    const m = l.match(/^(\s*)(\d{2})\s+(.*)$/);
+    if(m) return m[1]+'<span class="ln">'+m[2]+'</span>'+hlLine(m[3]);
+    return hlLine(l);
+  }).join('\n');
+});
+
+/* ---------- latihan interaktif ---------- */
+const KEY = 'pdm_cara_soal_solved_v1';
+let solved = [];
+try{ solved = JSON.parse(localStorage.getItem(KEY)) || []; }catch(e){ solved = []; }
+const TOTAL = document.querySelectorAll('.practice').length;
+
+function paint(){
+  document.getElementById('cnt').textContent = solved.length + ' / ' + TOTAL + ' latihan';
+}
+paint();
+
+function pfb(box){
+  let el = box.querySelector('.pfb');
+  if(!el){ el = document.createElement('div'); el.className = 'pfb'; box.appendChild(el); }
+  return el;
+}
+const normTxt = s => s.toLowerCase().replace(/\s+/g,' ').replace(/\s*,\s*/g,', ').trim();
+
+document.addEventListener('click', e=>{
+  const btn = e.target.closest('[data-act]');
+  if(!btn) return;
+  const box = btn.closest('.practice');
+  if(!box) return;
+  const act = btn.dataset.act;
+  const ans = box.querySelector('.ans');
+
+  if(act === 'reveal'){
+    ans.classList.toggle('hide');
+    btn.textContent = ans.classList.contains('hide') ? 'lihat cara ngerjain' : 'sembunyiin lagi';
+    return;
+  }
+
+  if(act === 'check'){
+    const inputs = [...box.querySelectorAll('input.chk')];
+    let ok = 0;
+    inputs.forEach(inp=>{
+      inp.classList.remove('good','bad');
+      const got = normTxt(inp.value);
+      if(!got) return;
+      const alts = inp.dataset.a.split('|').map(normTxt);
+      if(alts.includes(got)){ inp.classList.add('good'); ok++; }
+      else inp.classList.add('bad');
+    });
+    const fb = pfb(box);
+    if(ok === inputs.length){
+      fb.className = 'pfb good';
+      fb.textContent = 'bener semua (' + ok + '/' + inputs.length + '). lanjut bab berikutnya.';
+      if(!solved.includes(box.dataset.id)){ solved.push(box.dataset.id); localStorage.setItem(KEY, JSON.stringify(solved)); paint(); }
+    } else {
+      fb.className = 'pfb bad';
+      fb.textContent = ok + '/' + inputs.length + ' bener. yang merah coba ulang, atau buka "lihat cara ngerjain".';
+    }
+    return;
+  }
+
+  if(act === 'kw'){
+    const ta = box.querySelector('textarea');
+    const kws = ta.dataset.kw.split('|');
+    const txt = normTxt(ta.value);
+    const box2 = box.querySelector('.kws');
+    let hit = 0;
+    box2.innerHTML = kws.map(k=>{
+      const on = txt.includes(normTxt(k));
+      if(on) hit++;
+      return '<span class="kw-chip'+(on?' hit':'')+'">'+k+'</span>';
+    }).join('');
+    const fb = pfb(box);
+    const need = Math.ceil(kws.length * 0.75);
+    if(hit >= need){
+      fb.className = 'pfb good';
+      fb.textContent = hit + ' dari ' + kws.length + ' poin kunci ketemu. cukup lengkap — cek kuncinya buat bandingin.';
+      if(!solved.includes(box.dataset.id)){ solved.push(box.dataset.id); localStorage.setItem(KEY, JSON.stringify(solved)); paint(); }
+    } else {
+      fb.className = 'pfb bad';
+      fb.textContent = hit + ' dari ' + kws.length + ' poin kunci ketemu. masih ada yang kelewat — cek chip yang belum nyala.';
+    }
+    return;
+  }
+});
+
+/* ---------- highlight bab aktif ---------- */
+const links = [...document.querySelectorAll('.nav a')];
+const secs = links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+if('IntersectionObserver' in window){
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(en=>{
+      if(!en.isIntersecting) return;
+      links.forEach(a=>a.style.background='');
+      const a = links.find(a=>a.getAttribute('href') === '#' + en.target.id);
+      if(a){ a.style.background='#fffdf6'; a.style.color='#1c2430'; a.style.borderColor='#a9a08a'; }
+    });
+  }, {rootMargin:'-45% 0px -50% 0px'});
+  secs.forEach(s=>io.observe(s));
+}
+</script>
+</body>
+</html>
