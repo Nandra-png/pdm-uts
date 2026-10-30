@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Cara Ngerjain Tiap Soal · PDM</title>
+<style>
+/* ============================================================
+   PAPER SHEET LAYOUT — template default class-with-hermes
+   3 kolom: roadmap (kiri) | kertas (tengah) | info (kanan)
+   Ganti isi <main>, jangan ganti token warna kecuali diminta.
+   ============================================================ */
+:root{
+  --ink:#1c2430;
+  --ink-soft:#4a5568;
+  --red:#c0392b;
+  --blue:#1f5fa8;
+  --paper:#fdfaf2;
+  --rule:rgba(80,120,175,.14);
+  --margin-line:rgba(215,65,65,.55);
+  --line:34px;
+  --edge:#cac3ad;
+  --desk:#e5e1d4;
+  --ok:#1e7a3c;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--desk);
+  background-image:radial-gradient(circle at 20% 0%,#f0ece0 0%,#d8d3c2 70%);
+  color:var(--ink);
+  font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  padding:18px 14px 90px;
+}
+
+/* ---------- 3 KOLOM ---------- */
+.wrap{
+  max-width:1500px;margin:0 auto;
+  display:grid;
+  grid-template-columns:236px minmax(0,920px) 286px;
+  gap:22px;
+  align-items:start;
+  justify-content:center;
+}
+.rail{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;padding-right:2px}
+.rail::-webkit-scrollbar{width:6px}
+.rail::-webkit-scrollbar-thumb{background:#c9c2ad;border-radius:3px}
+
+/* kartu panel kiri & kanan */
+.panel{
+  background:rgba(253,250,242,.97);
+  border:1.5px solid var(--edge);
+  border-radius:12px;
+  box-shadow:0 4px 16px rgba(50,40,20,.12);
+  padding:14px 15px;
+  margin-bottom:14px;
+}
+.panel h4{
+  margin:0 0 10px;font-size:11.5px;font-weight:800;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--ink-soft);
+}
+
+/* ---------- ROADMAP (KIRI) ---------- */
+.total{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px}
+.total b{font-size:22px;font-weight:800;letter-spacing:-.02em}
+.total span{font-size:12px;color:var(--ink-soft);font-weight:600}
+.pbar{height:7px;border-radius:999px;background:#e3dcc8;overflow:hidden;margin-bottom:4px}
+.pbar i{display:block;height:100%;width:0;background:var(--red);border-radius:999px;transition:width .35s}
+
+.road{list-style:none;margin:12px 0 0;padding:0;position:relative}
+.road::before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:1.5px;background:#ded7c2}
+.road li{position:relative;padding:0 0 0 28px;margin:0 0 3px}
+.road a{
+  display:block;text-decoration:none;color:var(--ink);
+  font-size:13px;font-weight:600;line-height:1.35;
+  padding:6px 8px;border-radius:7px;transition:background .15s;
+}
+.road a:hover{background:#f1ece0}
+.road a small{display:block;font-size:11px;color:var(--ink-soft);font-weight:500;margin-top:2px}
+.road .dot{
+  position:absolute;left:4px;top:11px;width:11px;height:11px;border-radius:50%;
+  background:#fff;border:2px solid #b9b2a0;
+}
+.road li.now .dot{border-color:var(--red);background:var(--red);box-shadow:0 0 0 3px rgba(192,57,43,.15)}
+.road li.now a{background:#fff7f5;color:var(--red)}
+.road li.done .dot{border-color:var(--ok);background:var(--ok)}
+.road li.done a{color:var(--ink-soft)}
+.road li.done a::after{content:" ✓";color:var(--ok);font-weight:800}
+.road li.lock a{color:#9a9384;cursor:not-allowed}
+
+/* ---------- KERTAS (TENGAH) ---------- */
+main{min-width:0}
+.sheet{
+  position:relative;
+  background:var(--paper);
+  background-image:
+    linear-gradient(to right,transparent 0 84px,var(--margin-line) 84px 85.5px,transparent 85.5px),
+    repeating-linear-gradient(to bottom,transparent 0 33px,var(--rule) 33px 34px);
+  background-position:0 0,0 38px;
+  border-radius:4px;
+  border:1px solid #dcd5bf;
+  box-shadow:0 2px 0 #cfc8b4,0 10px 24px rgba(60,50,30,.15);
+  padding:32px 42px 48px 110px;
+  font-size:16px;line-height:1.75;
+  margin:0 0 26px;
+  scroll-margin-top:16px;
+}
+.sheet::before,.sheet::after{
+  content:"";position:absolute;left:28px;width:22px;height:22px;border-radius:50%;
+  background:var(--desk);box-shadow:inset 0 2px 4px rgba(0,0,0,.24),0 0 0 1px #d3ccb8;
+}
+.sheet::before{top:68px}
+.sheet::after{bottom:68px}
+
+h1,h2,h3{line-height:1.3;margin:0;color:var(--ink)}
+.head{display:flex;align-items:flex-start;gap:16px;margin-bottom:12px}
+.badge{
+  flex:0 0 auto;width:56px;height:56px;border-radius:50%;
+  display:grid;place-items:center;background:#fff;border:2.5px solid var(--red);
+  color:var(--red);font-weight:800;font-size:26px;
+  box-shadow:2px 2px 0 rgba(192,57,43,.18);
+}
+.head h2{font-size:23px;font-weight:800;letter-spacing:-.01em}
+.head .sub{font-size:13.5px;color:var(--ink-soft);font-weight:500;margin-top:4px}
+.pts{
+  display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.05em;
+  text-transform:uppercase;color:#7a5b13;background:#fdf3d0;
+  border:1px solid #e6d69a;border-radius:999px;padding:2px 9px;
+  margin-left:6px;vertical-align:2px;
+}
+.sec{
+  font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--blue);margin:18px 0 6px;display:flex;align-items:center;gap:8px;
+}
+.sec::after{content:"";flex:1;height:1px;background:#d8e2ee}
+
+p{margin:6px 0;background:rgba(253,250,242,.85)}
+.step{display:flex;gap:12px;margin:8px 0}
+.step .n{
+  flex:0 0 auto;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;
+  background:var(--red);color:#fff;font-size:12.5px;font-weight:800;margin-top:3px;
+}
+.step .body{flex:1 1 auto;min-width:0;background:rgba(253,250,242,.85)}
+.note{
+  color:var(--red);font-size:14.5px;line-height:1.6;
+  margin:10px 0 10px 36px;padding:8px 14px;
+  background:#fff8f6;border-left:3px solid var(--red);border-radius:0 6px 6px 0;
+}
+.note b{text-decoration:underline;text-underline-offset:2px}
+.aside{
+  font-size:13.5px;color:var(--ink-soft);background:#f4f7fb;
+  border:1px solid #d5e1ee;border-radius:8px;padding:10px 14px;margin:12px 0;line-height:1.65;
+}
+.aside b{color:var(--ink)}
+.ans{
+  margin:12px 0 8px 36px;padding:9px 15px;
+  border:2px solid var(--red);border-radius:4px;background:#fff7f5;line-height:1.7;
+}
+.ans .lbl{
+  font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--red);display:block;margin-bottom:3px;
+}
+.box{display:inline-block;border:2.5px double var(--ink);border-radius:3px;padding:2px 12px;background:#fffdf5}
+.ind{margin-left:36px;background:rgba(253,250,242,.85)}
+.big{margin:6px 0 6px 36px;font-size:18px;background:rgba(253,250,242,.85);padding:2px 0}
+.tblwrap{overflow-x:auto;margin-left:36px}
+table{
+  border-collapse:collapse;margin:8px 0;
+  font-family:'Cambria Math',Cambria,'Segoe UI',serif;font-size:15.5px;line-height:1.5;background:#fff;
+}
+th,td{border:1.6px solid #2b3340;padding:3px 11px;text-align:center;white-space:nowrap;background:#fff}
+thead th{background:#eef2f7;font-weight:700;font-family:'Segoe UI',sans-serif;font-size:13.5px}
+td.T{color:var(--ok);font-weight:700}
+td.F{color:#b03030;font-weight:700}
+
+/* ---------- INFO (KANAN) ---------- */
+.info .kv{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;padding:5px 0;border-bottom:1px dashed #e0d9c5}
+.info .kv:last-child{border-bottom:none}
+.info .kv span{color:var(--ink-soft)}
+.info .kv b{font-weight:700;text-align:right}
+.formula{
+  font-family:'Cambria Math',Cambria,serif;font-size:14px;line-height:1.55;
+  padding:7px 9px;border-radius:7px;background:#f7f4ea;margin-bottom:6px;
+}
+.formula small{display:block;font-family:'Segoe UI',sans-serif;font-size:11px;color:var(--ink-soft);margin-top:2px}
+.lives{display:flex;gap:4px;font-size:16px;line-height:1}
+.voice{display:flex;align-items:center;gap:8px;margin-top:6px}
+.voice button{
+  width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;
+  background:var(--red);color:#fff;font-size:13px;
+}
+.voice .vbar{flex:1;height:5px;border-radius:999px;background:#e3dcc8;overflow:hidden}
+.voice .vbar i{display:block;height:100%;width:0;background:var(--red)}
+.voice .vtime{font-size:11px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+
+/* tombol drawer (HP) */
+.toggles{display:none;gap:8px;position:sticky;top:8px;z-index:60;margin-bottom:12px}
+.toggles button{
+  flex:1;padding:9px;border-radius:10px;border:1.5px solid var(--edge);
+  background:rgba(253,250,242,.97);font-weight:700;font-size:13px;color:var(--ink);cursor:pointer;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:1240px){
+  .wrap{grid-template-columns:220px minmax(0,1fr)}
+  .rail.right{display:none}
+  .toggles{display:flex}
+  .rail.right.open{
+    display:block;position:fixed;top:0;right:0;bottom:0;width:300px;max-height:none;
+    z-index:70;background:var(--desk);padding:14px;box-shadow:-8px 0 24px rgba(40,30,10,.25);overflow:auto;
+  }
+}
+@media (max-width:900px){
+  .wrap{grid-template-columns:minmax(0,1fr)}
+  .rail.left{
+    display:none;position:fixed;top:0;left:0;bottom:0;width:290px;max-height:none;
+    z-index:70;background:var(--desk);padding:14px;box-shadow:8px 0 24px rgba(40,30,10,.25);overflow:auto;
+  }
+  .rail.left.open{display:block}
+  .sheet{padding:22px 16px 26px 62px;font-size:15px;line-height:1.7;background-image:
+    linear-gradient(to right,transparent 0 42px,var(--margin-line) 42px 43.4px,transparent 43.4px),
+    repeating-linear-gradient(to bottom,transparent 0 33px,var(--rule) 33px 34px)}
+  .sheet::before,.sheet::after{left:14px;width:15px;height:15px}
+  .head{gap:10px}
+  .head h2{font-size:18px}
+  .badge{width:42px;height:42px;font-size:19px}
+  table{font-size:12.5px}
+  th,td{padding:2px 5px}
+  .tblwrap,.big,.ind,.note,.ans{margin-left:0}
+}
+@media print{
+  body{background:#fff;padding:0}
+  .rail,.toggles{display:none!important}
+  .wrap{display:block;max-width:none}
+  .sheet{box-shadow:none;border:none;border-radius:0;margin:0;page-break-after:always;max-width:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+.code{
+  font-family:'Consolas',ui-monospace,monospace;font-size:13px;line-height:1.62;
+  background:#fffdf5;border:1.5px solid #ddd4bd;border-left:4px solid var(--blue);
+  border-radius:6px;padding:9px 12px;margin:8px 0 10px;overflow-x:auto;white-space:pre;color:#1e2530;
+}
+.mono{font-family:'Consolas',ui-monospace,monospace;font-size:.93em;background:#f1ece0;border-radius:4px;padding:1px 5px;border:1px solid #e2dac6}
+ul.tight{margin:6px 0 6px 18px;padding:0;background:rgba(253,250,242,.85)}
+ul.tight li{margin:4px 0;font-size:14.5px;line-height:1.6}
+td.hl{background:#fff6d8;font-weight:700}
+.soal{
+  background:#f7f9fd;border:1px solid #d5e1ee;border-left:4px solid var(--blue);
+  border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0;font-size:14.5px;line-height:1.62;
+}
+.soal .lbl{
+  display:block;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--blue);margin-bottom:4px;
+}
+.coba{
+  border:2px solid var(--ink);border-radius:10px;background:#fffdf5;
+  padding:14px 16px;margin:16px 0 6px;box-shadow:4px 4px 0 rgba(40,30,10,.12);
+}
+.coba .lbl{
+  display:inline-block;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  background:var(--yellow,#fdf3d0);border:1px solid #e6d69a;color:#7a5b13;
+  border-radius:999px;padding:2px 10px;margin-bottom:8px;
+}
+.coba .cq{font-size:15px;line-height:1.6;margin:2px 0 10px;background:none}
+.opts{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.opt{
+  text-align:left;font:inherit;font-size:14px;line-height:1.45;cursor:pointer;
+  padding:9px 12px;border-radius:8px;border:1.5px solid var(--edge);
+  background:#fffdf5;color:var(--ink);transition:.14s;
+}
+.opt:hover:not(:disabled){border-color:var(--blue);background:#f4f8ff}
+.opt.ok{border-color:var(--ok);background:#f0fbf2;box-shadow:inset 3px 0 0 var(--ok)}
+.opt.no{border-color:var(--red);background:#fff5f3;box-shadow:inset 3px 0 0 var(--red)}
+.fill{
+  font:inherit;font-size:15px;padding:9px 12px;border-radius:8px;width:100%;
+  border:1.5px solid var(--edge);background:#fffdf5;margin-bottom:8px;
+}
+.fill:focus{outline:2px solid var(--blue);outline-offset:1px}
+.btn2{
+  font:inherit;font-weight:700;font-size:13.5px;cursor:pointer;padding:8px 16px;border-radius:8px;
+  border:none;background:var(--ink);color:#fffdf5;
+}
+.btn3{
+  font:inherit;font-weight:700;font-size:13px;cursor:pointer;padding:7px 14px;border-radius:8px;
+  border:1.5px solid var(--edge);background:#fffdf5;color:var(--ink);margin-left:6px;
+}
+.fb{margin-top:9px;font-size:14px;line-height:1.6;padding:9px 12px;border-radius:8px;background:#f7f4ea;border-left:3px solid var(--ink-soft)}
+.fb.ok{background:#f0fbf2;border-left-color:var(--ok);color:#146c2e}
+.fb.bad{background:#fff5f3;border-left-color:var(--red);color:#a5281c}
+.sol{
+  margin-top:10px;padding:10px 13px;border-radius:8px;background:#f7f4ea;
+  border:1px dashed #d6cdb6;font-size:13.5px;line-height:1.62;
+}
+.sol b{color:var(--red)}
+.linkbar{margin-top:10px;font-size:12.5px}
+.linkbar a{color:var(--blue);font-weight:700;text-decoration:none;border-bottom:1px solid var(--blue)}
+.hud{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.hud span{font-size:12px;font-weight:700;padding:3px 8px;border-radius:999px;background:#fffdf5;border:1px solid #e0d9c5}
+</style>
+</head>
+<body>
+
+<div class="toggles">
+  <button id="tLeft" type="button">☰ Daftar</button>
+  <button id="tRight" type="button">ⓘ Info</button>
+</div>
+
+<div class="wrap">
+
+  <aside class="rail left" id="railLeft">
+    <div class="panel">
+      <h4>Progress</h4>
+      <div class="total"><b id="pct">0%</b><span id="cnt">0 / 8</span></div>
+      <div class="pbar"><i id="pfill"></i></div>
+    </div>
+    <div class="panel">
+      <h4>Coba lu</h4>
+      <div class="hud"><span id="hscore">0 / 7 bener</span></div>
+    </div>
+    <div class="panel">
+      <h4>Daftar soal</h4>
+      <ul class="road" id="road">
+        <li class="now"><span class="dot"></span><a href="#s0">Pembuka<small>Alur halaman</small></a></li>
+        <li><span class="dot"></span><a href="#s1">1 · Spesifikasi &amp; Data<small>IPO + deklarasi</small></a></li>
+        <li><span class="dot"></span><a href="#s2">2 · Tracing &amp; Bug<small>Trace + koreksi</small></a></li>
+        <li><span class="dot"></span><a href="#s3">3 · Boolean<small>AND / OR / NOT</small></a></li>
+        <li><span class="dot"></span><a href="#s4">4 · Konstanta &amp; Fungsi<small>Header + validasi</small></a></li>
+        <li><span class="dot"></span><a href="#s5">5 · Sentinel<small>Loop validasi</small></a></li>
+        <li><span class="dot"></span><a href="#s6">6 · Studi Kasus<small>Greenhouse 25 poin</small></a></li>
+        <li><span class="dot"></span><a href="#s7">7 · Value vs REF<small>Parameter</small></a></li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h4>Halaman lain</h4>
+      <div class="linkbar"><a href="index.html">Materi + drill 22 soal →</a></div>
+    </div>
+  </aside>
+
+  <main>
+
+<section class="sheet" id="s0">
+  <div class="kode">PDM · Alternative B · cara ngerjain</div>
+  <h1 style="font-size:26px;font-weight:800;letter-spacing:-.02em;margin-top:4px">Cara Ngerjain Tiap Soal
+    <br><span style="font-size:16px;font-weight:600;color:var(--ink-soft)">7 tipe soal dari mock test — contoh dibedah, terus lu coba sendiri</span></h1>
+  <div class="sec">Alur tiap halaman</div>
+  <div class="step"><div class="n">1</div><div class="body"><b>Contoh soal</b> — persis dari dokumen kunci jawaban (soal asli).</div></div>
+  <div class="step"><div class="n">2</div><div class="body"><b>Cara ngerjain</b> — urutan langkah yang harus lu tulis di lembar jawaban.</div></div>
+  <div class="step"><div class="n">3</div><div class="body"><b>Jawaban model</b> — bentuk akhir yang dikasih poin penuh.</div></div>
+  <div class="step"><div class="n">4</div><div class="body"><b>Soal buatan gua</b> — angka &amp; skenario beda, lu kerjain, langsung dicek.</div></div>
+  <div class="note"><b>Aturan main:</b> jangan hafal jawaban. Yang dinilai cara mikir — trace dulu, baru simpulin.</div>
+  <div class="linkbar">Balik ke rangkuman materi: <a href="index.html">halaman materi + drill 22 soal</a></div>
+</section>
+
+<section class="sheet" id="s1">
+  <div class="head"><div class="badge">1</div><div>
+    <h2>Spesifikasi &amp; Desain Data <span class="pts">15 poin</span></h2>
+    <div class="sub">IPO tiga baris + deklarasi variabel</div>
+  </div></div>
+  <div class="soal"><span class="lbl">Contoh soal</span>
+    Study pod reservation. Input memberID, startHour, visitorCount, pod availability. Validasi 8 ≤ startHour ≤ 19 dan 1 ≤ visitorCount ≤ 3, cek pod kosong, bikin reservationCode. Output: status diterima/ditolak, kode konfirmasi.
+  </div>
+  <div class="sec">Cara ngerjain</div>
+  <div class="step"><div class="n">1</div><div class="body"><b>Garisi kata benda datanya.</b> "memberID", "startHour", "jumlah pengunjung" → itu calon INPUT. Jangan ngarang input yang nggak disebut.</div></div>
+  <div class="step"><div class="n">2</div><div class="body"><b>Kalimat syarat = PROCESS.</b> "between 8 and 19", "max 3 people", "must be available" → tulis jadi aturan validasi, bukan cerita.</div></div>
+  <div class="step"><div class="n">3</div><div class="body"><b>Output = yang dilihat user.</b> Status + kode konfirmasi. Bukan "menyimpan ke database".</div></div>
+  <div class="step"><div class="n">4</div><div class="body"><b>Tulis 3 baris label</b> INPUT / PROCESS / OUTPUT. Satu baris satu peran, jangan dicampur.</div></div>
+  <div class="step"><div class="n">5</div><div class="body"><b>Deklarasi satu-satu:</b> <span class="mono">DECLARE &lt;Tipe&gt; &lt;nama&gt;</span>. ID → String. Jam / jumlah → Integer. Status → Boolean. Pesan → String.</div></div>
+  <div class="step"><div class="n">6</div><div class="body"><b>Tulis alasannya satu kalimat.</b> "ID itu identifier, bukan kuantitas — '00123' harus tetap 5 karakter." Ini yang dikasih poin penalaran.</div></div>
+  <div class="sec">Jawaban model</div>
+  <pre class="code">INPUT   memberID, startHour, visitorCount, podAvailable
+PROCESS validasi 8 &lt;= startHour &lt;= 19
+        validasi 1 &lt;= visitorCount &lt;= 3
+        IF podAvailable = TRUE THEN buat reservationCode
+OUTPUT  status diterima / ditolak, confirmationMessage, reservationCode
+
+DECLARE String  memberID
+DECLARE Integer startHour
+DECLARE Integer visitorCount
+DECLARE Boolean podAvailable
+DECLARE String  reservationCode
+DECLARE String  confirmationMessage</pre>
+  <div class="note"><b>Poin gampang hilang:</b> nulis <span class="mono">DECLARE memberID String</span> (kebalik), atau ID dijadikan Integer.</div>
+  <div class="coba" id="coba1">
+    <span class="lbl">Sekarang lu coba · soal 1</span>
+    <p class="cq">Gym locker booking. Datanya: lockerCode (contoh "0071"), hoursUsed, isMember. Mana deklarasi yang bener?</p>
+    <div class="opts" data-ans="0">
+      <button class="opt" type="button" data-i="0">DECLARE String lockerCode; DECLARE Integer hoursUsed; DECLARE Boolean isMember</button>
+      <button class="opt" type="button" data-i="1">DECLARE Integer lockerCode; DECLARE Integer hoursUsed; DECLARE Boolean isMember</button>
+      <button class="opt" type="button" data-i="2">DECLARE String lockerCode; DECLARE String hoursUsed; DECLARE Boolean isMember</button>
+      <button class="opt" type="button" data-i="3">DECLARE Integer lockerCode; DECLARE Real hoursUsed; DECLARE String isMember</button>
+    </div>
+    <div class="fb" hidden></div>
+    <div class="sol" hidden><b>Jawab:</b> pilihan 1. <b>lockerCode</b> = ID → String (nol depan aman), <b>hoursUsed</b> = jumlah jam → Integer, <b>isMember</b> = TRUE/FALSE → Boolean.</div>
+    <button class="btn3" type="button" data-reveal="1">Liat pembahasan</button>
+  </div>
+</section>
+
+<section class="sheet" id="s2">
+  <div class="head"><div class="badge">2</div><div>
+    <h2>Tracing &amp; Koreksi Bug <span class="pts">15 poin</span></h2>
+    <div class="sub">Soal paling sering keluar — dan paling gampang dicurangi</div>
+  </div></div>
+  <div class="soal"><span class="lbl">Contoh soal</span>
+    Pseudocode di bawah punya 2 kesalahan. Trace pakai input 20, 24, 26, 30, lalu perbaiki.
+  </div>
+  <pre class="code">04 SET total = 0
+05 SET count = 1
+06 WHILE count &lt; 4 DO
+07     INPUT temperature
+08     SET total = temperature
+09     SET count = count + 1
+10 END WHILE
+11 DISPLAY total / 4</pre>
+  <div class="sec">Cara ngerjain</div>
+  <div class="step"><div class="n">1</div><div class="body"><b>Bikin tabel dulu, jangan ngitung di kepala.</b> Kolom: baris · aksi/kondisi · count · temperature · total · output.</div></div>
+  <div class="step"><div class="n">2</div><div class="body"><b>Isi nilai awal.</b> Baris SET sebelum loop wajib masuk tabel (total=0, count=1).</div></div>
+  <div class="step"><div class="n">3</div><div class="body"><b>Evaluasi kondisi dulu, baru isi angka.</b> <span class="mono">1 &lt; 4 → TRUE</span>. Kalau FALSE, loop berhenti dan lanjut ke baris setelah END WHILE.</div></div>
+  <div class="step"><div class="n">4</div><div class="body"><b>Satu baris satu langkah.</b> INPUT, SET, increment dipisah — jangan digabung, itu yang bikin salah hitung.</div></div>
+  <div class="step"><div class="n">5</div><div class="body"><b>Cek jumlah putaran.</b> <span class="mono">count &lt; 4</span> mulai dari 1 → cuma 3 putaran (1, 2, 3). Input ke-4 nggak kepakai.</div></div>
+  <div class="step"><div class="n">6</div><div class="body"><b>Lihat SET yang aneh.</b> <span class="mono">total = temperature</span> menimpa, bukan menambah. Bandingin dengan pola <span class="mono">total = total + x</span>.</div></div>
+  <div class="step"><div class="n">7</div><div class="body"><b>Tulis versi perbaikan utuh</b> — bukan cuma "ganti &lt; jadi &lt;=". Dua bug: batas loop + akumulator.</div></div>
+  <div class="sec">Jawaban model</div>
+  <pre class="code">Trace program ASLI:  count 1,2,3 → total ketimpa 20, 24, 26
+                     kondisi 4 &lt; 4 = FALSE → stop
+                     DISPLAY 26 / 4 = 6.5
+
+Perbaikan:
+WHILE count &lt;= 4 DO
+    INPUT temperature
+    SET total = total + temperature
+    SET count = count + 1
+END WHILE
+DISPLAY total / 4        →  (20+24+26+30)/4 = 25</pre>
+  <div class="note"><b>Jebakan:</b> kalau lu trace pakai program yang SUDAH benar, nilainya beda (25 vs 6.5). Soal minta trace program asli dulu — itu yang dinilai.</div>
+  <div class="coba" id="coba2">
+    <span class="lbl">Sekarang lu coba · soal 2</span>
+    <p class="cq">Program ini masih salah. Input 10, 12, 14, 16, 18. Berapa output yang keluar?</p>
+    <pre class="code">04 SET total = 0
+05 SET count = 1
+06 WHILE count &lt; 5 DO
+07     INPUT temperature
+08     SET total = temperature
+09     SET count = count + 1
+10 END WHILE
+11 DISPLAY total / 5</pre>
+    <input class="fill" type="text" inputmode="decimal" placeholder="jawaban lu…" data-ans="3.2|3,2|16/5">
+    <button class="btn2" type="button" data-check="1">Cek jawaban</button>
+    <div class="fb" hidden></div>
+    <div class="sol" hidden><b>Jawab: 3.2.</b> <span class='mono'>count &lt; 5</span> dari 1 → putaran 1,2,3,4 (input 18 nggak kepakai). Karena <span class='mono'>total = temperature</span>, total berakhir 16, bukan 70. Output = 16 / 5 = 3.2.</div>
+    <button class="btn3" type="button" data-reveal="1">Liat pembahasan</button>
+  </div>
+</section>
+
+<section class="sheet" id="s3">
+  <div class="head"><div class="badge">3</div><div>
+    <h2>Keputusan Boolean <span class="pts">15 poin</span></h2>
+    <div class="sub">Kombinasi AND / OR / NOT + pilih IF atau CASE</div>
+  </div></div>
+  <div class="soal"><span class="lbl">Contoh soal</span>
+    Akses lab: <span class="mono">cardValid AND (isStaff OR trainingDone) AND NOT isRestricted</span> → ALLOW / DENY. Empat kasus harus dievaluasi satu-satu.
+  </div>
+  <div class="sec">Cara ngerjain</div>
+  <div class="step"><div class="n">1</div><div class="body"><b>Bikin tabel per kasus.</b> Kolom: cardValid · isStaff · trainingDone · isRestricted · (staff OR trained) · NOT restricted · output.</div></div>
+  <div class="step"><div class="n">2</div><div class="body"><b>Kurung dulu.</b> <span class="mono">(isStaff OR trainingDone)</span> dihitung terpisah → simpan hasilnya T/F.</div></div>
+  <div class="step"><div class="n">3</div><div class="body"><b>NOT dibalik.</b> <span class="mono">NOT isRestricted</span> kalau isRestricted=TRUE → hasilnya FALSE.</div></div>
+  <div class="step"><div class="n">4</div><div class="body"><b>AND = semua harus TRUE.</b> Satu FALSE, hasil akhir FALSE → DENY.</div></div>
+  <div class="step"><div class="n">5</div><div class="body"><b>Tulis output per kasus</b> (i) ALLOW (ii) DENY (iii) DENY (iv) ALLOW, baru simpulkan.</div></div>
+  <div class="step"><div class="n">6</div><div class="body"><b>IF/ELSE vs CASE:</b> hasilnya cuma 2 kemungkinan → IF/ELSE cukup. CASE dipakai kalau milih dari banyak kategori (menu).</div></div>
+  <div class="sec">Jawaban model</div>
+  <pre class="code">IF cardValid AND (isStaff OR trainingDone) AND NOT isRestricted THEN
+    DISPLAY "ALLOW"
+ELSE
+    DISPLAY "DENY"
+END IF</pre>
+  <div class="note"><b>Alasan wajib ditulis:</b> "(ii) DENY karena isRestricted TRUE, jadi NOT-nya FALSE — walaupun card valid dan sudah training."</div>
+  <div class="coba" id="coba3">
+    <span class="lbl">Sekarang lu coba · soal 3</span>
+    <p class="cq">cardValid = TRUE, isStaff = FALSE, trainingDone = TRUE, isRestricted = TRUE. Output-nya?</p>
+    <div class="opts" data-ans="1">
+      <button class="opt" type="button" data-i="0">ALLOW</button>
+      <button class="opt" type="button" data-i="1">DENY</button>
+    </div>
+    <div class="fb" hidden></div>
+    <div class="sol" hidden><b>Jawab: DENY.</b> <span class='mono'>(FALSE OR TRUE) = TRUE</span>, tapi <span class='mono'>NOT TRUE = FALSE</span> → satu komponen FALSE bikin AND FALSE.</div>
+    <button class="btn3" type="button" data-reveal="1">Liat pembahasan</button>
+  </div>
+</section>
+
+<section class="sheet" id="s4">
+  <div class="head"><div class="badge">4</div><div>
+    <h2>Konstanta, Parameter, Validasi <span class="pts">15 poin</span></h2>
+    <div class="sub">Format fungsi dosen + jangan pernah tampilkan nilai invalid</div>
+  </div></div>
+  <div class="soal"><span class="lbl">Contoh soal</span>
+    Rental sepeda: <span class="mono">HOURLY_RATE</span> konstanta, fungsi <span class="mono">CalculateRentalFee(hoursRented)</span>, Main minta input durasi dan tampilkan biaya.
+  </div>
+  <div class="sec">Cara ngerjain</div>
+  <div class="step"><div class="n">1</div><div class="body"><b>Pisah angka aturan dari data.</b> Tarif per jam = aturan → <span class="mono">DECLARE GLOBAL CONSTANT Integer HOURLY_RATE = 12000</span>.</div></div>
+  <div class="step"><div class="n">2</div><div class="body"><b>Header fungsi:</b> <span class="mono">FUNCTION &lt;ReturnType&gt; Nama(&lt;Type&gt; param)</span>. Return type di DEPAN, tanpa kata RETURNS di belakang.</div></div>
+  <div class="step"><div class="n">3</div><div class="body"><b>Bedakan dua istilah:</b> <i>formal parameter</i> = nama di header (<span class="mono">hoursRented</span>), <i>actual argument</i> = yang dikirim saat dipanggil (<span class="mono">duration</span>).</div></div>
+  <div class="step"><div class="n">4</div><div class="body"><b>Validasi di dua tempat.</b> Fungsi nolak input aneh (<span class="mono">RETURN -1</span>), Main minta ulang pakai WHILE sampai valid.</div></div>
+  <div class="step"><div class="n">5</div><div class="body"><b>Jangan DISPLAY hasil invalid.</b> Cek nilai balik dulu, baru tampilkan.</div></div>
+  <div class="sec">Jawaban model</div>
+  <pre class="code">DECLARE GLOBAL CONSTANT Integer HOURLY_RATE = 12000
+
+FUNCTION Real CalculateRentalFee(Integer hoursRented)
+    IF hoursRented &lt;= 0 THEN
+        RETURN -1
+    END IF
+    RETURN hoursRented * HOURLY_RATE
+END FUNCTION
+
+MODULE Main()
+    DECLARE Integer duration
+    DECLARE Real fee
+    INPUT duration
+    WHILE duration &lt;= 0 DO
+        DISPLAY "Hours must be positive"
+        INPUT duration
+    END WHILE
+    SET fee = CalculateRentalFee(duration)
+    DISPLAY fee
+END MODULE</pre>
+  <div class="note"><b>Salah format = poin hilang.</b> <span class="mono">FUNCTION CalculateRentalFee(Integer h) RETURNS Real</span> itu gaya bahasa lain, bukan konvensi dosen.</div>
+  <div class="coba" id="coba4">
+    <span class="lbl">Sekarang lu coba · soal 4</span>
+    <p class="cq">Mana header fungsi yang sesuai konvensi dosen (return type di depan, tanpa RETURNS)?</p>
+    <div class="opts" data-ans="0">
+      <button class="opt" type="button" data-i="0">FUNCTION Real CalculateFee(Integer hours)</button>
+      <button class="opt" type="button" data-i="1">FUNCTION CalculateFee(Integer hours) RETURNS Real</button>
+      <button class="opt" type="button" data-i="2">FUNCTION CalculateFee(Integer hours) : Real</button>
+      <button class="opt" type="button" data-i="3">Real FUNCTION CalculateFee(Integer hours)</button>
+    </div>
+    <div class="fb" hidden></div>
+    <div class="sol" hidden><b>Jawab: pilihan 1.</b> Pola: <span class='mono'>FUNCTION ReturnType Nama(Tipe parameter)</span>. Nama parameter di header = formal parameter.</div>
+    <button class="btn3" type="button" data-reveal="1">Liat pembahasan</button>
+  </div>
+</section>
+
+<section class="sheet" id="s5">
+  <div class="head"><div class="badge">5</div><div>
+    <h2>Sentinel &amp; Validasi <span class="pts">15 poin</span></h2>
+    <div class="sub">Loop berhenti karena penanda, bukan karena jumlah</div>
+  </div></div>
+  <div class="soal"><span class="lbl">Contoh soal</span>
+    Input skor 1–5, ketik -1 untuk stop. Hitung rata-rata skor valid. Trace 5, 9, 3, -1.
+  </div>
+  <div class="sec">Cara ngerjain</div>
+  <div class="step"><div class="n">1</div><div class="body"><b>Input pertama di LUAR loop</b>, lalu input lagi di akhir body loop. Kalau lupa, loop-nya infinite atau data terakhir kelewat.</div></div>
+  <div class="step"><div class="n">2</div><div class="body"><b>Sentinel dicek di kondisi WHILE</b> (<span class="mono">WHILE score &lt;&gt; -1</span>), bukan di dalam IF.</div></div>
+  <div class="step"><div class="n">3</div><div class="body"><b>Validasi range di dalam loop.</b> 9 → di luar 1–5 → tampil "Invalid score", <b>jangan</b> masuk total/count.</div></div>
+  <div class="step"><div class="n">4</div><div class="body"><b>Sentinel tidak dihitung sebagai data.</b> -1 cuma penanda stop.</div></div>
+  <div class="step"><div class="n">5</div><div class="body"><b>Cek <span class="mono">count &gt; 0</span> sebelum bagi.</b> Kalau semua input invalid, bagi nol = error.</div></div>
+  <div class="sec">Jawaban model</div>
+  <pre class="code">SET total = 0
+SET count = 0
+INPUT score
+WHILE score &lt;&gt; -1 DO
+    IF score &gt;= 1 AND score &lt;= 5 THEN
+        SET total = total + score
+        SET count = count + 1
+    ELSE
+        DISPLAY "Invalid score"
+    END IF
+    INPUT score
+END WHILE
+IF count &gt; 0 THEN
+    DISPLAY total / count
+ELSE
+    DISPLAY "No scores"
+END IF
+
+Trace 5, 9, 3, -1 →  9 ditolak, total = 8, count = 2, output 4</pre>
+  <div class="coba" id="coba5">
+    <span class="lbl">Sekarang lu coba · soal 5</span>
+    <p class="cq">Input 4, 7, 2, -1 (valid 1–5). Berapa yang ditampilkan sebagai rata-rata?</p>
+    <input class="fill" type="text" inputmode="decimal" placeholder="jawaban lu…" data-ans="3|3.0">
+    <button class="btn2" type="button" data-check="1">Cek jawaban</button>
+    <div class="fb" hidden></div>
+    <div class="sol" hidden><b>Jawab: 3.</b> 7 ditolak. total = 4 + 2 = 6, count = 2 → 6 / 2 = 3. Sentinel -1 tidak ikut dihitung.</div>
+    <button class="btn3" type="button" data-reveal="1">Liat pembahasan</button>
+  </div>
+</section>
+
+<section class="sheet" id="s6">
+  <div class="head"><div class="badge">6</div><div>
+    <h2>Studi Kasus Gabungan <span class="pts">25 poin</span></h2>
+    <div class="sub">Fungsi klasifikasi + modul utama (greenhouse)</div>
+  </div></div>
+  <div class="soal"><span class="lbl">Contoh soal</span>
+    Smart greenhouse. Zone A/B/C, humidity 0–100, sentinel -1. Klasifikasi: &lt;40 DRY, ≤75 NORMAL, &gt;75 HUMID. Kalau ada ≥2 DRY → CHECK IRRIGATION.
+  </div>
+  <div class="sec">Cara ngerjain</div>
+  <div class="step"><div class="n">1</div><div class="body"><b>Belah jadi dua bagian.</b> (a) fungsi klasifikasi yang cuma balikin String, (b) MODULE Main yang urus input, validasi, hitung, output.</div></div>
+  <div class="step"><div class="n">2</div><div class="body"><b>Tulis batasnya persis.</b> <span class="mono">&lt; 40</span> DRY, <span class="mono">&lt;= 75</span> NORMAL, sisanya HUMID. Uji 39, 40, 75, 76 di kepala.</div></div>
+  <div class="step"><div class="n">3</div><div class="body"><b>Validasi zone pakai WHILE</b> sampai A/B/C — bukan IF sekali.</div></div>
+  <div class="step"><div class="n">4</div><div class="body"><b>Validasi humidity 0–100</b>, sentinel -1 keluar dari loop.</div></div>
+  <div class="step"><div class="n">5</div><div class="body"><b>Akumulasi:</b> count, total, dryCount. dryCount nambah kalau kategori = "DRY".</div></div>
+  <div class="step"><div class="n">6</div><div class="body"><b>Rata-rata aman + aksi akhir</b> (<span class="mono">IF dryCount &gt;= 2</span>). Dua IF terpisah, jangan digabung.</div></div>
+  <div class="sec">Jawaban model (inti)</div>
+  <pre class="code">FUNCTION String classifyHumidity(Real value)
+    IF value &lt; 40 THEN
+        RETURN "DRY"
+    ELSE IF value &lt;= 75 THEN
+        RETURN "NORMAL"
+    ELSE
+        RETURN "HUMID"
+    END IF
+END FUNCTION
+
+MODULE Main()
+    ... validasi zone, loop sentinel, hitung count/total/dryCount ...
+    IF count = 0 THEN DISPLAY "No readings"
+    ELSE DISPLAY total / count
+    IF dryCount &gt;= 2 THEN DISPLAY "CHECK IRRIGATION"
+    ELSE DISPLAY "CONTINUE MONITORING"
+END MODULE
+
+Zone B, input 35, 120, 38, 80, -1
+→ 120 ditolak; count 3; dryCount 2; rata-rata 153/3 = 51; CHECK IRRIGATION</pre>
+  <div class="note"><b>Pembagian poin:</b> validasi zone 2 · loop/sentinel 2 · validasi range 2 · panggil fungsi 1 · hitung 2 · rata-rata aman 1 · aksi akhir 1.</div>
+  <div class="coba" id="coba6">
+    <span class="lbl">Sekarang lu coba · soal 6</span>
+    <p class="cq">Pakai fungsi di atas: humidity = 75.5. Kategori apa yang dibalikin?</p>
+    <input class="fill" type="text" inputmode="decimal" placeholder="jawaban lu…" data-ans="humid">
+    <button class="btn2" type="button" data-check="1">Cek jawaban</button>
+    <div class="fb" hidden></div>
+    <div class="sol" hidden><b>Jawab: HUMID.</b> 75.5 nggak &lt; 40, dan nggak &lt;= 75 — jadi jatuh ke ELSE. Batas 75 itu punya NORMAL, di atasnya HUMID.</div>
+    <button class="btn3" type="button" data-reveal="1">Liat pembahasan</button>
+  </div>
+</section>
+
+<section class="sheet" id="s7">
+  <div class="head"><div class="badge">7</div><div>
+    <h2>Value vs Reference <span class="pts">soal bonus</span></h2>
+    <div class="sub">Satu kata REF, hasil beda total</div>
+  </div></div>
+  <div class="soal"><span class="lbl">Contoh soal</span>
+    <span class="mono">ChangeByValue(x)</span> dan <span class="mono">ChangeByReference(y)</span>, isinya sama-sama <span class="mono">number = number + 5</span>. x=10, y=20. Output-nya?
+  </div>
+  <div class="sec">Cara ngerjain</div>
+  <div class="step"><div class="n">1</div><div class="body"><b>Cari kata REF di header.</b> Ada REF → by reference. Nggak ada → by value.</div></div>
+  <div class="step"><div class="n">2</div><div class="body"><b>By value = salinan.</b> Parameter dapat nilai 10, diubah jadi 15, tapi x di Main tetap 10.</div></div>
+  <div class="step"><div class="n">3</div><div class="body"><b>REF = alias.</b> Parameter menunjuk variabel asli, jadi y ikut jadi 25.</div></div>
+  <div class="step"><div class="n">4</div><div class="body"><b>Tabel dua kolom:</b> variabel Main (x, y) dan parameter (number). Jangan disatuin.</div></div>
+  <div class="step"><div class="n">5</div><div class="body"><b>Urutan output = urutan eksekusi.</b> 15 (dalam fungsi) → 10 (x) → 25 (dalam fungsi) → 25 (y).</div></div>
+  <div class="sec">Jawaban model</div>
+  <pre class="code">CALL ChangeByValue(x)      → number = 15 (salinan), DISPLAY 15
+DISPLAY x                  → 10
+CALL ChangeByReference(y)  → number = 25 (alias y), DISPLAY 25
+DISPLAY y                  → 25
+
+Output berurutan: 15, 10, 25, 25
+Pembeda: baris 15 → MODULE ChangeByReference(Integer REF number)</pre>
+  <div class="note"><b>Kalau dua parameter campur:</b> <span class="mono">Update(Integer p, Integer REF q)</span> — p berubah cuma di dalam, q mengubah variabel asli.</div>
+  <div class="coba" id="coba7">
+    <span class="lbl">Sekarang lu coba · soal 7</span>
+    <p class="cq">a = 4, b = 7. CALL Update(a, b) dengan Update(Integer p, Integer REF q): p = p * 2, q = q + p. Setelah balik ke Main, DISPLAY a, b keluar apa?</p>
+    <div class="opts" data-ans="0">
+      <button class="opt" type="button" data-i="0">4, 15</button>
+      <button class="opt" type="button" data-i="1">8, 15</button>
+      <button class="opt" type="button" data-i="2">4, 7</button>
+      <button class="opt" type="button" data-i="3">8, 7</button>
+    </div>
+    <div class="fb" hidden></div>
+    <div class="sol" hidden><b>Jawab: 4, 15.</b> Di dalam Update: p = 8, q = 7 + 8 = 15 (q alias b, jadi b ikut 15). Tapi p cuma salinan → a tetap 4.</div>
+    <button class="btn3" type="button" data-reveal="1">Liat pembahasan</button>
+  </div>
+</section>
+
+  </main>
+
+  <aside class="rail right" id="railRight">
+    <div class="panel info">
+      <h4>Ujian</h4>
+      <div class="kv"><span>Matkul</span><b>PDM</b></div>
+      <div class="kv"><span>Hari</span><b>Sabtu, 31 Okt</b></div>
+      <div class="kv"><span>Jam</span><b>08.00–09.40</b></div>
+      <div class="kv"><span>Soal</span><b>7 tipe</b></div>
+      <div class="kv"><span>Skor coba</span><b id="hscore2">0 / 7</b></div>
+    </div>
+    <div class="panel">
+      <h4>Format wajib</h4>
+      <div class="formula">DECLARE &lt;Type&gt; &lt;nama&gt;<small>tipe di depan</small></div>
+      <div class="formula">FUNCTION &lt;ReturnType&gt; Nama(&lt;Type&gt; p)<small>tanpa RETURNS</small></div>
+      <div class="formula">SET total = total + x<small>akumulator</small></div>
+    </div>
+    <div class="panel">
+      <h4>Urutan mikir</h4>
+      <div class="formula" style="font-family:'Segoe UI',sans-serif;font-size:12.5px">1. Baca syarat → 2. Tabel → 3. Trace<small>4. Simpulin → 5. Tulis rapi</small></div>
+      <div class="formula" style="font-family:'Segoe UI',sans-serif;font-size:12.5px">Kondisi dulu, angka belakangan<small>TRUE/FALSE sebelum nilai</small></div>
+      <div class="formula" style="font-family:'Segoe UI',sans-serif;font-size:12.5px">ID = String, tarif = konstanta<small>dua jebakan favorit</small></div>
+    </div>
+  </aside>
+
+</div>
+
+<script>
+
+/* ponytail: drawer + scrollspy + progress aja. Engine drill tetap di file terpisah. */
+(function(){
+  var L = document.getElementById('railLeft');
+  var R = document.getElementById('railRight');
+  var tl = document.getElementById('tLeft');
+  var tr = document.getElementById('tRight');
+  if (tl && L) tl.addEventListener('click', function(){ L.classList.toggle('open'); if (R) R.classList.remove('open'); });
+  if (tr && R) tr.addEventListener('click', function(){ R.classList.toggle('open'); if (L) L.classList.remove('open'); });
+  if (L) L.addEventListener('click', function(e){ if (e.target.tagName === 'A') L.classList.remove('open'); });
+
+  var items = [].slice.call(document.querySelectorAll('#road li'));
+  var sheets = [].slice.call(document.querySelectorAll('main .sheet'));
+  function paint(){
+    var done = items.filter(function(li){ return li.classList.contains('done'); }).length;
+    var pct = items.length ? Math.round(done / items.length * 100) : 0;
+    var p = document.getElementById('pct'), f = document.getElementById('pfill'), c = document.getElementById('cnt');
+    if (p) p.textContent = pct + '%';
+    if (f) f.style.width = pct + '%';
+    if (c) c.textContent = done + ' / ' + items.length;
+  }
+  paint();
+
+  if ('IntersectionObserver' in window && sheets.length) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        var id = en.target.id;
+        items.forEach(function(li){
+          var a = li.querySelector('a');
+          li.classList.toggle('now', !!a && a.getAttribute('href') === '#' + id && !li.classList.contains('done'));
+        });
+      });
+    }, { rootMargin: '-40% 0px -50% 0px' });
+    sheets.forEach(function(s){ io.observe(s); });
+  }
+})();
+
+</script>
+<script>
+
+/* ---------- engine coba soal ---------- */
+(function(){
+  var solved = 0, total = document.querySelectorAll('.coba').length;
+  var norm = function(s){ return String(s).toLowerCase().replace(/\s+/g,'').replace(',', '.').replace(/^0+(?=\d)/,''); };
+  var scoreEls = [document.getElementById('hscore'), document.getElementById('hscore2')];
+  function paintScore(){
+    scoreEls.forEach(function(e){ if(e) e.textContent = e.id === 'hscore' ? solved + ' / ' + total + ' bener' : solved + ' / ' + total; });
+  }
+  document.querySelectorAll('.coba').forEach(function(card){
+    var fb = card.querySelector('.fb');
+    var sol = card.querySelector('.sol');
+    var rev = card.querySelector('[data-reveal]');
+    var opts = card.querySelector('.opts');
+    var done = false;
+
+    function win(msg){
+      fb.hidden = false; fb.className = 'fb ok'; fb.innerHTML = msg;
+      sol.hidden = false;
+      if (!done){ done = true; solved++; paintScore(); }
+    }
+    function lose(msg){
+      fb.hidden = false; fb.className = 'fb bad'; fb.innerHTML = msg;
+    }
+    if (rev) rev.addEventListener('click', function(){
+      sol.hidden = !sol.hidden;
+      rev.textContent = sol.hidden ? 'Liat pembahasan' : 'Sembunyiin';
+    });
+
+    if (opts){
+      var ans = parseInt(opts.getAttribute('data-ans'), 10);
+      opts.querySelectorAll('.opt').forEach(function(b){
+        b.addEventListener('click', function(){
+          var i = parseInt(b.getAttribute('data-i'), 10);
+          if (i === ans){
+            b.classList.add('ok');
+            opts.querySelectorAll('.opt').forEach(function(x){ x.disabled = true; });
+            win('<b>✓ Bener.</b> ' + (sol ? sol.innerHTML.replace(/<b>Jawab:?<\/b>/,'') : ''));
+          } else {
+            b.classList.add('no'); b.disabled = true;
+            lose('<b>✗ Belum tepat.</b> Coba opsi lain, atau buka pembahasan.');
+          }
+        });
+      });
+    } else {
+      var inp = card.querySelector('.fill');
+      var btn = card.querySelector('[data-check]');
+      var answers = (inp.getAttribute('data-ans') || '').split('|');
+      var check = function(){
+        var v = norm(inp.value);
+        var ok = answers.some(function(a){ return norm(a) === v; });
+        if (ok) win('<b>✓ Bener.</b> ' + (sol ? sol.innerHTML.replace(/<b>Jawab:?<\/b>/,'') : ''));
+        else lose('<b>✗ Belum tepat.</b> Cek ulang: berapa putaran loop-nya, dan nilai akhir variabelnya?');
+      };
+      btn.addEventListener('click', check);
+      inp.addEventListener('keydown', function(e){ if (e.key === 'Enter') check(); });
+    }
+  });
+  paintScore();
+
+  /* progress baca */
+  var items = [].slice.call(document.querySelectorAll('#road li'));
+  var sheets = [].slice.call(document.querySelectorAll('main .sheet'));
+  function paint(){
+    var d = items.filter(function(li){ return li.classList.contains('done'); }).length;
+    var pct = items.length ? Math.round(d / items.length * 100) : 0;
+    var p = document.getElementById('pct'), f = document.getElementById('pfill'), c = document.getElementById('cnt');
+    if (p) p.textContent = pct + '%';
+    if (f) f.style.width = pct + '%';
+    if (c) c.textContent = d + ' / ' + items.length;
+  }
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(en){
+        if (!en.isIntersecting) return;
+        var li = items.filter(function(x){ var a = x.querySelector('a'); return a && a.getAttribute('href') === '#' + en.target.id; })[0];
+        if (li && !li.classList.contains('done')){ li.classList.add('done'); paint(); }
+      });
+    }, { rootMargin: '0px 0px -55% 0px' });
+    sheets.forEach(function(s){ io.observe(s); });
+  }
+  paint();
+})();
+
+</script>
+</body>
+</html>
