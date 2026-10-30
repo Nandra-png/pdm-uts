@@ -1300,7 +1300,10 @@ function pfb(box){
   if(!el){ el = document.createElement('div'); el.className = 'pfb'; box.appendChild(el); }
   return el;
 }
-const normTxt = s => s.toLowerCase().replace(/\s+/g,' ').replace(/\s*,\s*/g,', ').trim();
+const normTxt = s => s.toLowerCase()
+  .replace(/[\u2212\u2013\u2014\u2010\u2011]/g,'-')
+  .replace(/[\s,]/g,'')
+  .trim();
 
 document.addEventListener('click', e=>{
   const btn = e.target.closest('[data-act]');
