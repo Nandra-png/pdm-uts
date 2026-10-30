@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PDM UTS Drill</title>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#161b22; --line:#252d38; --txt:#e6edf3; --dim:#8b98a8;
+    --ok:#3fb950; --bad:#f85149; --acc:#58a6ff; --warn:#d29922;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--txt);
+    font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:780px;margin:0 auto;padding:28px 20px 80px}
+  header{border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:26px}
+  header h1{font-size:19px;margin:0;font-weight:600;letter-spacing:.2px}
+  header p{margin:4px 0 0;color:var(--dim);font-size:13px}
+  h2{font-size:17px;margin:0 0 14px;font-weight:600}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:22px}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  button{
+    font:inherit;font-size:14px;padding:10px 18px;border-radius:8px;cursor:pointer;
+    border:1px solid var(--line);background:#1d2530;color:var(--txt);transition:.12s;
+  }
+  button:hover{background:#25303d;border-color:#33404f}
+  button.primary{background:var(--acc);border-color:var(--acc);color:#08131f;font-weight:600}
+  button.primary:hover{filter:brightness(1.08)}
+  button.ghost{background:transparent}
+  button:disabled{opacity:.45;cursor:not-allowed}
+  input[type=text],textarea{
+    width:100%;background:#0d1219;border:1px solid var(--line);color:var(--txt);
+    border-radius:8px;padding:11px 13px;font:inherit;font-size:15px;
+  }
+  textarea{min-height:190px;font-family:"Cascadia Code",Consolas,monospace;font-size:13.5px;line-height:1.55;resize:vertical}
+  input:focus,textarea:focus{outline:none;border-color:var(--acc)}
+  .opt{
+    display:block;width:100%;text-align:left;margin:8px 0;padding:13px 15px;
+    background:#121821;border:1px solid var(--line);border-radius:8px;
+    color:var(--txt);font-size:15px;cursor:pointer;line-height:1.5;
+  }
+  .opt:hover{border-color:#3d4b5c;background:#161e29}
+  .opt.sel{border-color:var(--acc);background:#132030}
+  .opt.ok{border-color:var(--ok);background:#0f2417}
+  .opt.bad{border-color:var(--bad);background:#2a1416}
+  .opt .k{display:inline-block;width:22px;color:var(--dim);font-family:Consolas,monospace}
+  .meta{display:flex;justify-content:space-between;align-items:center;color:var(--dim);font-size:13px;margin-bottom:16px}
+  .tag{font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--dim);border:1px solid var(--line);padding:2px 7px;border-radius:4px}
+  .bar{height:3px;background:#1c242e;border-radius:2px;overflow:hidden;margin-bottom:22px}
+  .bar i{display:block;height:100%;background:var(--acc);width:0;transition:width .25s}
+  .q{font-size:16.5px;margin:0 0 6px}
+  pre{background:#0a0f15;border:1px solid var(--line);border-radius:8px;padding:14px 16px;overflow-x:auto;
+      font-family:"Cascadia Code",Consolas,monospace;font-size:13px;line-height:1.55;margin:12px 0}
+  code{font-family:"Cascadia Code",Consolas,monospace;font-size:13.5px;background:#1b232e;padding:1px 5px;border-radius:4px}
+  .note{margin-top:14px;padding:13px 15px;border-left:3px solid var(--acc);background:#101a26;font-size:14px;border-radius:0 6px 6px 0}
+  .note.ok{border-color:var(--ok);background:#0f1d16}
+  .note.bad{border-color:var(--bad);background:#201315}
+  .note b{display:block;margin-bottom:4px;font-size:13px;letter-spacing:.3px}
+  .big{font-size:64px;font-weight:700;line-height:1;letter-spacing:-2px;margin:6px 0 2px}
+  .sub{color:var(--dim);font-size:14px}
+  table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
+  th{color:var(--dim);font-weight:500;font-size:12px;letter-spacing:.5px;text-transform:uppercase}
+  td.num{font-variant-numeric:tabular-nums;text-align:right}
+  .kw{display:inline-block;font-size:12.5px;padding:3px 8px;margin:3px 4px 0 0;border-radius:5px;border:1px solid var(--line)}
+  .kw.hit{color:var(--ok);border-color:#1d3b26;background:#0f1d16}
+  .kw.miss{color:#7d8896;text-decoration:line-through}
+  .rev{border-top:1px solid var(--line);padding:14px 0;font-size:14.5px}
+  .rev:first-child{border-top:0}
+  .rev .qt{color:var(--dim);font-size:13px;margin-bottom:4px}
+  .rev .ans{color:var(--ok)}
+  .rev .you{color:var(--bad)}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:600px){.split{grid-template-columns:1fr}.big{font-size:52px}}
+  .hide{display:none}
+  .foot{margin-top:30px;color:#5c6875;font-size:12px;text-align:center}
+  .timer{font-family:Consolas,monospace;font-variant-numeric:tabular-nums}
+  .timer.low{color:var(--bad)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>PDM UTS Drill</h1>
+    <p>COMP6839031 &middot; variabel, decision, loop, modul, validasi</p>
+  </header>
+  <div id="app"></div>
+  <div class="foot">jawaban salah itu bagian dari proses. ulang sampai hafal.</div>
+</div>
+
+<script>
+/* ---------------- data soal ---------------- */
+const MC = [
+  {t:"Data Types", q:"A member ID such as \"00123\" must be stored without losing its leading zeros. Which declaration is correct?",
+   o:["DECLARE Integer memberID","DECLARE String memberID","DECLARE Real memberID","DECLARE Boolean memberID"], a:1,
+   e:"ID itu identifier, bukan angka buat dihitung. Kalau pakai Integer, nol di depan otomatis hilang jadi 123."},
+
+  {t:"IPO", q:"In the pod reservation specification, which item belongs to the OUTPUT of the program?",
+   o:["memberID","startHour","confirmationMessage","visitorCount"], a:2,
+   e:"memberID, startHour, sama visitorCount itu yang dimasukin user. confirmationMessage yang dihasilkan program."},
+
+  {t:"Loop", q:"This loop should read four temperatures but only processes three. Which line causes that?",
+   code:"SET total = 0\nSET count = 1\nWHILE count < 4 DO\n    INPUT temperature\n    SET total = total + temperature\n    SET count = count + 1\nEND WHILE",
+   o:["SET total = 0","SET count = 1","WHILE count < 4 DO","SET count = count + 1"], a:2,
+   e:"count mulai dari 1, jadi putarannya cuma 1, 2, 3. Harusnya count <= 4 biar empat input kebaca."},
+
+  {t:"Loop", q:"The same loop has a second problem inside the body. What is it?",
+   code:"WHILE count <= 4 DO\n    INPUT temperature\n    SET total = temperature\n    SET count = count + 1\nEND WHILE",
+   o:["total is overwritten instead of accumulated","count is incremented twice","temperature should be Integer","total should not be initialized"], a:0,
+   e:"total = temperature bikin nilai lama ketimpa. Yang bener total = total + temperature biar numpuk."},
+
+  {t:"Tracing", q:"With the buggy version and inputs 20, 24, 26, what is displayed?",
+   o:["6.5","23.33","26","70"], a:0,
+   e:"total cuma nyimpen input terakhir (26), terus 26 / 4 = 6.5. Kelihatan bener padahal bukan rata-rata."},
+
+  {t:"Tracing", q:"After both errors are fixed, inputs 20, 24, 26, 30 are entered. What is displayed?",
+   o:["25","100","6.5","30"], a:0,
+   e:"total = 100, count berakhir 5, jadi 100 / 4 = 25. Pembaginya tetap 4 karena memang empat data."},
+
+  {t:"Logic", q:"Access is allowed when the card is valid, the person is staff or trained, and the room is not restricted. Which expression is correct?",
+   o:["cardValid AND isStaff OR trainingDone AND NOT isRestricted",
+      "cardValid AND (isStaff OR trainingDone) AND NOT isRestricted",
+      "(cardValid AND isStaff) OR (trainingDone AND NOT isRestricted)",
+      "cardValid OR (isStaff AND trainingDone) AND NOT isRestricted"], a:1,
+   e:"Tanpa kurung, AND dievaluasi lebih dulu, jadi artinya berubah. Kurung di sekitar OR itu yang bikin bener."},
+
+  {t:"Logic", q:"cardValid = TRUE, isStaff = FALSE, trainingDone = TRUE, isRestricted = TRUE. Output?",
+   o:["ALLOW","DENY","Syntax error","ALLOW and DENY"], a:1,
+   e:"Bagian NOT isRestricted jadi FALSE, dan AND sama FALSE hasilnya selalu FALSE. Jadi DENY."},
+
+  {t:"Logic", q:"cardValid = FALSE, isStaff = TRUE, trainingDone = TRUE, isRestricted = FALSE. Output?",
+   o:["ALLOW","DENY","Syntax error","Tidak ada output"], a:1,
+   e:"Kartu gak valid langsung bikin seluruh ekspresi FALSE, walaupun dia staff dan udah training."},
+
+  {t:"Constants", q:"HOURLY_RATE = 12000 is used by every kiosk in the building and never changes. Best declaration?",
+   o:["local variable inside Main","parameter of CalculateRentalFee","global constant","global variable that is updated per rental"], a:2,
+   e:"Nilainya tetap dan dipakai bareng-bareng, jadi global constant. Kalau diubah-ubah tiap transaksi namanya bukan konstanta lagi."},
+
+  {t:"Modules", q:"In FUNCTION Real CalculateRentalFee(Integer hoursRented), what is hoursRented?",
+   o:["global constant","actual argument","formal parameter","local variable of Main"], a:2,
+   e:"Yang nempel di header itu parameter formal. Yang dikirim pas manggil, misal CalculateRentalFee(duration), itu argumen."},
+
+  {t:"Modules", q:"duration, declared inside MODULE Main(), is best described as:",
+   o:["a local variable","a formal parameter","a constant","a global variable"], a:0,
+   e:"Dia hidup cuma di dalam Main, gak bisa diakses fungsi lain. Itu ciri variabel lokal."},
+
+  {t:"Modules", q:"Which function header follows the course convention?",
+   o:["FUNCTION CalculateRentalFee(Integer hoursRented) RETURNS Real",
+      "FUNCTION Real CalculateRentalFee(Integer hoursRented)",
+      "FUNCTION CalculateRentalFee() RETURNS Real",
+      "Real FUNCTION CalculateRentalFee(hoursRented: Integer)"], a:1,
+   e:"Tipe kembalian nempel di depan nama fungsi, dan gak ada RETURNS di ujung header."},
+
+  {t:"Modules", q:"HOURLY_RATE = 12000. What does CalculateRentalFee(3) return?",
+   o:["12000","36000","3","-1"], a:1,
+   e:"3 dikali 12000 = 36000. Parameter hoursRented diisi 3, konstantanya tetap."},
+
+  {t:"Modules", q:"CalculateRentalFee(0) is called. What happens?",
+   o:["returns 0","returns -1 and Main must not display it as a fee","returns 12000","the program crashes"], a:1,
+   e:"Nilai gak masuk akal ditandai -1, terus Main yang ngecek. Jadi angka aneh itu gak pernah tampil ke user."},
+
+  {t:"Validation", q:"In the score loop, the value -1 is used as a sentinel. What does that mean?",
+   o:["it is the lowest valid score","it ends data entry and is not counted","it is an invalid score to be rejected and skipped","it signals a program error"], a:1,
+   e:"Sentinel itu penanda berhenti. Dia gak pernah masuk total atau count, karena tugasnya cuma nutup loop."},
+
+  {t:"Tracing", q:"Scores 5, 9, 3, -1 are entered. Valid scores are 1 to 5. What is displayed?",
+   o:["4","4.25","5.67","No scores"], a:0,
+   e:"9 ditolak karena di luar 1..5, jadi total 8 dan count 2, hasilnya 4. Sentinel -1 gak dihitung."},
+
+  {t:"Validation", q:"Why does the program check IF count > 0 before displaying total / count?",
+   o:["to make the average more precise","to avoid division by zero when every input was rejected","to round the result","to stop the loop early"], a:1,
+   e:"Kalau semua input ditolak, count masih 0. Bagi nol bikin program error, jadi harus dicek dulu."},
+
+  {t:"Boundary", q:"classifyHumidity(40) returns:",
+   o:["DRY","NORMAL","HUMID","rejected"], a:1,
+   e:"Batas 40 masuk NORMAL, karena kondisinya value < 40 buat DRY. Tanda < sama <= itu jebakan paling sering."},
+
+  {t:"Boundary", q:"classifyHumidity(76) returns:",
+   o:["DRY","NORMAL","HUMID","rejected"], a:2,
+   e:"75 masih NORMAL (value <= 75), lewat dari itu baru HUMID. 76 udah kelebihan satu."},
+
+  {t:"Boundary", q:"A humidity reading of 101 is entered. What should the program do?",
+   o:["classify it as HUMID","reject it because it is outside 0-100","treat it as a sentinel","round it down to 100"], a:1,
+   e:"Range validnya 0 sampai 100. Di luar itu ditolak dan gak ikut dihitung."},
+
+  {t:"Tracing", q:"Zone B, readings 35, 38, 80, then -1. What is the final output?",
+   o:["count 3, average 51, CHECK IRRIGATION","count 4, average 38.25, CONTINUE MONITORING",
+      "count 2, average 36.5, CHECK IRRIGATION","No readings"], a:0,
+   e:"153 / 3 = 51, dan DRY ada dua (35 sama 38), jadi nyalain irigasi. 80 masuk HUMID."},
+
+  {t:"Parameters", q:"A variable is passed by value into a function, and the function changes it. What happens to the caller's variable?",
+   o:["it keeps its original value","it takes the new value","it becomes 0","the program stops"], a:0,
+   e:"Pass by value itu ngirim salinan. Yang berubah di dalam fungsi cuma salinannya, aslinya aman."},
+
+  {t:"Parameters", q:"a = 4, b = 7, and b is passed by reference. Inside, p = p * 2 and q = q + p, then DISPLAY a, b in Main shows:",
+   o:["4, 15","8, 15","4, 7","8, 7"], a:0,
+   e:"b ikut berubah karena reference, a tetap 4 karena value. Yang keluar 4 sama 15."}
+];
+
+const ESSAY = [
+  {t:"Declarations", pts:20,
+   q:"A library loan program stores a member ID such as \"00417\", the number of days borrowed, whether the book is already returned, and the total fine. Write the DECLARE lines with the right data types, and explain in one sentence why the member ID is not an Integer.",
+   model:`DECLARE String memberID
+DECLARE Integer daysBorrowed
+DECLARE Boolean isReturned
+DECLARE Real fineAmount
+
+memberID is an identifier, not a quantity, so it must stay a String.
+Otherwise the leading zeros in "00417" are lost and it becomes 417.`,
+   kw:["declare string memberid","declare integer daysborrowed","declare boolean isreturned","declare real fineamount","identifier","leading zero"]},
+
+  {t:"Tracing", pts:20,
+   q:"The pseudocode below is supposed to read four temperatures and display their average, but it has two errors. Name both errors, rewrite the corrected loop, and give the output for inputs 20, 24, 26, 30.",
+   code:"SET total = 0\nSET count = 1\nWHILE count < 4 DO\n    INPUT temperature\n    SET total = temperature\n    SET count = count + 1\nEND WHILE\nDISPLAY total / 4",
+   model:`Error 1: WHILE count < 4 DO only runs three times, it should be count <= 4.
+Error 2: SET total = temperature overwrites the running sum, it should be total = total + temperature.
+
+SET total = 0
+SET count = 1
+WHILE count <= 4 DO
+    INPUT temperature
+    SET total = total + temperature
+    SET count = count + 1
+END WHILE
+DISPLAY total / 4
+
+Output: total = 100, so 100 / 4 = 25`,
+   kw:["count <= 4","total = total + temperature","25","overwrit","three","accumulat"]},
+
+  {t:"Logic", pts:20,
+   q:"A room can be used when the member is active, the member already has a booking or is staff, and the room is not closed. Write the Boolean expression (with parentheses) and the IF/ELSE that displays ALLOW or DENY.",
+   model:`memberActive AND (hasBooking OR isStaff) AND NOT roomClosed
+
+IF memberActive AND (hasBooking OR isStaff) AND NOT roomClosed THEN
+    DISPLAY "ALLOW"
+ELSE
+    DISPLAY "DENY"
+END IF`,
+   kw:["memberactive","hasbooking","isstaff","not roomclosed","allow","deny","if","else"]},
+
+  {t:"Modules", pts:20,
+   q:"Write FUNCTION Real CalculateLateFee(Integer daysLate) that uses a global constant DAILY_FINE = 2000, returns -1 when daysLate is negative, and otherwise returns the fee. Then write the Main snippet that keeps asking until the input is not negative.",
+   model:`DECLARE GLOBAL CONSTANT Integer DAILY_FINE = 2000
+
+FUNCTION Real CalculateLateFee(Integer daysLate)
+    IF daysLate < 0 THEN
+        RETURN -1
+    END IF
+    RETURN daysLate * DAILY_FINE
+END FUNCTION
+
+MODULE Main()
+    DECLARE Integer days
+    DECLARE Real fee
+    INPUT days
+    WHILE days < 0 DO
+        DISPLAY "Days cannot be negative"
+        INPUT days
+    END WHILE
+    SET fee = CalculateLateFee(days)
+    DISPLAY fee
+END MODULE`,
+   kw:["global constant","daily_fine","2000","function real calculatelatefee","return -1","dayslate","while","end function"]},
+
+  {t:"Validation", pts:20,
+   q:"Write a sentinel-controlled loop that reads humidity readings (0 to 100, -1 to stop), rejects values outside the range, counts and sums the valid ones, then displays the average or \"No readings\" when nothing was accepted.",
+   model:`DECLARE Real humidity
+DECLARE Real total
+DECLARE Integer count
+SET total = 0
+SET count = 0
+INPUT humidity
+WHILE humidity <> -1 DO
+    IF humidity < 0 OR humidity > 100 THEN
+        DISPLAY "Invalid humidity"
+    ELSE
+        SET total = total + humidity
+        SET count = count + 1
+    END IF
+    INPUT humidity
+END WHILE
+IF count > 0 THEN
+    DISPLAY total / count
+ELSE
+    DISPLAY "No readings"
+END IF`,
+   kw:["<> -1","humidity < 0","humidity > 100","total = total + humidity","count = count + 1","count > 0","no readings"]}
+];
+
+/* ---------------- util ---------------- */
+const $ = (s,r=document)=>r.querySelector(s);
+const app = $("#app");
+const LETTERS = ["A","B","C","D"];
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const norm = s => s.toLowerCase().replace(/\s+/g," ").replace(/\s*([(),])\s*/g,"$1").trim();
+
+const BOARD_KEY = "pdm_drill_board_v1";
+const loadBoard = () => { try { return JSON.parse(localStorage.getItem(BOARD_KEY)) || []; } catch(e){ return []; } };
+const saveBoard = b => localStorage.setItem(BOARD_KEY, JSON.stringify(b.slice(0,30)));
+
+const S = { mode:"latihan", name:"", qs:[], i:0, answers:[], t0:0, tick:null, left:0, locked:false };
+
+/* ---------------- start ---------------- */
+function startScreen(){
+  clearInterval(S.tick);
+  const board = loadBoard().filter(r=>r.mode==="kompetisi").slice(0,5);
+  app.innerHTML = `
+  <div class="card">
+    <h2>Mau main yang mana</h2>
+    <p class="sub" style="margin-top:-6px">Latihan buat belajar santai, kompetisi buat adu sama temen. Soalnya sama, yang beda cuma tekanan waktunya.</p>
+    <div class="split" style="margin-top:20px">
+      <div>
+        <div style="font-weight:600;margin-bottom:6px">Latihan</div>
+        <p class="sub" style="margin:0 0 12px">${MC.length} pilihan ganda + ${ESSAY.length} essay. Tiap jawaban langsung dikasih pembahasan, essay dinilai dari kata kunci terus bisa lu koreksi sendiri.</p>
+        <button class="primary" onclick="begin('latihan')">Mulai latihan</button>
+      </div>
+      <div>
+        <div style="font-weight:600;margin-bottom:6px">Kompetisi</div>
+        <p class="sub" style="margin:0 0 12px">${MC.length} pilihan ganda, 12 menit, tanpa pembahasan sampai selesai. Skor masuk papan peringkat.</p>
+        <button onclick="begin('kompetisi')">Mulai kompetisi</button>
+      </div>
+    </div>
+    <div style="margin-top:22px">
+      <label class="sub" for="nm">Nama buat papan skor</label>
+      <input id="nm" type="text" placeholder="ketik nama atau inisial" maxlength="18" autocomplete="off">
+    </div>
+    ${board.length?`<div style="margin-top:26px">
+      <div class="tag">papan skor terakhir</div>
+      <table><tr><th>nama</th><th>skor</th><th class="num">waktu</th></tr>
+      ${board.map(r=>`<tr><td>${esc(r.name)}</td><td>${r.score}%</td><td class="num">${r.time}</td></tr>`).join("")}
+      </table></div>`:""}
+  </div>`;
+}
+
+function begin(mode){
+  const nm = ($("#nm") && $("#nm").value.trim()) || "anonim";
+  S.mode = mode; S.name = nm; S.i = 0; S.answers = []; S.locked = false;
+  S.qs = mode === "kompetisi" ? MC.map(q=>({kind:"mc",d:q})) : MC.map(q=>({kind:"mc",d:q})).concat(ESSAY.map(q=>({kind:"essay",d:q})));
+  S.t0 = Date.now();
+  if(mode === "kompetisi"){
+    S.left = 12*60;
+    S.tick = setInterval(()=>{
+      S.left--;
+      const el = $("#clock");
+      if(el){ el.textContent = fmt(S.left); el.classList.toggle("low", S.left <= 60); }
+      if(S.left <= 0){ clearInterval(S.tick); finish(); }
+    }, 1000);
+  }
+  render();
+}
+
+const fmt = s => String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+
+/* ---------------- render satu soal ---------------- */
+function render(){
+  const item = S.qs[S.i];
+  if(!item) return finish();
+  S.locked = false;
+  const pct = Math.round(S.i / S.qs.length * 100);
+  const head = `<div class="meta">
+      <span>soal ${S.i+1} / ${S.qs.length}</span>
+      <span>${S.mode==="kompetisi" ? '<span class="timer" id="clock">'+fmt(S.left)+"</span>" : '<span class="tag">'+item.d.t+"</span>"}</span>
+    </div>
+    <div class="bar"><i style="width:${pct}%"></i></div>`;
+
+  if(item.kind === "mc"){
+    const q = item.d;
+    app.innerHTML = `<div class="card">${head}
+      <p class="q">${esc(q.q)}</p>
+      ${q.code ? `<pre>${esc(q.code)}</pre>` : ""}
+      <div id="opts">${q.o.map((o,k)=>`<button class="opt" data-k="${k}"><span class="k">${LETTERS[k]}</span>${esc(o)}</button>`).join("")}</div>
+      <div id="fb"></div>
+    </div>`;
+    app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>pick(parseInt(b.dataset.k,10)));
+  } else {
+    const q = item.d;
+    app.innerHTML = `<div class="card">${head}
+      <div class="meta" style="margin-bottom:10px"><span class="tag">essay &middot; ${q.pts} poin</span><span class="sub">${S.mode==="kompetisi"?"":""}</span></div>
+      <p class="q">${esc(q.q)}</p>
+      ${q.code ? `<pre>${esc(q.code)}</pre>` : ""}
+      <textarea id="ta" placeholder="tulis pseudocode atau jawaban lu di sini. pakai DECLARE, IF, WHILE sesuai konvensi."></textarea>
+      <div class="row" style="margin-top:12px">
+        <button class="primary" onclick="gradeEssay()">Cek jawaban</button>
+        <button class="ghost" onclick="skipEssay()">Lewati</button>
+      </div>
+      <div id="fb"></div>
+    </div>`;
+  }
+}
+
+/* ---------------- jawab MC ---------------- */
+function pick(k){
+  if(S.locked) return;
+  const item = S.qs[S.i], q = item.d;
+  const correct = k === q.a;
+  S.answers[S.i] = {kind:"mc", pick:k, correct};
+
+  if(S.mode === "kompetisi"){
+    S.locked = true;
+    app.querySelectorAll(".opt").forEach((b,idx)=>{
+      if(idx === k) b.classList.add("sel");
+      b.disabled = true;
+    });
+    setTimeout(()=>{ S.i++; render(); }, 220);
+    return;
+  }
+
+  S.locked = true;
+  app.querySelectorAll(".opt").forEach((b,idx)=>{
+    b.disabled = true;
+    if(idx === q.a) b.classList.add("ok");
+    else if(idx === k) b.classList.add("bad");
+  });
+  $("#fb").innerHTML = `<div class="note ${correct?"ok":"bad"}">
+      <b>${correct?"bener":"salah"}</b>${esc(q.e)}
+    </div>
+    <div class="row" style="margin-top:14px"><button class="primary" onclick="next()">${S.i+1<S.qs.length?"lanjut":"lihat skor"}</button></div>`;
+}
+
+/* ---------------- essay ---------------- */
+function gradeEssay(){
+  const item = S.qs[S.i], q = item.d;
+  const raw = $("#ta").value;
+  if(!raw.trim()){ $("#fb").innerHTML = `<div class="note bad"><b>kosong</b>isi dulu, atau tekan lewati.</div>`; return; }
+  const text = norm(raw);
+  const hits = q.kw.map(k=>text.includes(norm(k)));
+  const got = Math.round(hits.filter(Boolean).length / q.kw.length * q.pts);
+  S.answers[S.i] = {kind:"essay", text:raw, auto:got, score:got};
+  showEssay(q, hits, got);
+}
+
+function skipEssay(){
+  const q = S.qs[S.i].d;
+  S.answers[S.i] = {kind:"essay", text:"", auto:0, score:0};
+  showEssay(q, q.kw.map(()=>false), 0);
+}
+
+function showEssay(q, hits, got){
+  $("#fb").innerHTML = `
+    <div class="note"><b>jawaban model</b><pre style="margin:8px 0 0">${esc(q.model)}</pre></div>
+    <div style="margin-top:14px">
+      <div class="sub" style="margin-bottom:6px">kata kunci yang ketemu (${hits.filter(Boolean).length}/${hits.length})</div>
+      ${q.kw.map((k,i)=>`<span class="kw ${hits[i]?"hit":"miss"}">${esc(k)}</span>`).join("")}
+    </div>
+    <div style="margin-top:16px">
+      <label class="sub">nilai buat jawaban lu: <b id="sv">${got}</b> / ${q.pts}</label>
+      <input type="range" id="rg" min="0" max="${q.pts}" value="${got}" style="width:100%;margin-top:8px" oninput="document.getElementById('sv').textContent=this.value; S.answers[${S.i}].score=parseInt(this.value,10)">
+    </div>
+    <div class="row" style="margin-top:14px"><button class="primary" onclick="next()">${S.i+1<S.qs.length?"lanjut":"lihat skor"}</button></div>`;
+  const rg = $("#rg");
+  rg.oninput = ()=>{ $("#sv").textContent = rg.value; S.answers[S.i].score = parseInt(rg.value,10); };
+}
+
+function next(){ S.i++; render(); }
+
+/* ---------------- hasil ---------------- */
+function finish(){
+  clearInterval(S.tick);
+  const used = Math.round((Date.now() - S.t0)/1000);
+
+  const mcIdx = S.qs.map((it,i)=>({it,i})).filter(x=>x.it.kind==="mc");
+  const mcRight = mcIdx.filter(x=>S.answers[x.i] && S.answers[x.i].correct).length;
+  const essays = S.qs.map((it,i)=>({it,i})).filter(x=>x.it.kind==="essay");
+  const essayMax = essays.reduce((s,x)=>s+x.it.d.pts,0);
+  const essayGot = essays.reduce((s,x)=>s+(S.answers[x.i]?S.answers[x.i].score:0),0);
+
+  // pilihan ganda dan essay ditimbang sama berat, biar essay gak mendominasi skor
+  const mcPct = mcIdx.length ? mcRight / mcIdx.length * 100 : 0;
+  const ePct = essayMax ? essayGot / essayMax * 100 : 0;
+  const pct = essays.length ? Math.round((mcPct + ePct) / 2) : Math.round(mcPct);
+
+  const perTopic = {};
+  mcIdx.forEach(x=>{
+    const t = x.it.d.t;
+    perTopic[t] = perTopic[t] || {ok:0,n:0};
+    perTopic[t].n++;
+    if(S.answers[x.i] && S.answers[x.i].correct) perTopic[t].ok++;
+  });
+
+  if(S.mode === "kompetisi"){
+    const b = loadBoard();
+    b.push({name:S.name, score:pct, time:fmt(used), mode:"kompetisi", at:Date.now()});
+    b.sort((a,z)=> z.score - a.score || a.time.localeCompare(z.time));
+    saveBoard(b);
+  }
+
+  const wrong = mcIdx.filter(x=>!(S.answers[x.i] && S.answers[x.i].correct));
+  const verdict = pct >= 90 ? "udah kuat, tinggal jaga ritme"
+    : pct >= 75 ? "aman, tapi masih ada lubang kecil"
+    : pct >= 60 ? "bisa lulus, belum aman"
+    : "bagian loop sama validasi kayaknya perlu diulang";
+
+  app.innerHTML = `
+  <div class="card">
+    <div class="sub">${esc(S.name)} &middot; ${S.mode} &middot; ${fmt(used)}</div>
+    <div class="big" style="color:${pct>=75?"var(--ok)":pct>=60?"var(--warn)":"var(--bad)"}">${pct}%</div>
+    <div class="sub">${mcRight} dari ${mcIdx.length} pilihan ganda${essays.length?` &middot; essay ${essayGot} dari ${essayMax}`:""} &middot; ${verdict}</div>
+
+    <div class="split" style="margin-top:24px">
+      <div>
+        <div class="tag">pilihan ganda</div>
+        <div style="font-size:22px;margin-top:6px">${mcRight} / ${mcIdx.length}</div>
+      </div>
+      ${essays.length?`<div>
+        <div class="tag">essay</div>
+        <div style="font-size:22px;margin-top:6px">${essayGot} / ${essayMax}</div>
+      </div>`:""}
+    </div>
+
+    <div style="margin-top:26px">
+      <div class="tag">per topik</div>
+      <table>${Object.entries(perTopic).map(([t,v])=>`<tr><td>${esc(t)}</td><td class="num">${v.ok}/${v.n}</td></tr>`).join("")}</table>
+    </div>
+
+    <div class="row" style="margin-top:22px">
+      <button class="primary" onclick="startScreen()">main lagi</button>
+      <button onclick="copyResult(${pct},${mcRight},${mcIdx.length})">salin hasil</button>
+      <button class="ghost" onclick="showBoard()">papan skor</button>
+    </div>
+  </div>
+
+  ${wrong.length?`<div class="card" style="margin-top:18px">
+    <h2>yang masih salah</h2>
+    ${wrong.map(x=>{
+      const q = x.it.d, a = S.answers[x.i];
+      return `<div class="rev">
+        <div class="qt">${esc(q.t)}</div>
+        <div style="margin-bottom:6px">${esc(q.q)}</div>
+        <div class="you">jawaban lu: ${a?esc(q.o[a.pick]):"kosong"}</div>
+        <div class="ans">benernya: ${esc(q.o[q.a])}</div>
+        <div class="sub" style="margin-top:5px">${esc(q.e)}</div>
+      </div>`;
+    }).join("")}
+  </div>`:`<div class="card" style="margin-top:18px"><h2>gak ada yang salah</h2><p class="sub" style="margin:0">semua pilihan ganda bener. naikin levelnya, coba mode kompetisi.</p></div>`}`;
+}
+
+function copyResult(pct, right, total){
+  const txt = `PDM UTS Drill — ${S.name}
+skor ${pct}% (${right}/${total} pilihan ganda)
+mode ${S.mode}`;
+  navigator.clipboard.writeText(txt).then(
+    ()=>{ alert("hasil disalin, tinggal paste di chat"); },
+    ()=>{ prompt("salin manual:", txt); }
+  );
+}
+
+function showBoard(){
+  const b = loadBoard();
+  app.innerHTML = `<div class="card">
+    <h2>papan skor</h2>
+    ${b.length?`<table><tr><th>nama</th><th>skor</th><th class="num">waktu</th></tr>
+      ${b.map((r,i)=>`<tr><td>${i+1}. ${esc(r.name)}</td><td>${r.score}%</td><td class="num">${r.time}</td></tr>`).join("")}
+    </table>`:`<p class="sub">belum ada yang selesai. main dulu.</p>`}
+    <div class="row" style="margin-top:20px">
+      <button class="primary" onclick="startScreen()">kembali</button>
+      <button class="ghost" onclick="if(confirm('hapus semua skor?')){localStorage.removeItem('${BOARD_KEY}');showBoard();}">reset papan</button>
+    </div>
+  </div>`;
+}
+
+window.S = S;
+startScreen();
+</script>
+</body>
+</html>
